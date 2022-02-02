@@ -1,0 +1,23 @@
+environment.yml originally scripted for linux
+environment_copy.yml scripted for macOS and install following packages manually
+pytorch==0.4.1 —> version 1.10.2
+libgcc-ng==8.2.0 —> libgcc
+libgfortran-ng==7.3.0 —> libfortran
+libstdcxx-ng==8.2.0 —> libstdcxx-amzn2-aarch64
+cuda90==1.0 —> via channel 'omnia'
+openssl==1.1.1b
+numpy-base==1.16.2
+ncurses==6.1
+zlib==1.2.11
+sqlite==3.26.0
+libedit==3.1.20181209
+c-ares==1.15.0
+tk==8.6.8
+readline==7.0
+libprotobuf==3.6.1
+libffi==3.2.1
+hdf5==1.10.4
+tensorflow-base==1.12.0
+python==3.6.8
+xz==5.2.4
+ninja==1.8.2
