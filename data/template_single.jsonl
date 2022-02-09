@@ -1,0 +1,65 @@
+{
+  "targ": {
+    "singular_thing": [
+      "This is TTT.",
+      "That is TTT.",
+      "There is TTT.",
+      "Here is TTT.",
+      "TTT is here.",
+      "TTT is there.",
+      "TTT is a thing.",
+      "It is TTT."
+    ],
+    "singular_person": [
+      "This is TTT.",
+      "That is TTT.",
+      "There is TTT.",
+      "Here is TTT.",
+      "TTT is here.",
+      "TTT is there.",
+      "TTT is a person."
+    ],
+    "plural_thing": [
+      "These are TTT.",
+      "Those are TTT.",
+      "They are TTT.",
+      "The TTT are there.",
+      "The TTT are here.",
+      "TTT are things."
+    ],
+    "plural_person": [
+      "These are TTT.",
+      "Those are TTT.",
+      "They are TTT.",
+      "The TTT are there.",
+      "The TTT are here.",
+      "TTT are people."
+    ]
+  },
+  "attr": {
+    "singular_basic": [
+      "This is AAA.",
+      "That is AAA.",
+      "There is AAA.",
+      "Here is AAA.",
+      "AAA is here.",
+      "AAA is there.",
+      "AAA is a thing.",
+      "It is AAA."
+    ],
+    "singular_time": [
+      "This is AAA.",
+      "That is AAA.",
+      "They are AAA.",
+      "It is AAA."
+    ],
+    "plural_basic": [
+      "These are AAA.",
+      "Those are AAA.",
+      "They are AAA.",
+      "The AAA are there.",
+      "The AAA are here.",
+      "AAA are things."
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "targ1": {
+    "concept": "M_name",
+    "examples_singular": [
+      "John",
+      "Paul",
+      "Mike",
+      "Kevin",
+      "Steve",
+      "Greg",
+      "Jeff",
+      "Bill"
+    ]
+  },
+  "targ2": {
+    "concept": "F_name",
+    "examples_singular": [
+      "Amy",
+      "Joan",
+      "Lisa",
+      "Sarah",
+      "Diana",
+      "Kate",
+      "Ann",
+      "Donna"
+    ]
+  },
+  "attr1": {
+    "concept": "Career",
+    "examples_singular": [
+      "executive",
+      "management",
+      "professional",
+      "corporation",
+      "salary",
+      "office",
+      "business",
+      "career"
+    ],
+    "examples_plural": [
+      "executives",
+      "managements",
+      "corporations",
+      "salaries",
+      "offices",
+      "businesses",
+      "careers"
+    ]
+  },
+  "attr2": {
+    "concept": "Family",
+    "examples_singular": [
+      "home",
+      "parent",
+      "child",
+      "family",
+      "cousin",
+      "marriage",
+      "wedding",
+      "relative"
+    ],
+    "examples_plural": [
+      "homes",
+      "parents",
+      "children",
+      "families",
+      "cousins",
+      "marriages",
+      "weddings",
+      "relatives"
+    ]
+  }
+}

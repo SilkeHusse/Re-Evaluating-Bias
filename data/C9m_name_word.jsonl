@@ -1,0 +1,66 @@
+{
+  "targ1": {
+    "concept": "MentalDisease_name",
+    "examples_singular": [
+      "anxiety",
+      "panic",
+      "phobia",
+      "depression",
+      "mania",
+      "cyclothymia",
+      "bulimia",
+      "anorexia",
+      "borderline",
+      "paranoia",
+      "schizophrenia"
+      "stress",
+      "insomnia",
+      "dementia"
+    ]
+  },
+  "targ2": {
+    "concept": "PhysicalDisease_name",
+    "examples_singular": [
+      "fibrosis",
+      "epilepsy",
+      "sclerosis",
+      "dystrophy",
+      "cancer",
+      "virus",
+      "chlamydia",
+      "diabetes",
+      "arthritis",
+      "infection",
+      "allergy",
+      "asthma",
+      "tumour",
+      "bronchitis"
+    ]
+  },
+  "attr1": {
+    "concept": "Temporary",
+    "examples_singular": [
+      "impermanent",
+      "unstable",
+      "variable",
+      "fleeting",
+      "short-term",
+      "brief",
+      "occasional",
+      "transitory"
+    ]
+  },
+  "attr2": {
+    "concept": "Permanent",
+    "examples_singular": [
+      "stable",
+      "always",
+      "constant",
+      "persistent",
+      "chronic",
+      "prolonged",
+      "forever",
+      "lasting"
+    ]
+  }
+}

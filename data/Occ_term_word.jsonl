@@ -1,0 +1,92 @@
+{
+  "targ1": {
+    "concept": "M_term",
+    "examples_singular": [
+      "male",
+      "man",
+      "boy",
+      "brother",
+      "he",
+      "him",
+      "his",
+      "son"
+    ],
+    "examples_plural": [
+      "males",
+      "men",
+      "boys",
+      "brothers",
+      "sons"
+    ]
+  },
+  "targ2": {
+    "concept": "F_term",
+    "examples_singular": [
+      "female",
+      "woman",
+      "girl",
+      "sister",
+      "she",
+      "her",
+      "hers",
+      "daughter"
+    ],
+    "examples_plural": [
+      "females",
+      "women",
+      "girls",
+      "sisters",
+      "daughters"
+    ]
+  },
+  "attr1": {
+    "concept": "M_occupation",
+    "examples_singular": [
+      "driver",
+      "supervisor",
+      "janitor",
+      "mover",
+      "laborer",
+      "construction",
+      "worker",
+      "chief",
+      "developer",
+      "carpenter",
+      "manager",
+      "lawyer",
+      "farmer",
+      "salesperson",
+      "physician",
+      "guard",
+      "analyst",
+      "mechanic",
+      "sheriff",
+      "ceo"
+    ]
+  },
+  "attr2": {
+    "concept": "F_occupation",
+    "examples_singular": [
+      "attendant",
+      "cashier",
+      "teacher",
+      "nurse",
+      "assistant",
+      "secretary",
+      "auditor",
+      "cleaner",
+      "receptionist",
+      "clerk",
+      "counselor",
+      "designer",
+      "hairdresser",
+      "writer",
+      "housekeeper",
+      "baker",
+      "accountant",
+      "editor",
+      "librarian",
+      "tailor"
+    ]
+  }
+}

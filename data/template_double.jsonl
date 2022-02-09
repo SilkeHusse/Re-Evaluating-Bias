@@ -1,0 +1,14 @@
+{
+  "templates": {
+    "singular_basic": [
+      "TTT is AAA."
+    ],
+    "singular_hobby": [
+      "TTT likes AAA.",
+      "TTT is interested in AAA."
+    ],
+    "plural_basic": [
+      "TTT are AAA."
+    ]
+  }
+}
