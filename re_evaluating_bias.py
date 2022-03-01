@@ -18,7 +18,7 @@ import numpy as np
 from csv import DictWriter
 from enum import Enum
 
-import methods.sentSEAT.main as sentSEAT
+import methods.SEAT.main as SEAT
 dirname = os.path.dirname(os.path.realpath(__file__))
 
 class MethodName(Enum):
@@ -142,10 +142,14 @@ def main(arguments):
 
     for method_name in methods:
         if method_name == MethodName.SENTSEAT.value:
-            results_sSEAT = sentSEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
-        # TODO w-SEAT
+            if any('word' in encoding_level for encoding_level in encodings):
+                log.info('Note: word encoding level for method s-SEAT is equivalent to method w-SEAT.')
+            results_sSEAT = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
+        # TODO w-SEAT original implementation + code (rewrite)?
         elif method_name == MethodName.WORDSEAT.value:
-            pass
+            if any('sent' in encoding_level for encoding_level in encodings):
+                log.info('Note: sentence encoding level for method w-SEAT is equivalent to method s-SEAT.')
+            results_wSEAT = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
         # TODO CEAT
         elif method_name == MethodName.CEAT.value:
             pass
@@ -153,7 +157,8 @@ def main(arguments):
         elif method_name == MethodName.LOGPROB.value:
             pass
 
-    results = results_sSEAT # TODO add results from other methods
+    # TODO add results from other methods
+    results = results_sSEAT + results_wSEAT
 
     # save results and specs of code run (time, date)
     results_path = dirname + '/results/' + time.strftime("%Y%m%d-%H%M%S") + '.csv'
@@ -170,7 +175,7 @@ def main(arguments):
 
 main(['-ms-SEAT',
       '-tC1_name_word',
-      '-lelmo',
-      '-esent',
+      '-lelmo,bert',
+      '-esent,word-start',
       '-ctemplate',
       '-bcosine'])
