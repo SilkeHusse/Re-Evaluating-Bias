@@ -140,25 +140,23 @@ def main(arguments):
     for evaluation in evaluations:
         log.info('\t{}'.format(evaluation))
 
+    results = []
     for method_name in methods:
         if method_name == MethodName.SENTSEAT.value:
             if any('word' in encoding_level for encoding_level in encodings):
                 log.info('Note: word encoding level for method s-SEAT is equivalent to method w-SEAT.')
-            results_sSEAT = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
-        # TODO w-SEAT original implementation + code (rewrite)?
+            results_method = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
         elif method_name == MethodName.WORDSEAT.value:
             if any('sent' in encoding_level for encoding_level in encodings):
                 log.info('Note: sentence encoding level for method w-SEAT is equivalent to method s-SEAT.')
-            results_wSEAT = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
+            results_method = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
         # TODO CEAT
         elif method_name == MethodName.CEAT.value:
             pass
         # TODO logprob
         elif method_name == MethodName.LOGPROB.value:
             pass
-
-    # TODO add results from other methods
-    results = results_sSEAT + results_wSEAT
+        results = results + results_method
 
     # save results and specs of code run (time, date)
     results_path = dirname + '/results/' + time.strftime("%Y%m%d-%H%M%S") + '.csv'
