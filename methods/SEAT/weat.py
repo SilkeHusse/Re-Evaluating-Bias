@@ -23,11 +23,16 @@ def s_wAB(A, B, cossims):
     s(w, A, B) = mean_{a in A} cos(w, a) - mean_{b in B} cos(w, b)
     """
     return cossims[:, A].mean(axis=1) - cossims[:, B].mean(axis=1)
+def s_XAB(X, s_wAB_memo):
+    """ Function for single term of test statistic
+    sum_{x in X} s(x, A, B)
+    """
+    return s_wAB_memo[X].sum()
 def s_XYAB(X, Y, s_wAB_memo):
     """ Function for test statistic
     s(X, Y, A, B) = sum_{x in X} s(x, A, B) - sum_{y in Y} s(y, A, B)
     """
-    return s_wAB_memo[X].sum() - s_wAB_memo[Y].sum()
+    return s_XAB(X, s_wAB_memo) - s_XAB(Y, s_wAB_memo)
 def mean_s_wAB(X, A, B, cossims):
     return np.mean(s_wAB(A, B, cossims[X]))
 def stdev_s_wAB(X, A, B, cossims):
@@ -67,7 +72,7 @@ def p_val_permutation_test(X, Y, A, B, n_samples, cossims, parametric):
         return p_val
 
     else: # case: non-parametric implementation
-        s = s_XYAB(X, Y, s_wAB_memo)
+        s = s_XAB(X, s_wAB_memo)
         total_true, total_equal, total = 0, 0, 0
         num_partitions = int(scipy.special.binom(2 * len(X), len(X)))
         if num_partitions > n_samples:
@@ -77,8 +82,8 @@ def p_val_permutation_test(X, Y, A, B, n_samples, cossims, parametric):
             for _ in range(n_samples - 1):
                 np.random.shuffle(XY)
                 Xi = XY[:size]
-                Yi = XY[size:]
-                si = s_XYAB(Xi, Yi, s_wAB_memo)
+                #Yi = XY[size:]
+                si = s_XAB(Xi, s_wAB_memo)
                 if si > s: # case: strict inequality
                     total_true += 1
                 elif si == s:  # case: conservative non-strict inequality
@@ -88,8 +93,8 @@ def p_val_permutation_test(X, Y, A, B, n_samples, cossims, parametric):
         else:  # case: use exact permutation test (number of partitions)
             for Xi in it.combinations(XY, len(X)):
                 Xi = np.array(Xi, dtype=np.int)
-                Yi = np.asarray([i for i in XY if i not in Xi])
-                si = s_XYAB(Xi, Yi, s_wAB_memo)
+                #Yi = np.asarray([i for i in XY if i not in Xi])
+                si = s_XAB(Xi, s_wAB_memo)
                 if si > s: # case: strict inequality
                     total_true += 1
                 elif si == s:  # case: conservative non-strict inequality

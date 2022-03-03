@@ -14,7 +14,7 @@ def load_model():
         weight_file=os.path.join(models_dir, 'elmo/weights.hdf5'))
     return elmo
 
-def encode(elmo, sents, stimulis, encoding):
+def encode(elmo, sents, stimuli, encoding, multiple_words):
     """ Function to encode sentences with ELMo """
 
     encs = {}
@@ -22,14 +22,21 @@ def encode(elmo, sents, stimulis, encoding):
         vec_seq = elmo.embed_sentence(sent.split())
         encoding_level = encoding[:4]
         if encoding_level == 'word': # here: no subword tokenization
-            # determine idx of words in input sentence
-            idx = None
-            tokens = sent[:-1].split()
-            for i, token in enumerate(tokens):
-                if token.lower() in stimulis:
-                    idx = i
-
-            vec = vec_seq[:, idx] # extract rep of token of interest
+            if multiple_words:
+                # determine idx of stimuli in input sentence
+                stimulus = [stimulus for stimulus in stimuli if stimulus in sent][0]
+                idx_start = sent[:-1].split().index(stimulus.split()[0])
+                idx_end = idx_start + len(stimulus.split()) # vector slicing excludes end idx
+                vec = vec_seq[:, idx_start:idx_end, :] # extract reps of tokens of interest
+                vec = vec.mean(axis=1) # mean over all tokens of interest
+            else:
+                # determine idx of stimuli in input sentence
+                idx = None
+                tokens = sent[:-1].split()
+                for i, token in enumerate(tokens):
+                    if token in stimuli:
+                        idx = i
+                vec = vec_seq[:, idx, :]  # extract rep of token of interest
             vec = vec.sum(axis=0)  # layer_combine_method = add
             encs[sent] = vec
 

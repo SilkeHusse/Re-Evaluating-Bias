@@ -17,7 +17,7 @@ def load_model():
     subword_tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
     return model, tokenizer, subword_tokenizer
 
-def encode(model, tokenizer, subword_tokenizer, sents, stimulis, encoding):
+def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multiple_words):
     """ Function to encode sentences with BERT """
 
     encs = {}
@@ -27,31 +27,43 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimulis, encoding):
         vecs = model(**token_ids)
         encoding_level = encoding[:4]
         if encoding_level == 'word': # here: subword tokenization
-            # determine idx of words in input sentence
-            idx = None
-            tokens = sent[:-1].split()
-            for i, token in enumerate(tokens):
-                if token.lower() in stimulis:
-                    idx = i
-
-            if subword_ids.count(idx) == 1: # case: no subword tokenization
-                encs[sent] = vecs['last_hidden_state'][0][idx].detach().numpy()  # extract rep of token of interest
-            elif subword_ids.count(idx) > 1: # case: subword tokenization
-                if encoding == 'word-average':
-                    subword_vecs = [] # obtain vecs of all relevant subwords
-                    idx_list = [i for i in range(len(subword_ids)) if subword_ids[i] == idx]
-                    for idxs in idx_list:
-                        subword_vecs.append(vecs['last_hidden_state'][0][idxs].detach().numpy())
-                    # extract rep of token of interest as average over all subwords
-                    encs[sent] = np.mean(np.asarray(subword_vecs), axis=0)
-                elif encoding == 'word-start':
-                    idx_subword = subword_ids.index(idx)
-                    # extract rep of token of interest as first subword
-                    encs[sent] = vecs['last_hidden_state'][0][idx_subword].detach().numpy()
-                elif encoding == 'word-end':
-                    idx_subword = len(subword_ids) -1 - subword_ids[::-1].index(idx)
-                    # extract rep of token of interest as last subword
-                    encs[sent] = vecs['last_hidden_state'][0][idx_subword].detach().numpy()
+            if multiple_words:
+                # determine idx of stimuli in input sentence
+                stimulus = [stimulus for stimulus in stimuli if stimulus in sent][0]
+                idx_start = sent[:-1].split().index(stimulus.split()[0]) + 1 # account for [CLS] token
+                idx_end = idx_start + len(stimulus.split())  # account for [CLS] token; range function excludes end idx
+                token_vecs = []  # obtain vecs of all relevant tokens
+                for idxs in range(idx_start, idx_end):
+                    token_vecs.append(vecs['last_hidden_state'][0][idxs].detach().numpy())
+                # extract rep of token of interest as average over all tokens
+                encs[sent] = np.mean(np.asarray(token_vecs), axis=0)
+            else:
+                # determine idx of stimuli in input sentence
+                idx = None
+                tokens = sent[:-1].split()
+                for i, token in enumerate(tokens):
+                    if token in stimuli:
+                        idx = i
+                if subword_ids.count(idx) == 1: # case: no subword tokenization
+                    idx_new = idx + 1 # account for [CLS] token
+                    encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy() # extract rep of token of interest
+                elif subword_ids.count(idx) > 1: # case: subword tokenization
+                    if encoding == 'word-average':
+                        subword_vecs = []  # obtain vecs of all relevant subwords
+                        idx_list = [i for i in range(len(subword_ids)) if subword_ids[i] == idx]
+                        for idxs in idx_list:
+                            idx_new = idxs + 1 # account for [CLS] token
+                            subword_vecs.append(vecs['last_hidden_state'][0][idx_new].detach().numpy())
+                        # extract rep of token of interest as average over all subwords
+                        encs[sent] = np.mean(np.asarray(subword_vecs), axis=0)
+                    elif encoding == 'word-start':
+                        idx_new = subword_ids.index(idx) + 1 # account for CLS token
+                        # extract rep of token of interest as first subword
+                        encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy()
+                    elif encoding == 'word-end':
+                        idx_new = len(subword_ids) - subword_ids[::-1].index(idx) # account for [CLS] token
+                        # extract rep of token of interest as last subword
+                        encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy()
 
         elif encoding_level == 'sent':
             encs[sent] = vecs['last_hidden_state'][0][0].detach().numpy() # extract rep of sent as [CLS] token

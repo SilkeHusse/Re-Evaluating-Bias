@@ -119,7 +119,7 @@ def main(arguments):
 
     all_tests = sorted([entry[:-len(TEST_EXT)]
                         for entry in os.listdir('data')
-                        if not entry.startswith('.') and entry.endswith(TEST_EXT)])
+                        if not entry.startswith('.') and entry.endswith('word' + TEST_EXT)])
     tests = check_allowance(args.test, all_tests, 'test') if args.test is not None else all_tests
     log.info('Tests selected:')
     for test in tests:
@@ -141,6 +141,7 @@ def main(arguments):
         log.info('\t{}'.format(evaluation))
 
     results = []
+    results_method = []
     for method_name in methods:
         if method_name == MethodName.SENTSEAT.value:
             if any('word' in encoding_level for encoding_level in encodings):
@@ -172,8 +173,10 @@ def main(arguments):
 #    main(sys.argv[1:])
 
 main(['-ms-SEAT',
-      '-tC1_name_word',
-      '-lelmo,bert',
-      '-esent,word-start',
+      #'-tC1_name_word',#,C3_name_word,C3_term_word,C6_name_word,C6_term_word,C9_name_word,C9_term_word,C9m_name_word',
+      #'-tDis_term_word',#,Dism_term_word',#,Occ_name_word,Occ_term_word',
+      #,IBD_name_word,IBD_term_word,EIBD_name_word,EIBD_term_word',
+      '-lelmo',
+      '-esent,word-average',
       '-ctemplate',
       '-bcosine'])
