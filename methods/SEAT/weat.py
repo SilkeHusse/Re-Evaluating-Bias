@@ -82,7 +82,6 @@ def p_val_permutation_test(X, Y, A, B, n_samples, cossims, parametric):
             for _ in range(n_samples - 1):
                 np.random.shuffle(XY)
                 Xi = XY[:size]
-                #Yi = XY[size:]
                 si = s_XAB(Xi, s_wAB_memo)
                 if si > s: # case: strict inequality
                     total_true += 1
@@ -93,7 +92,6 @@ def p_val_permutation_test(X, Y, A, B, n_samples, cossims, parametric):
         else:  # case: use exact permutation test (number of partitions)
             for Xi in it.combinations(XY, len(X)):
                 Xi = np.array(Xi, dtype=np.int)
-                #Yi = np.asarray([i for i in XY if i not in Xi])
                 si = s_XAB(Xi, s_wAB_memo)
                 if si > s: # case: strict inequality
                     total_true += 1

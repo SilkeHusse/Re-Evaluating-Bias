@@ -2,7 +2,7 @@
 args:
     - method (str): s-SEAT, w-SEAT, CEAT, logprob
     - tests (str): file names of single word datasets in data folder
-    - models (str): elmo, bert (bbc version), gpt2 (small version)
+    - models (str): elmo, bert (bbc), gpt2 (small)
     - encoding level (str): word (in case of subword tokenization: -average, -start, -end), sent
     - context (str): template, reddit
     - evaluation measure (str): cosine, prob
@@ -173,10 +173,10 @@ def main(arguments):
 #    main(sys.argv[1:])
 
 main(['-ms-SEAT',
-      #'-tC1_name_word',#,C3_name_word,C3_term_word,C6_name_word,C6_term_word,C9_name_word,C9_term_word,C9m_name_word',
+      #'-tC6_name_word',#,C3_name_word,C3_term_word,C6_name_word,C6_term_word,C9_name_word,C9_term_word,C9m_name_word',
       #'-tDis_term_word',#,Dism_term_word',#,Occ_name_word,Occ_term_word',
-      #,IBD_name_word,IBD_term_word,EIBD_name_word,EIBD_term_word',
-      '-lelmo',
-      '-esent,word-average',
+      #'-tIBD_term_word',#,IBD_term_word,EIBD_name_word,EIBD_term_word',
+      '-lgpt2',
+      '-esent,word-average,word-start,word-end',
       '-ctemplate',
       '-bcosine'])

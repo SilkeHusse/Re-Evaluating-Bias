@@ -38,18 +38,23 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
 
                         if context == 'template':
                             # load template sentences dataset
-                            template_sents = data.load_json(os.path.join(data_dir, '%s%s' % ('template_single', TEST_EXT)))
+                            template_sents = data.load_json(os.path.join(data_dir, '%s%s' %
+                                                                         ('template_single', TEST_EXT)))
 
                             # for each bias test
                             # - extract stimuli from stimuli dataset
                             # - create sents by replacing target and attribute words in template sentences
-                            multiple_targ = False # bool indicating if targ stimuli consist of mutilple words
+                            multiple_targ = False # bool indicating if targ stimuli consist of multiple words
                             multiple_attr = False # bool indicating if attr stimuli consist of multiple words
                             if test == 'C1_name_word':
-                                stimuli_targ1 = stimuli['targ1']['examples_singular'] + stimuli['targ1']['examples_plural']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular'] + stimuli['targ2']['examples_plural']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] + stimuli['attr2']['examples_plural']
+                                stimuli_targ1 = stimuli['targ1']['examples_singular'] \
+                                                + stimuli['targ1']['examples_plural']
+                                stimuli_targ2 = stimuli['targ2']['examples_singular'] \
+                                                + stimuli['targ2']['examples_plural']
+                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                + stimuli['attr1']['examples_plural']
+                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                + stimuli['attr2']['examples_plural']
                                 for sent in template_sents['targ']['singular_thing']:
                                     for stimulus in stimuli['targ1']['examples_singular']:
                                         sents_targ1.append(sent.replace('TTT', 'a ' + stimulus))
@@ -73,8 +78,10 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                             elif test == 'C3_name_word':
                                 stimuli_targ1 = stimuli['targ1']['examples_singular']
                                 stimuli_targ2 = stimuli['targ2']['examples_singular']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] + stimuli['attr2']['examples_plural']
+                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                + stimuli['attr1']['examples_plural']
+                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                + stimuli['attr2']['examples_plural']
                                 for sent in template_sents['targ']['singular_person']:
                                     for stimulus in stimuli['targ1']['examples_singular']:
                                         sents_targ1.append(sent.replace('TTT', stimulus))
@@ -92,10 +99,14 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                         sents_attr2.append(sent.replace('AAA', stimulus))
                             elif test == 'C3_term_word':
                                 multiple_targ = True
-                                stimuli_targ1 = stimuli['targ1']['examples_singular'] + stimuli['targ1']['examples_plural']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular'] + stimuli['targ2']['examples_plural']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] + stimuli['attr2']['examples_plural']
+                                stimuli_targ1 = stimuli['targ1']['examples_singular'] \
+                                                + stimuli['targ1']['examples_plural']
+                                stimuli_targ2 = stimuli['targ2']['examples_singular'] \
+                                                + stimuli['targ2']['examples_plural']
+                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                + stimuli['attr1']['examples_plural']
+                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                + stimuli['attr2']['examples_plural']
                                 for sent in template_sents['targ']['singular_person']:
                                     for stimulus in stimuli['targ1']['examples_singular']:
                                         sents_targ1.append(sent.replace('TTT', 'a ' + stimulus))
@@ -119,8 +130,10 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                             elif test == 'C6_name_word':
                                 stimuli_targ1 = stimuli['targ1']['examples_singular']
                                 stimuli_targ2 = stimuli['targ2']['examples_singular']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] + stimuli['attr2']['examples_plural']
+                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                + stimuli['attr1']['examples_plural']
+                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                + stimuli['attr2']['examples_plural']
                                 for sent in template_sents['targ']['singular_person']:
                                     for stimulus in stimuli['targ1']['examples_singular']:
                                         sents_targ1.append(sent.replace('TTT', stimulus))
@@ -137,10 +150,14 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                     for stimulus in stimuli['attr2']['examples_plural']:
                                         sents_attr2.append(sent.replace('AAA', stimulus))
                             elif test == 'C6_term_word':
-                                stimuli_targ1 = stimuli['targ1']['examples_singular'] + stimuli['targ1']['examples_plural']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular'] + stimuli['targ2']['examples_plural']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] + stimuli['attr2']['examples_plural']
+                                stimuli_targ1 = stimuli['targ1']['examples_singular'] \
+                                                + stimuli['targ1']['examples_plural']
+                                stimuli_targ2 = stimuli['targ2']['examples_singular'] \
+                                                + stimuli['targ2']['examples_plural']
+                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                + stimuli['attr1']['examples_plural']
+                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                + stimuli['attr2']['examples_plural']
                                 for sent in template_sents['targ']['singular_person']:
                                     for stimulus in stimuli['targ1']['examples_singular']:
                                         sents_targ1.append(sent.replace('TTT', stimulus))
@@ -192,8 +209,10 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                     for stimulus in stimuli['attr2']['examples_singular']:
                                         sents_attr2.append(sent.replace('AAA', 'a ' + stimulus))
                             elif test == 'Occ_term_word':
-                                stimuli_targ1 = stimuli['targ1']['examples_singular'] + stimuli['targ1']['examples_plural']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular'] + stimuli['targ2']['examples_plural']
+                                stimuli_targ1 = stimuli['targ1']['examples_singular'] \
+                                                + stimuli['targ1']['examples_plural']
+                                stimuli_targ2 = stimuli['targ2']['examples_singular'] \
+                                                + stimuli['targ2']['examples_plural']
                                 stimuli_attr1 = stimuli['attr1']['examples_singular']
                                 stimuli_attr2 = stimuli['attr2']['examples_singular']
                                 for sent in template_sents['targ']['singular_person']:
@@ -276,22 +295,36 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                         else:
                             raise ValueError("Context %s not found!" % context)
 
+                        # TODO: check if multiple_targ and multiple_attr variables were assigned as booleans
+
                         for encoding in encodings:
                             if model == 'elmo':
-                                encs_targ1 = elmo.encode(model_loaded, sents_targ1, stimuli_targ1, encoding, multiple_targ)
-                                encs_targ2 = elmo.encode(model_loaded, sents_targ2, stimuli_targ2, encoding, multiple_targ)
-                                encs_attr1 = elmo.encode(model_loaded, sents_attr1, stimuli_attr1, encoding, multiple_attr)
-                                encs_attr2 = elmo.encode(model_loaded, sents_attr2, stimuli_attr2, encoding, multiple_attr)
+                                encs_targ1 = elmo.encode(model_loaded,
+                                                         sents_targ1, stimuli_targ1, encoding, multiple_targ)
+                                encs_targ2 = elmo.encode(model_loaded,
+                                                         sents_targ2, stimuli_targ2, encoding, multiple_targ)
+                                encs_attr1 = elmo.encode(model_loaded,
+                                                         sents_attr1, stimuli_attr1, encoding, multiple_attr)
+                                encs_attr2 = elmo.encode(model_loaded,
+                                                         sents_attr2, stimuli_attr2, encoding, multiple_attr)
                             elif model == 'bert':
-                                encs_targ1 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_targ1, stimuli_targ1, encoding, multiple_targ)
-                                encs_targ2 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_targ2, stimuli_targ2, encoding, multiple_targ)
-                                encs_attr1 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_attr1, stimuli_attr1, encoding, multiple_attr)
-                                encs_attr2 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_attr2, stimuli_attr2, encoding, multiple_attr)
+                                encs_targ1 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_targ1, stimuli_targ1, encoding, multiple_targ)
+                                encs_targ2 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_targ2, stimuli_targ2, encoding, multiple_targ)
+                                encs_attr1 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_attr1, stimuli_attr1, encoding, multiple_attr)
+                                encs_attr2 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_attr2, stimuli_attr2, encoding, multiple_attr)
                             elif model == 'gpt2':
-                                encs_targ1 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_targ1, stimuli_targ1, encoding, multiple_targ)
-                                encs_targ2 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_targ2, stimuli_targ2, encoding, multiple_targ)
-                                encs_attr1 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_attr1, stimuli_attr1, encoding, multiple_attr)
-                                encs_attr2 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded, sents_attr2, stimuli_attr2, encoding, multiple_attr)
+                                encs_targ1 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_targ1, stimuli_targ1, encoding, multiple_targ)
+                                encs_targ2 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_targ2, stimuli_targ2, encoding, multiple_targ)
+                                encs_attr1 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_attr1, stimuli_attr1, encoding, multiple_attr)
+                                encs_attr2 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents_attr2, stimuli_attr2, encoding, multiple_attr)
                             else:
                                 raise ValueError("No encodings computed!")
 
