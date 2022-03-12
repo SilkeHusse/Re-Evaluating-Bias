@@ -8,5 +8,6 @@ In `models` folder create separate folders for each LM, named `elmo`, `bert`, an
 ### CEAT
 create folder 'raw_data' to save all 12 bz2 files containing reddit comment from 2014
 create folders 'dict_files' & 'data_files' if you run comment_* python code scripts
-end results are in data_files or can be directly downloaded from kaggle dataset (LINK HERE, make dataset public)
+(comment_sample_single other version with non proportionate sampling can be found on kaggle (LINK HERE))
+end results are in data_files or can be directly downloaded from kaggle dataset (LINK HERE, make dataset public) --> raw and end files
 --> insert here description of generation process includ. structure of files.
