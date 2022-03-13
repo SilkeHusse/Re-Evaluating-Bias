@@ -9,7 +9,7 @@ dirname = os.path.dirname(os.path.realpath(__file__))
 models_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(dirname))), 'models')
 
 def load_model():
-    """ Load BERT model (bbc) and corresponding tokenizer from local files  """
+    """ Load BERT model (bbc) and corresponding tokenizer from local files """
 
     model = BertModel.from_pretrained(models_dir + '/bert/base-cased/')
     tokenizer = BertTokenizer.from_pretrained(models_dir + '/bert/base-cased/')
