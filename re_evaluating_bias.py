@@ -19,6 +19,7 @@ from csv import DictWriter
 from enum import Enum
 
 import methods.SEAT.main as SEAT
+import methods.CEAT.main as CEAT
 dirname = os.path.dirname(os.path.realpath(__file__))
 
 class MethodName(Enum):
@@ -151,9 +152,8 @@ def main(arguments):
             if any('sent' in encoding_level for encoding_level in encodings):
                 log.info('Note: sentence encoding level for method w-SEAT is equivalent to method s-SEAT.')
             results_method = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
-        # TODO CEAT
         elif method_name == MethodName.CEAT.value:
-            pass
+            results_method = CEAT.main(models, tests, encodings, contexts, evaluations)
         # TODO logprob
         elif method_name == MethodName.LOGPROB.value:
             pass
@@ -172,11 +172,9 @@ def main(arguments):
 #if __name__ == '__main__':
 #    main(sys.argv[1:])
 
-main(['-ms-SEAT',
-      #'-tC6_name_word',#,C3_name_word,C3_term_word,C6_name_word,C6_term_word,C9_name_word,C9_term_word,C9m_name_word',
-      #'-tDis_term_word',#,Dism_term_word',#,Occ_name_word,Occ_term_word',
-      #'-tIBD_term_word',#,IBD_term_word,EIBD_name_word,EIBD_term_word',
-      '-lgpt2',
-      '-esent,word-average,word-start,word-end',
+main(['-mCEAT',
+      '-tC1_name_word,C3_name_word,C6_name_word,C9_term_word,Dis_term_word,Occ_name_word,IBD_name_word,EIBD_name_word',
+      '-lelmo,bert,gpt2',
+      '-eword-average',
       '-ctemplate',
       '-bcosine'])
