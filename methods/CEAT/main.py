@@ -274,7 +274,7 @@ def main(models, tests, encodings, contexts, evaluations):
 
                         elif context == 'reddit':
                             print(f'For context {context} no results can be generated at runtime and thus is skipped.')
-                            print(f'Please see the results folder directly or execute a generate_ebd_* file.')
+                            print(f'Please see the results folder directly or execute a respective generate_ebd_* file.')
                             break
                         else:
                             raise ValueError("Context %s not found!" % context)

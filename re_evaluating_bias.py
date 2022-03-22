@@ -173,7 +173,7 @@ def main(arguments):
 #    main(sys.argv[1:])
 
 main(['-mCEAT',
-      '-tC1_name_word,C3_name_word,C6_name_word,C9_term_word,Dis_term_word,Occ_name_word,IBD_name_word,EIBD_name_word',
+      #'-tC1_name_word,C3_name_word',#,C6_name_word,C9_term_word,Dis_term_word,Occ_name_word,IBD_name_word,EIBD_name_word',
       '-lelmo,bert,gpt2',
       '-eword-average',
       '-ctemplate',

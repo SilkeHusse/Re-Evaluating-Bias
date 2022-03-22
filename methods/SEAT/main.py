@@ -14,15 +14,16 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
 
     results = []
     for model in models:
-        if model == 'elmo':
-            model_loaded = elmo.load_model()
-            tokenizer_loaded, subword_tokenizer_loaded = None, None
-        elif model == 'bert':
-            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
-        elif model == 'gpt2':
-            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
-        else:
-            raise ValueError("Model %s not found!" % model)
+        if context != 'reddit': # only load models if required
+            if model == 'elmo':
+                model_loaded = elmo.load_model()
+                tokenizer_loaded, subword_tokenizer_loaded = None, None
+            elif model == 'bert':
+                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
+            elif model == 'gpt2':
+                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
+            else:
+                raise ValueError("Model %s not found!" % model)
 
         for test in tests:
             # load stimuli dataset
@@ -289,9 +290,11 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 else:
                                     sents_targ2 = random.sample(sents_targ2, min_n)
 
-                        # TODO context == reddit
                         elif context == 'reddit':
-                            pass
+                            print(f'For context {context} no results can be generated at runtime and thus is skipped.')
+                            print(
+                                f'Please see the results folder directly or execute a respective generate_ebd_* file.')
+                            break
                         else:
                             raise ValueError("Context %s not found!" % context)
 
@@ -337,7 +340,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                             # default parameter: n_samples = 100,000
                             esize, pval = weat.run_test(encs, parametric)
                             results.append(dict(
-                                method='s-SEAT',
+                                method='SEAT',
                                 test=test,
                                 model=model,
                                 evaluation_measure=measure,

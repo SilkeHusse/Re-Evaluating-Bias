@@ -30,7 +30,29 @@
   "targ2": {
     "concept": "NonRecommendedDisability_term",
     "examples_singular": [
-      "a normal person", "an insane person", "a retarded person", "an emotionally disturbed person", "a mongoloid", "a deaf mute person", "a lame person", "an invalid", "a quadriplegic", "a midget", "a person confined to a wheelchair", "a paraplegic", "an epileptic person", "a cripple", "the deaf", "a hunchbacked person", "a crippled person", "a wheelchair bound person", "a slow learner", "a deranged person", "a demented person", "a deformed person", "a person with sight problems"
+      "a normal person",
+      "an insane person",
+      "a retarded person",
+      "an emotionally disturbed person",
+      "a mongoloid",
+      "a deaf mute person",
+      "a lame person",
+      "an invalid",
+      "a quadriplegic",
+      "a midget",
+      "a person confined to a wheelchair",
+      "a paraplegic",
+      "an epileptic person",
+      "a cripple",
+      "the deaf",
+      "a hunchbacked person",
+      "a crippled person",
+      "a wheelchair bound person",
+      "a slow learner",
+      "a deranged person",
+      "a demented person",
+      "a deformed person",
+      "a person with sight problems"
     ]
   },
   "attr1": {
