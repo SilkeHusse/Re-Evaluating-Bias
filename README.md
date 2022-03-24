@@ -38,7 +38,7 @@ If you decide to fetch the reddit data yourself, then in the subfolder `data/red
 
 <a name="embeds"></a>
 ## Generate Embeddings
-It is not feasible to generate embeddings in the context of reddit comments at runtime. Thus, for each method `generate_ebd_*.py` files exist which output the respective results in a csv file in the `results` folder directly. For this, specific pickle files are required. They can be downloaded [here](https://www.kaggle.com/datasets/silkehusse/ceat-dict-files) and should be saved in the `data/reddit` folder. If you decide to fetch the reddit data yourself, please follow the instructions under **Set-up / reddit data**. 
+It is not feasible to generate embeddings in the context of reddit comments at runtime. Thus, for each method `generate_ebd_*.py` files exist which output the respective results in a csv file directly. For this, specific pickle files are required. They can be downloaded [here](https://www.kaggle.com/datasets/silkehusse/ceat-dict-files) and should be saved in the `data/reddit` folder. If you decide to fetch the reddit data yourself, please follow the instructions under **Set-up / reddit data**. 
 
 <a name="author"></a>
 ## Author information
