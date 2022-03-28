@@ -9,7 +9,7 @@ dirname = os.path.dirname(os.path.realpath(__file__))
 models_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(dirname))), 'models')
 
 def load_model():
-    """ Load GPT2 model and corresponding tokenizer from local files  """
+    """ Load GPT2 model and corresponding tokenizer from local files """
 
     model = GPT2Model.from_pretrained(models_dir + '/gpt2/')
     tokenizer = GPT2Tokenizer.from_pretrained(models_dir + '/gpt2/')

@@ -7,7 +7,7 @@ dirname = os.path.dirname(os.path.realpath(__file__))
 models_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(dirname))), 'models')
 
 def load_model():
-    """ Load ELMo model and corresponding tokenizer from local files  """
+    """ Load ELMo model and corresponding tokenizer from local files """
 
     elmo = ElmoEmbedder(
         options_file=os.path.join(models_dir, 'elmo/options.json'),
