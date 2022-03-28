@@ -1,4 +1,4 @@
-""" Generate BERT embeddings, execute CEAT method, and save results """
+""" Generate GPT2 embeddings, execute CEAT method, and save results """
 import pickle
 import datetime
 import time
@@ -11,8 +11,8 @@ random.seed(1111)
 
 from csv import DictWriter
 from sklearn.metrics.pairwise import cosine_similarity
-from transformers import BertTokenizer, BertModel
-from transformers import BertTokenizerFast
+from transformers import GPT2Model, GPT2Tokenizer
+from transformers import GPT2TokenizerFast
 
 if torch.cuda.is_available():
     print('GPU is available.')
@@ -859,7 +859,7 @@ def get_stimuli(test_name):
 def create_batches(sent_lst):
       """ Function to generate sent batches """
       if len(sent_lst) != 0:
-            batch_size = 10
+            batch_size = 5
             n_batches = int((len(sent_lst) - (len(sent_lst) % batch_size)) / batch_size)
             size_batches = [batch_size for _ in range(n_batches)]
             if len(sent_lst) % batch_size != 0: # if applicable add rest (size of last batch < batch_size)
@@ -878,18 +878,24 @@ def create_batches(sent_lst):
 
 def load_model(model_name):
     """ Load language model and corresponding tokenizer if applicable """
-    if model_name == 'bert':
-          model = BertModel.from_pretrained('bert-base-cased')
-          tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
-          # additional 'Fast' BERT tokenizer for subword tokenization ID mapping
-          subword_tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
+    if model_name == 'gpt2':
+          model = GPT2Model.from_pretrained('gpt2')
+          tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+          # specifications for padding and truncation
+          tokenizer.truncation_side = "right"
+          tokenizer.padding_side = "right"
+          tokenizer.pad_token = tokenizer.eos_token # define PAD token = EOS token = 50256
+          model.resize_token_embeddings(len(tokenizer)) # resize model embedding to match new tokenizer
+          model.config.pad_token_id = model.config.eos_token_id # fix model padding token ID
+          # additional 'Fast' GPT2 tokenizer for subword tokenization ID mapping
+          subword_tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')
     else:
           raise ValueError("Model %s not found!" % model_name)
 
     return model.to(device), tokenizer, subword_tokenizer
 
-def bert(sent_dict, test_name):
-    """ Function to encode sentences with BERT """
+def gpt2(sent_dict, test_name):
+    """ Function to encode sentences with GPT2 """
 
     targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name)
     wd_list = targ1_lst + targ2_lst + attr1_lst + attr2_lst
@@ -898,7 +904,7 @@ def bert(sent_dict, test_name):
                     'word-start': [],
                     'word-end': []} for wd in wd_list}
 
-    bert_model, bert_tok, bert_sub_tok = load_model('bert')
+    gpt2_model, gpt2_tok, gpt2_sub_tok = load_model('gpt2')
 
     print(f'Starting to generate embeddings for bias test {test_name}')
     now = datetime.datetime.now()
@@ -908,20 +914,19 @@ def bert(sent_dict, test_name):
           batches = create_batches(sent_dict[wd])
           for batch in batches:
                 batch = [shorten_sent(sent, wd) for sent in batch]
-                # [CLS] and [SEP] tokens are added automatically
-                encodings = bert_tok(batch, return_tensors='pt', padding=True, truncation=True)
+                encodings = gpt2_tok(batch, return_tensors='pt', padding=True, truncation=True)
                 token_ids = torch.tensor(encodings['input_ids'], device=device)
                 # map tokens to input words
-                subword_ids = [bert_sub_tok(sent, add_special_tokens=False).word_ids() for sent in batch]
-                vecs = bert_model(input_ids=token_ids)
+                subword_ids = [gpt2_sub_tok(sent, add_special_tokens=False).word_ids() for sent in batch]
+                vecs = gpt2_model(input_ids=token_ids)
 
                 for idx_sent, sent in enumerate(batch):
                       for encoding, value in out_dict[wd].items():
                             if encoding[:4] == 'word':  # here: subword tokenization
                                   if len(wd.split()) > 1:
-                                        # determine idx of stimuli in input sentence; account for [CLS] token
-                                        idx_start = sent.split().index(wd.split()[0]) + 1
-                                        # account for [CLS] token; range function excludes end idx
+                                        # determine idx of stimuli in input sentence
+                                        idx_start = sent.split().index(wd.split()[0])
+                                        # range function excludes end idx
                                         idx_end = idx_start + len(wd.split())
                                         # obtain vecs of all relevant tokens
                                         token_vecs = []
@@ -936,13 +941,12 @@ def bert(sent_dict, test_name):
                                         if '-' in sent.split()[idx]:  # here: special case of subword tokenization
                                               idx_stimuli = [i for i, element in enumerate(subword_ids[idx_sent]) if
                                                              element == idx]
-                                              # account for [CLS] token
-                                              idx_start = idx_stimuli[0] + 1
+                                              idx_start = idx_stimuli[0]
                                               idxs_first_part = len(idx_stimuli)
                                               idxs_second_part = len(
                                                     [i for i, element in enumerate(subword_ids[idx_sent]) if
-                                                     element == (idx_start + 1)])
-                                              # account for [CLS] token; range function excludes end idx
+                                                     element == (idx_start + 2)])
+                                              # range function excludes end idx
                                               idx_end = idx_start + idxs_first_part + idxs_second_part + 1
                                               if encoding == 'word-average':
                                                     # obtain vecs of all relevant tokens
@@ -961,11 +965,9 @@ def bert(sent_dict, test_name):
                                                           vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
                                         else:
                                               if subword_ids[idx_sent].count(idx) == 1:  # case: no subword tokenization
-                                                    # account for [CLS] token
-                                                    idx_new = idx + 1
                                                     # extract rep of token of interest
                                                     out_dict[wd][encoding].append(
-                                                          vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
+                                                          vecs['last_hidden_state'][idx_sent][idx].cpu().detach().numpy())
                                               elif subword_ids[idx_sent].count(idx) > 1:  # case: subword tokenization
                                                     if encoding == 'word-average':
                                                           # obtain vecs of all relevant subwords
@@ -973,29 +975,26 @@ def bert(sent_dict, test_name):
                                                           idx_list = [i for i in range(len(subword_ids[idx_sent])) if
                                                                       subword_ids[idx_sent][i] == idx]
                                                           for idxs in idx_list:
-                                                                # account for [CLS] token
-                                                                idx_new = idxs + 1
                                                                 subword_vecs.append(vecs['last_hidden_state'][idx_sent][
-                                                                                          idx_new].cpu().detach().numpy())
+                                                                                          idxs].cpu().detach().numpy())
                                                           # extract rep of token of interest as average over all subwords
                                                           out_dict[wd][encoding].append(
                                                                 np.mean(np.asarray(subword_vecs), axis=0))
                                                     elif encoding == 'word-start':
-                                                          # account for CLS token
-                                                          idx_new = subword_ids[idx_sent].index(idx) + 1
+                                                          idx_new = subword_ids[idx_sent].index(idx)
                                                           # extract rep of token of interest as first subword
                                                           out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
                                                                                          idx_new].cpu().detach().numpy())
                                                     elif encoding == 'word-end':
-                                                          # account for [CLS] token
-                                                          idx_new = len(subword_ids[idx_sent]) - subword_ids[idx_sent][::-1].index(idx)
+                                                          idx_new = len(subword_ids[idx_sent]) - 1 - subword_ids[idx_sent][::-1].index(idx)
                                                           # extract rep of token of interest as last subword
                                                           out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
                                                                                          idx_new].cpu().detach().numpy())
 
                             elif encoding == 'sent':
-                                  # extract rep of sent as [CLS] token
-                                  out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][0].cpu().detach().numpy())
+                                  idx_word = len(vecs['last_hidden_state'][idx_sent]) - 1
+                                  # extract rep of sent as last token
+                                  out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][idx_word].cpu().detach().numpy())
 
     print(f'Finished generating embeddings for bias test {test_name}')
     now = datetime.datetime.now()
@@ -1099,7 +1098,7 @@ all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', '
 results = []
 
 for test in all_tests:
-      embeds = bert(sent_dict, test)
+      embeds = gpt2(sent_dict, test)
 
       targ1, targ2, attr1, attr2 = get_stimuli(test)
       encs = {}
@@ -1141,7 +1140,7 @@ for test in all_tests:
             results.append(dict(
                   method='CEAT',
                   test=test,
-                  model='bert',
+                  model='gpt2',
                   evaluation_measure='cosine',
                   context='reddit',
                   encoding_level=encoding,
@@ -1149,7 +1148,7 @@ for test in all_tests:
                   effect_size=esize))
 
 # save results and specs of code run (time, date)
-results_path = time.strftime("%Y%m%d-%H%M%S") + '_CEAT_bert_reddit.csv'
+results_path = time.strftime("%Y%m%d-%H%M%S") + '_CEAT_gpt2_reddit.csv'
 print('Writing results to {}'.format(results_path))
 with open(results_path, 'w') as f:
       writer = DictWriter(f, fieldnames=results[0].keys(), delimiter='\t')
