@@ -5,8 +5,8 @@ import sys
 import json
 import datetime
 import random
-random.seed(1111)
 
+random.seed(1111)
 N = 10000
 
 TEST_EXT = '.jsonl'

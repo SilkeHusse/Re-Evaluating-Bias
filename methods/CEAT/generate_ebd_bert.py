@@ -7,6 +7,7 @@ import torch
 import scipy.stats
 import numpy as np
 import random
+
 random.seed(1111)
 
 from csv import DictWriter
@@ -918,7 +919,7 @@ def bert(sent_dict, test_name):
                 for idx_sent, sent in enumerate(batch):
                       for encoding, value in out_dict[wd].items():
                             if encoding[:4] == 'word':  # here: subword tokenization
-                                  if len(wd.split()) > 1:
+                                  if len(wd.split()) > 1: # case: multiple words
                                         # determine idx of stimuli in input sentence; account for [CLS] token
                                         idx_start = sent.split().index(wd.split()[0]) + 1
                                         # account for [CLS] token; range function excludes end idx
@@ -933,7 +934,7 @@ def bert(sent_dict, test_name):
                                   else:
                                         # determine idx of stimulus in input sentence
                                         idx = sent.split().index(wd)
-                                        if '-' in sent.split()[idx]:  # here: special case of subword tokenization
+                                        if '-' in sent.split()[idx]:  # case: special example of subword tokenization
                                               idx_stimuli = [i for i, element in enumerate(subword_ids[idx_sent]) if
                                                              element == idx]
                                               # account for [CLS] token
@@ -951,51 +952,59 @@ def bert(sent_dict, test_name):
                                                           token_vecs.append(vecs['last_hidden_state'][idx_sent][
                                                                                   idxs].cpu().detach().numpy())
                                                     # extract rep of token of interest as average over all tokens
-                                                    out_dict[wd][encoding].append(np.mean(np.asarray(token_vecs), axis=0))
+                                                    out_dict[wd][encoding].append(np.mean(np.asarray(token_vecs),
+                                                                                          axis=0))
                                               elif encoding == 'word-start':
                                                     out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
                                                                                    idx_start].cpu().detach().numpy())
                                               elif encoding == 'word-end':
                                                     idx_new = idx_start + idxs_first_part + idxs_second_part
                                                     out_dict[wd][encoding].append(
-                                                          vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
+                                                          vecs['last_hidden_state'][idx_sent][idx_new]
+                                                                .cpu().detach().numpy())
                                         else:
                                               if subword_ids[idx_sent].count(idx) == 1:  # case: no subword tokenization
                                                     # account for [CLS] token
                                                     idx_new = idx + 1
                                                     # extract rep of token of interest
                                                     out_dict[wd][encoding].append(
-                                                          vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
+                                                          vecs['last_hidden_state'][idx_sent][idx_new]
+                                                                .cpu().detach().numpy())
                                               elif subword_ids[idx_sent].count(idx) > 1:  # case: subword tokenization
                                                     if encoding == 'word-average':
-                                                          # obtain vecs of all relevant subwords
+                                                          # obtain vecs of all relevant subwds
                                                           subword_vecs = []
                                                           idx_list = [i for i in range(len(subword_ids[idx_sent])) if
                                                                       subword_ids[idx_sent][i] == idx]
                                                           for idxs in idx_list:
                                                                 # account for [CLS] token
                                                                 idx_new = idxs + 1
-                                                                subword_vecs.append(vecs['last_hidden_state'][idx_sent][
-                                                                                          idx_new].cpu().detach().numpy())
-                                                          # extract rep of token of interest as average over all subwords
+                                                                subword_vecs.append(
+                                                                      vecs['last_hidden_state'][idx_sent][idx_new]
+                                                                            .cpu().detach().numpy())
+                                                          # extract rep of token of interest as average over all subwds
                                                           out_dict[wd][encoding].append(
                                                                 np.mean(np.asarray(subword_vecs), axis=0))
                                                     elif encoding == 'word-start':
                                                           # account for CLS token
                                                           idx_new = subword_ids[idx_sent].index(idx) + 1
                                                           # extract rep of token of interest as first subword
-                                                          out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
-                                                                                         idx_new].cpu().detach().numpy())
+                                                          out_dict[wd][encoding].append(
+                                                                vecs['last_hidden_state'][idx_sent][idx_new]
+                                                                      .cpu().detach().numpy())
                                                     elif encoding == 'word-end':
                                                           # account for [CLS] token
-                                                          idx_new = len(subword_ids[idx_sent]) - subword_ids[idx_sent][::-1].index(idx)
+                                                          idx_new = len(subword_ids[idx_sent]) - \
+                                                                    subword_ids[idx_sent][::-1].index(idx)
                                                           # extract rep of token of interest as last subword
-                                                          out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
-                                                                                         idx_new].cpu().detach().numpy())
+                                                          out_dict[wd][encoding].append(
+                                                                vecs['last_hidden_state'][idx_sent][idx_new]
+                                                                      .cpu().detach().numpy())
 
                             elif encoding == 'sent':
                                   # extract rep of sent as [CLS] token
-                                  out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][0].cpu().detach().numpy())
+                                  out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][0]
+                                                                .cpu().detach().numpy())
 
     print(f'Finished generating embeddings for bias test {test_name}')
     now = datetime.datetime.now()
@@ -1013,7 +1022,8 @@ def effect_size(X,Y,A,B):
     [ mean_{x in X} s(x, A, B) - mean_{y in Y} s(y, A, B) ] /
         [ stddev_{w in X union Y} s(w, A, B) ]
     """
-    delta_mean =  np.mean([associate(X[i,:],A,B) for i in range(X.shape[0])]) - np.mean([associate(Y[i,:],A,B) for i in range(Y.shape[0])])
+    delta_mean =  np.mean([associate(X[i,:],A,B) for i in range(X.shape[0])]) - \
+                  np.mean([associate(Y[i,:],A,B) for i in range(Y.shape[0])])
 
     XY = np.concatenate((X,Y),axis=0)
     s_union = [associate(XY[i,:],A,B) for i in range(XY.shape[0])]

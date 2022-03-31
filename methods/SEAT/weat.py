@@ -1,4 +1,4 @@
-""" Implementation of WEAT """
+""" Implementation of SEAT calculations """
 import math
 import itertools as it
 import numpy as np
@@ -117,7 +117,7 @@ def effect_size(X, Y, A, B, cossims):
     return numerator / denominator
 
 def run_test(encs, parametric, n_samples=100000):
-    """ Function to run a WEAT test
+    """ Function to run a SEAT test
     args:
         - encs (Dict[str: Dict]): dictionary mapping targ1, targ2, attr1, attr2
             to dictionaries containing the concept and the encodings

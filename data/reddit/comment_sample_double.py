@@ -1,8 +1,8 @@
 """ sample comments for double word dataset """
 import pickle
 import random
-random.seed(1111)
 
+random.seed(1111)
 N = 10000
 
 def merge_dict(dict_1, dict_2):

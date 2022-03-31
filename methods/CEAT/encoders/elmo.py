@@ -27,7 +27,7 @@ def encode(elmo, sents, stimuli, encodings):
             for encoding in encodings:
                 encoding_level = encoding[:4]
                 if encoding_level == 'word': # here: no subword tokenization
-                    if len(wd.split()) > 1:
+                    if len(wd.split()) > 1: # case: multiple words
                         # determine idx of stimuli in input sentence
                         stimulus = [stimulus for stimulus in stimuli if stimulus in sent][0]
                         idx_start = sent[:-1].split().index(stimulus.split()[0])

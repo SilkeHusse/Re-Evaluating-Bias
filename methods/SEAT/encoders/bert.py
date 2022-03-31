@@ -29,7 +29,7 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
         vecs = model(**token_ids)
         encoding_level = encoding[:4]
         if encoding_level == 'word': # here: subword tokenization
-            if multiple_words:
+            if multiple_words: # case: multiple words
                 # determine idx of stimuli in input sentence
                 stimulus = [stimulus for stimulus in stimuli if stimulus in sent][0]
                 # account for [CLS] token
@@ -49,7 +49,7 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
                 for i, token in enumerate(tokens):
                     if token in stimuli:
                         idx = i
-                if '-' in tokens[idx]: # here: special case of subword tokenization
+                if '-' in tokens[idx]: # case: special example of subword tokenization
                     idx_stimuli = [i for i, element in enumerate(subword_ids) if element == idx]
                     # account for [CLS] token
                     idx_start = idx_stimuli[0] + 1

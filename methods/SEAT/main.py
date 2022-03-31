@@ -5,12 +5,13 @@ from methods.SEAT import data, weat
 from methods.SEAT.encoders import bert, elmo, gpt2
 
 random.seed(1111)
+
 TEST_EXT = '.jsonl'
 dirname = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(dirname)), 'data')
 
 def main(models, tests, encodings, contexts, evaluations, parametric):
-    """ Main function of SEAT method"""
+    """ Main function of SEAT method """
 
     results = []
     for model in models:
@@ -34,8 +35,6 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                     for context in contexts:
                         sents_targ1, sents_targ2 = [], []
                         sents_attr1, sents_attr2 = [], []
-                        stimuli_targ1, stimuli_targ2 = [], []
-                        stimuli_attr1, stimuli_attr2 = [], []
 
                         if context == 'template':
                             # load template sentences dataset
@@ -291,14 +290,13 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                     sents_targ2 = random.sample(sents_targ2, min_n)
 
                         elif context == 'reddit':
-                            print(f'For context {context} no results can be generated at runtime and thus is skipped.')
+                            print(
+                                f'For context {context} no results can be generated at runtime and thus is skipped.')
                             print(
                                 f'Please see the results folder directly or execute a respective generate_ebd_* file.')
                             break
                         else:
                             raise ValueError("Context %s not found!" % context)
-
-                        # TODO: check if multiple_targ and multiple_attr variables were assigned as booleans
 
                         for encoding in encodings:
                             if model == 'elmo':
@@ -349,7 +347,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 p_value=pval,
                                 effect_size=esize))
 
-                # TODO measure == prob
+                # TODO
                 elif measure == 'prob':
                     pass
 

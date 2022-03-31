@@ -7,6 +7,7 @@ import torch
 import scipy.stats
 import numpy as np
 import random
+
 random.seed(1111)
 
 from csv import DictWriter
@@ -912,7 +913,7 @@ def elmo(sent_dict, test_name):
                 for idx_sent, sent in enumerate(batch):
                       for encoding, value in out_dict[wd].items():
                             if encoding == 'word-average':  # here: no subword tokenization
-                                  if len(wd.split()) > 1:
+                                  if len(wd.split()) > 1: # case: multiple words
                                         # determine idx of stimuli in input sentence
                                         idx_start = sent.index(wd.split()[0])
                                         # vector slicing excludes end idx
@@ -951,7 +952,8 @@ def effect_size(X,Y,A,B):
     [ mean_{x in X} s(x, A, B) - mean_{y in Y} s(y, A, B) ] /
         [ stddev_{w in X union Y} s(w, A, B) ]
     """
-    delta_mean =  np.mean([associate(X[i,:],A,B) for i in range(X.shape[0])]) - np.mean([associate(Y[i,:],A,B) for i in range(Y.shape[0])])
+    delta_mean =  np.mean([associate(X[i,:],A,B) for i in range(X.shape[0])]) - \
+                  np.mean([associate(Y[i,:],A,B) for i in range(Y.shape[0])])
 
     XY = np.concatenate((X,Y),axis=0)
     s_union = [associate(XY[i,:],A,B) for i in range(XY.shape[0])]

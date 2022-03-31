@@ -22,7 +22,7 @@ def encode(elmo, sents, stimuli, encoding, multiple_words):
         vec_seq = elmo.embed_sentence(sent.split())
         encoding_level = encoding[:4]
         if encoding_level == 'word': # here: no subword tokenization
-            if multiple_words:
+            if multiple_words: # case: multiple words
                 # determine idx of stimuli in input sentence
                 stimulus = [stimulus for stimulus in stimuli if stimulus in sent][0]
                 idx_start = sent[:-1].split().index(stimulus.split()[0])

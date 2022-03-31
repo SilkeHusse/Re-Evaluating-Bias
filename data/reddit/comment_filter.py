@@ -2,10 +2,10 @@
 import pickle
 import os
 import sys
-#import concurrent.futures
 import json
 import itertools
 import datetime
+#import concurrent.futures
 
 TEST_EXT = '.jsonl'
 DICT_EXT = '.pickle'

@@ -26,10 +26,6 @@ def main(models, tests, encodings, contexts, evaluations):
                             template_sents = json.load(open(
                                 os.path.join(data_dir, '%s%s' % ('template_single', TEST_EXT)), 'r'))
 
-                            # TODO: is this assignment necessary?
-                            stimuli_targ1, stimuli_targ2 = [], []
-                            stimuli_attr1, stimuli_attr2 = [], []
-
                             # define lists of bias tests sharing same specifications
                             specs_sp = ['C1_name_word', 'C3_term_word', 'C6_term_word']
                             specs_s = ['IBD_term_word', 'EIBD_term_word', 'IBD_name_word', 'EIBD_name_word',
@@ -279,7 +275,6 @@ def main(models, tests, encodings, contexts, evaluations):
                         else:
                             raise ValueError("Context %s not found!" % context)
 
-                        # TODO: check if encs_targ1, ... variables were assigned
                         encs = {}
                         encs["targ1"] = {'concept': stimuli['targ1']['concept'], 'encs': encs_targ1}
                         encs["targ2"] = {'concept': stimuli['targ2']['concept'], 'encs': encs_targ2}
@@ -299,7 +294,7 @@ def main(models, tests, encodings, contexts, evaluations):
                                 p_value=pval,
                                 effect_size=esize))
 
-                # TODO measure == prob
+                # TODO
                 elif measure == 'prob':
                     pass
 
