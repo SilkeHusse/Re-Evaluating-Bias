@@ -29,7 +29,7 @@ c1_name_targ1_shrunken = ["clover","poppy","iris","orchid","rose","daisy","lily"
 c1_name_targ2 = ["ant","caterpillar","flea","locust","spider","bedbug","centipede","fly","maggot","tarantula","bee",
                  "cockroach","gnat","mosquito","termite","beetle","cricket","hornet","moth","wasp","blackfly",
                  "dragonfly","horsefly","roach","weevil"]
-c1_name_targ2_shrunken = ["orchid","magnolia","iris","daisy","poppy","lily","rose","clover","violet"]
+c1_name_targ2_shrunken = ["fly","roach","mosquito","spider","moth","wasp","ant","bee","flea"]
 c1_name_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -249,7 +249,7 @@ c9m_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged
 c9_term_targ1 = ["sad","hopeless","gloomy","tearful","miserable","depressed"]
 c9_term_targ1_shrunken = ["sad","hopeless","miserable","depressed"]
 c9_term_targ2 = ["sick","illness","influenza","disease","virus","cancer"]
-c9_term_targ2_shrunken = ["miserable","hopeless","sad","depressed"]
+c9_term_targ2_shrunken = ["influenza","cancer","illness","sick"]
 c9_term_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_term_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
