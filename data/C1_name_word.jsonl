@@ -157,7 +157,6 @@
       "vacations"
     ],
     "examples_adjective": [
-      "soft",
       "free",
       "healthy",
       "lovable",
@@ -167,21 +166,13 @@
       "heavenly",
       "loyal",
       "pleasurable",
-      "precious",
       "gentle",
       "honest",
       "lucky",
-      "colorful",
-      "sophisticated",
-      "generous",
       "honorable",
       "miraculous",
-      "radient",
       "family",
-      "happy",
-      "funny",
-      "wonderful",
-      "relaxing"
+      "happy"
     ]
   },
   "attr2": {
@@ -231,30 +222,23 @@
     ],
     "examples_adjective": [
       "abusive",
-      "destructive",
       "filthy",
       "murderous",
       "sick",
-      "unexpected",
+      "accidental",
       "deathly",
-      "sad",
+      "grief-stricken",
       "poisonous",
       "stinky",
-      "harmful",
       "disasterous",
       "hateful",
-      "dirty",
       "tragic",
       "divorced",
-      "captured",
       "poor",
       "ugly",
       "cancerous",
-      "dead",
       "rotten",
-      "diseased",
-      "agonizing",
-      "imprisoned"
+      "agonizing"
     ]
   }
 }
