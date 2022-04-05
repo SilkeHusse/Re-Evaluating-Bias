@@ -1,0 +1,32 @@
+{
+    "targ1": [
+        "sad",
+        "hopeless",
+        "miserable",
+        "depressed"
+    ],
+    "targ2": [
+        "miserable",
+        "hopeless",
+        "sad",
+        "depressed"
+    ],
+    "attr1": [
+        "impermanent",
+        "unstable",
+        "variable",
+        "fleeting",
+        "short-term",
+        "brief",
+        "occasional"
+    ],
+    "attr2": [
+        "stable",
+        "always",
+        "constant",
+        "persistent",
+        "chronic",
+        "prolonged",
+        "forever"
+    ]
+}

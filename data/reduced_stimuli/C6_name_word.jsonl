@@ -1,0 +1,42 @@
+{
+    "targ1": [
+        "john",
+        "paul",
+        "mike",
+        "kevin",
+        "steve",
+        "greg",
+        "jeff",
+        "bill"
+    ],
+    "targ2": [
+        "amy",
+        "joan",
+        "lisa",
+        "sarah",
+        "diana",
+        "kate",
+        "ann",
+        "donna"
+    ],
+    "attr1": [
+        "executive",
+        "management",
+        "professional",
+        "corporation",
+        "salary",
+        "office",
+        "business",
+        "career"
+    ],
+    "attr2": [
+        "home",
+        "parent",
+        "child",
+        "family",
+        "cousin",
+        "marriage",
+        "wedding",
+        "relative"
+    ]
+}

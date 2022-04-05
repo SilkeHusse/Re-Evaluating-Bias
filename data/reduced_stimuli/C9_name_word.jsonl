@@ -1,0 +1,36 @@
+{
+    "targ1": [
+        "depression",
+        "dementia",
+        "anxiety",
+        "stress",
+        "mania",
+        "panic"
+    ],
+    "targ2": [
+        "cancer",
+        "virus",
+        "diabetes",
+        "arthritis",
+        "infection",
+        "asthma"
+    ],
+    "attr1": [
+        "impermanent",
+        "unstable",
+        "variable",
+        "fleeting",
+        "short-term",
+        "brief",
+        "occasional"
+    ],
+    "attr2": [
+        "stable",
+        "always",
+        "constant",
+        "persistent",
+        "chronic",
+        "prolonged",
+        "forever"
+    ]
+}
