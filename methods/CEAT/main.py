@@ -14,8 +14,15 @@ def main(models, tests, encodings, contexts, evaluations):
     results = []
     for model in models:
         for test in tests:
+
+            # TODO: indicate if shrunken word sets should be used
+            shrunken_wd_sets = True
             # load stimuli dataset
-            stimuli = json.load(open(os.path.join(data_dir, '%s%s' % (test, TEST_EXT)), 'r'))
+            if shrunken_wd_sets:
+                stimuli = json.load(open(os.path.join(data_dir, 'reduced_stimuli/%s%s' % (test, TEST_EXT)), 'r'))
+            else:
+                stimuli = json.load(open(os.path.join(data_dir, '%s%s' % (test, TEST_EXT)), 'r'))
+
             for measure in evaluations:
 
                 if measure == 'cosine':
@@ -26,214 +33,266 @@ def main(models, tests, encodings, contexts, evaluations):
                             template_sents = json.load(open(
                                 os.path.join(data_dir, '%s%s' % ('template_single', TEST_EXT)), 'r'))
 
-                            # define lists of bias tests sharing same specifications
-                            specs_sp = ['C1_name_word', 'C3_term_word', 'C6_term_word']
-                            specs_s = ['IBD_term_word', 'EIBD_term_word', 'IBD_name_word', 'EIBD_name_word',
-                                       'Dis_term_word', 'Dism_term_word', 'Occ_name_word', 'C9_term_word',
-                                       'C9_name_word', 'C9m_name_word']
-
-                            if test in specs_sp:
-                                stimuli_targ1 = stimuli['targ1']['examples_singular'] \
-                                                + stimuli['targ1']['examples_plural']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular'] \
-                                                + stimuli['targ2']['examples_plural']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
-                                                + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
-                                                + stimuli['attr2']['examples_plural']
-                            elif test in specs_s:
-                                stimuli_targ1 = stimuli['targ1']['examples_singular']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular']
-                            elif test == 'C3_name_word' or test == 'C6_name_word':
-                                stimuli_targ1 = stimuli['targ1']['examples_singular']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular'] \
-                                                + stimuli['attr1']['examples_plural']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular'] \
-                                                + stimuli['attr2']['examples_plural']
-                            elif test == 'Occ_term_word':
-                                stimuli_targ1 = stimuli['targ1']['examples_singular'] \
-                                                + stimuli['targ1']['examples_plural']
-                                stimuli_targ2 = stimuli['targ2']['examples_singular'] \
-                                                + stimuli['targ2']['examples_plural']
-                                stimuli_attr1 = stimuli['attr1']['examples_singular']
-                                stimuli_attr2 = stimuli['attr2']['examples_singular']
+                            if shrunken_wd_sets:
+                                stimuli_targ1 = stimuli['targ1']
+                                stimuli_targ2 = stimuli['targ2']
+                                stimuli_attr1 = stimuli['attr1']
+                                stimuli_attr2 = stimuli['attr2']
                             else:
-                                raise ValueError("Bias test %s not found!" % test)
+                                # define lists of bias tests sharing same specifications
+                                specs_sp = ['C1_name_word', 'C3_term_word', 'C6_term_word']
+                                specs_s = ['IBD_term_word', 'EIBD_term_word', 'IBD_name_word', 'EIBD_name_word',
+                                           'Dis_term_word', 'Dism_term_word', 'Occ_name_word', 'C9_term_word',
+                                           'C9_name_word', 'C9m_name_word']
+
+                                if test in specs_sp:
+                                    stimuli_targ1 = stimuli['targ1']['examples_singular'] \
+                                                    + stimuli['targ1']['examples_plural']
+                                    stimuli_targ2 = stimuli['targ2']['examples_singular'] \
+                                                    + stimuli['targ2']['examples_plural']
+                                    stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                    + stimuli['attr1']['examples_plural']
+                                    stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                    + stimuli['attr2']['examples_plural']
+                                elif test in specs_s:
+                                    stimuli_targ1 = stimuli['targ1']['examples_singular']
+                                    stimuli_targ2 = stimuli['targ2']['examples_singular']
+                                    stimuli_attr1 = stimuli['attr1']['examples_singular']
+                                    stimuli_attr2 = stimuli['attr2']['examples_singular']
+                                elif test == 'C3_name_word' or test == 'C6_name_word':
+                                    stimuli_targ1 = stimuli['targ1']['examples_singular']
+                                    stimuli_targ2 = stimuli['targ2']['examples_singular']
+                                    stimuli_attr1 = stimuli['attr1']['examples_singular'] \
+                                                    + stimuli['attr1']['examples_plural']
+                                    stimuli_attr2 = stimuli['attr2']['examples_singular'] \
+                                                    + stimuli['attr2']['examples_plural']
+                                elif test == 'Occ_term_word':
+                                    stimuli_targ1 = stimuli['targ1']['examples_singular'] \
+                                                    + stimuli['targ1']['examples_plural']
+                                    stimuli_targ2 = stimuli['targ2']['examples_singular'] \
+                                                    + stimuli['targ2']['examples_plural']
+                                    stimuli_attr1 = stimuli['attr1']['examples_singular']
+                                    stimuli_attr2 = stimuli['attr2']['examples_singular']
+                                else:
+                                    raise ValueError("Bias test %s not found!" % test)
 
                             sents_targ1, sents_targ2 = {i:[] for i in stimuli_targ1}, {i:[] for i in stimuli_targ2}
                             sents_attr1, sents_attr2 = {i:[] for i in stimuli_attr1}, {i:[] for i in stimuli_attr2}
 
                             # for each bias test
                             # create sents by replacing target and attribute words in template sentences
-                            if test == 'C1_name_word':
-                                for sent in template_sents['targ']['singular_thing']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
-                                for sent in template_sents['targ']['plural_thing']:
-                                    for stimulus in stimuli['targ1']['examples_plural']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_plural']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                                for sent in template_sents['attr']['plural_basic']:
-                                    for stimulus in stimuli['attr1']['examples_plural']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_plural']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'C3_name_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                                for sent in template_sents['attr']['plural_basic']:
-                                    for stimulus in stimuli['attr1']['examples_plural']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_plural']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'C3_term_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
-                                for sent in template_sents['targ']['plural_person']:
-                                    for stimulus in stimuli['targ1']['examples_plural']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_plural']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                                for sent in template_sents['attr']['plural_basic']:
-                                    for stimulus in stimuli['attr1']['examples_plural']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_plural']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'C6_name_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                                for sent in template_sents['attr']['plural_basic']:
-                                    for stimulus in stimuli['attr1']['examples_plural']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_plural']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'C6_term_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['targ']['plural_person']:
-                                    for stimulus in stimuli['targ1']['examples_plural']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_plural']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                                for sent in template_sents['attr']['plural_basic']:
-                                    for stimulus in stimuli['attr1']['examples_plural']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_plural']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'C9_name_word' or test == 'C9m_name_word' or test == 'C9_term_word':
-                                for sent in template_sents['targ']['singular_thing']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_time']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'Occ_name_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                            elif test == 'Occ_term_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['targ']['plural_person']:
-                                    for stimulus in stimuli['targ1']['examples_plural']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_plural']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_basic']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
-                            elif test == 'Dis_term_word' or test == 'Dism_term_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_time']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'IBD_name_word' or test == 'EIBD_name_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
-                                for sent in template_sents['attr']['singular_time']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
-                            elif test == 'IBD_term_word' or test == 'EIBD_term_word':
-                                for sent in template_sents['targ']['singular_person']:
-                                    for stimulus in stimuli['targ1']['examples_singular']:
-                                        sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
-                                    for stimulus in stimuli['targ2']['examples_singular']:
-                                        sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
-                                for sent in template_sents['attr']['singular_time']:
-                                    for stimulus in stimuli['attr1']['examples_singular']:
-                                        sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
-                                    for stimulus in stimuli['attr2']['examples_singular']:
-                                        sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                            if shrunken_wd_sets:
+                                if test == 'C1_name_word':
+                                    for sent in template_sents['targ']['singular_thing']:
+                                        for stimulus in stimuli['targ1']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                        for stimulus in stimuli['targ2']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C3_name_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C9_name_word' or test == 'C9m_name_word' or test == 'C9_term_word':
+                                    for sent in template_sents['targ']['singular_thing']:
+                                        for stimulus in stimuli['targ1']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_time']:
+                                        for stimulus in stimuli['attr1']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'Occ_name_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                        for stimulus in stimuli['attr2']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                            else:
+                                if test == 'C1_name_word':
+                                    for sent in template_sents['targ']['singular_thing']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                    for sent in template_sents['targ']['plural_thing']:
+                                        for stimulus in stimuli['targ1']['examples_plural']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_plural']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                    for sent in template_sents['attr']['plural_basic']:
+                                        for stimulus in stimuli['attr1']['examples_plural']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_plural']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C3_name_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                    for sent in template_sents['attr']['plural_basic']:
+                                        for stimulus in stimuli['attr1']['examples_plural']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_plural']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C3_term_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                    for sent in template_sents['targ']['plural_person']:
+                                        for stimulus in stimuli['targ1']['examples_plural']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_plural']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                    for sent in template_sents['attr']['plural_basic']:
+                                        for stimulus in stimuli['attr1']['examples_plural']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_plural']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C6_name_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                    for sent in template_sents['attr']['plural_basic']:
+                                        for stimulus in stimuli['attr1']['examples_plural']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_plural']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C6_term_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['targ']['plural_person']:
+                                        for stimulus in stimuli['targ1']['examples_plural']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_plural']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                    for sent in template_sents['attr']['plural_basic']:
+                                        for stimulus in stimuli['attr1']['examples_plural']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_plural']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'C9_name_word' or test == 'C9m_name_word' or test == 'C9_term_word':
+                                    for sent in template_sents['targ']['singular_thing']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_time']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'Occ_name_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                elif test == 'Occ_term_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['targ']['plural_person']:
+                                        for stimulus in stimuli['targ1']['examples_plural']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_plural']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_basic']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', 'a ' + stimulus))
+                                elif test == 'Dis_term_word' or test == 'Dism_term_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_time']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'IBD_name_word' or test == 'EIBD_name_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', stimulus))
+                                    for sent in template_sents['attr']['singular_time']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
+                                elif test == 'IBD_term_word' or test == 'EIBD_term_word':
+                                    for sent in template_sents['targ']['singular_person']:
+                                        for stimulus in stimuli['targ1']['examples_singular']:
+                                            sents_targ1[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                        for stimulus in stimuli['targ2']['examples_singular']:
+                                            sents_targ2[stimulus].append(sent.replace('TTT', 'a ' + stimulus))
+                                    for sent in template_sents['attr']['singular_time']:
+                                        for stimulus in stimuli['attr1']['examples_singular']:
+                                            sents_attr1[stimulus].append(sent.replace('AAA', stimulus))
+                                        for stimulus in stimuli['attr2']['examples_singular']:
+                                            sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
 
                             if model == 'elmo':
                                 model_loaded = elmo.load_model()
@@ -276,10 +335,10 @@ def main(models, tests, encodings, contexts, evaluations):
                             raise ValueError("Context %s not found!" % context)
 
                         encs = {}
-                        encs["targ1"] = {'concept': stimuli['targ1']['concept'], 'encs': encs_targ1}
-                        encs["targ2"] = {'concept': stimuli['targ2']['concept'], 'encs': encs_targ2}
-                        encs["attr1"] = {'concept': stimuli['attr1']['concept'], 'encs': encs_attr1}
-                        encs["attr2"] = {'concept': stimuli['attr2']['concept'], 'encs': encs_attr2}
+                        encs["targ1"] = {'encs': encs_targ1}
+                        encs["targ2"] = {'encs': encs_targ2}
+                        encs["attr1"] = {'encs': encs_attr1}
+                        encs["attr2"] = {'encs': encs_attr2}
 
                         for encoding in encodings:
                             # default parameter: N = 10,000

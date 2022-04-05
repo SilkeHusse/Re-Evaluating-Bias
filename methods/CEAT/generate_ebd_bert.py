@@ -26,9 +26,11 @@ else:
 c1_name_targ1 = ["aster","clover","hyacinth","marigold","poppy","azalea","crocus","iris","orchid","rose","bluebell",
                  "daffodil","lilac","pansy","tulip","buttercup","daisy","lily","peony","violet","carnation","gladiola",
                  "magnolia","petunia","zinnia"]
+c1_name_targ1_shrunken = ["clover","poppy","iris","orchid","rose","daisy","lily","violet","magnolia"]
 c1_name_targ2 = ["ant","caterpillar","flea","locust","spider","bedbug","centipede","fly","maggot","tarantula","bee",
                  "cockroach","gnat","mosquito","termite","beetle","cricket","hornet","moth","wasp","blackfly",
                  "dragonfly","horsefly","roach","weevil"]
+c1_name_targ2_shrunken = ["orchid","magnolia","iris","daisy","poppy","lily","rose","clover","violet"]
 c1_name_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -71,6 +73,7 @@ c3_name_targ1 = [
       "Megan",
       "Rachel"
     ]
+c3_name_targ1_shrunken = ["Frank","Colleen","Heather","Matthew","Katie","Lauren","Roger","Paul","Alan","Melanie"]
 c3_name_targ2 = [
       "Alonzo",
       "Jamel",
@@ -105,6 +108,7 @@ c3_name_targ2 = [
       "Malika",
       "Yvette"
     ]
+c3_name_targ2_shrunken = ["Theo","Jerome","Leroy","Lamar","Lionel","Malik","Tyrone","Ebony","Jasmine","Tia"]
 c3_name_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -183,6 +187,7 @@ c9_name_targ1 = [
       "insomnia",
       "dementia"
     ]
+c9_name_targ1_shrunken = ["depression","dementia","anxiety","stress","mania","panic"]
 c9_name_targ2 = [
       "fibrosis",
       "epilepsy",
@@ -199,6 +204,7 @@ c9_name_targ2 = [
       "tumour",
       "bronchitis"
     ]
+c9_name_targ2_shrunken = ["cancer","virus","diabetes","arthritis","infection","asthma"]
 c9_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
@@ -219,6 +225,7 @@ c9m_name_targ1 = [
       "insomnia",
       "dementia"
     ]
+c9m_name_targ1_shrunken = ["dementia","depression","mania","anxiety","schizophrenia","stress"]
 c9m_name_targ2 = [
       "fibrosis",
       "epilepsy",
@@ -235,12 +242,15 @@ c9m_name_targ2 = [
       "tumour",
       "bronchitis"
     ]
+c9m_name_targ2_shrunken = ["cancer","virus","diabetes","arthritis","infection","asthma"]
 c9m_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional","transitory"]
 c9m_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever","lasting"]
 
 # C9_term_word
 c9_term_targ1 = ["sad","hopeless","gloomy","tearful","miserable","depressed"]
+c9_term_targ1_shrunken = ["sad","hopeless","miserable","depressed"]
 c9_term_targ2 = ["sick","illness","influenza","disease","virus","cancer"]
+c9_term_targ2_shrunken = ["miserable","hopeless","sad","depressed"]
 c9_term_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_term_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
@@ -389,6 +399,8 @@ occ_name_targ1 = [
       "Malik",
       "Tyrone"
     ]
+occ_name_targ1_shrunken = ["Steve","John","Leroy","Tyrone","Kevin","Neil","Mike","Brad","Jamal","Brendan","Malik",
+                           "Greg","Brett","Paul","Marquis"]
 occ_name_targ2 = [
       "Allison",
       "Anne",
@@ -417,6 +429,8 @@ occ_name_targ2 = [
       "Deja",
       "Latisha"
     ]
+occ_name_targ2_shrunken = ["Allison","Anne","Carrie","Emily","Jill","Laurie","Kristen","Meredith","Molly","Amy",
+                           "Claire","Katie","Madeline","Ebony","Precious"]
 occ_name_attr1 = [
       "driver",
       "supervisor",
@@ -819,42 +833,59 @@ def shorten_sent(sent, wd):
         new_sent = sent
     return new_sent
 
-def get_stimuli(test_name):
+def get_stimuli(test_name, shrunken_wd_sets):
     """ Function to get stimuli for specified bias test """
-    if test_name == 'c1_name':
-        targ1, targ2, attr1, attr2 = c1_name_targ1, c1_name_targ2, c1_name_attr1, c1_name_attr2
-    elif test_name == 'c3_name':
-        targ1, targ2, attr1, attr2 = c3_name_targ1, c3_name_targ2, c3_name_attr1, c3_name_attr2
-    elif test_name == 'c3_term':
-        targ1, targ2, attr1, attr2 = c3_term_targ1, c3_term_targ2, c3_term_attr1, c3_term_attr2
-    elif test_name == 'c6_name':
-        targ1, targ2, attr1, attr2 = c6_name_targ1, c6_name_targ2, c6_name_attr1, c6_name_attr2
-    elif test_name == 'c6_term':
-        targ1, targ2, attr1, attr2 = c6_term_targ1, c6_term_targ2, c6_term_attr1, c6_term_attr2
-    elif test_name == 'c9_name':
-        targ1, targ2, attr1, attr2 = c9_name_targ1, c9_name_targ2, c9_name_attr1, c9_name_attr2
-    elif test_name == 'c9m_name':
-        targ1, targ2, attr1, attr2 = c9m_name_targ1, c9m_name_targ2, c9m_name_attr1, c9m_name_attr2
-    elif test_name == 'c9_term':
-        targ1, targ2, attr1, attr2 = c9_term_targ1, c9_term_targ2, c9_term_attr1, c9_term_attr2
-    elif test_name == 'dis_term':
-        targ1, targ2, attr1, attr2 = dis_term_targ1, dis_term_targ2, dis_term_attr1, dis_term_attr2
-    elif test_name == 'dism_term':
-        targ1, targ2, attr1, attr2 = dism_term_targ1, dism_term_targ2, dism_term_attr1, dism_term_attr2
-    elif test_name == 'occ_name':
-        targ1, targ2, attr1, attr2 = occ_name_targ1, occ_name_targ2, occ_name_attr1, occ_name_attr2
-    elif test_name == 'occ_term':
-        targ1, targ2, attr1, attr2 = occ_term_targ1, occ_term_targ2, occ_term_attr1, occ_term_attr2
-    elif test_name == 'ibd_name':
-        targ1, targ2, attr1, attr2 = ibd_name_targ1, ibd_name_targ2, ibd_name_attr1, ibd_name_attr2
-    elif test_name == 'ibd_term':
-        targ1, targ2, attr1, attr2 = ibd_term_targ1, ibd_term_targ2, ibd_term_attr1, ibd_term_attr2
-    elif test_name == 'eibd_name':
-        targ1, targ2, attr1, attr2 = eibd_name_targ1, eibd_name_targ2, eibd_name_attr1, eibd_name_attr2
-    elif test_name == 'eibd_term':
-        targ1, targ2, attr1, attr2 = eibd_term_targ1, eibd_term_targ2, eibd_term_attr1, eibd_term_attr2
+    if shrunken_wd_sets:
+          if test_name == 'c1_name':
+                targ1, targ2, attr1, attr2 = c1_name_targ1_shrunken, c1_name_targ2_shrunken, c1_name_attr1, c1_name_attr2
+          elif test_name == 'c3_name':
+                targ1, targ2, attr1, attr2 = c3_name_targ1_shrunken, c3_name_targ2_shrunken, c3_name_attr1, c3_name_attr2
+          elif test_name == 'c9_name':
+                targ1, targ2, attr1, attr2 = c9_name_targ1_shrunken, c9_name_targ2_shrunken, c9_name_attr1, c9_name_attr2
+          elif test_name == 'c9m_name':
+                targ1, targ2, attr1, attr2 = c9m_name_targ1_shrunken, c9m_name_targ2_shrunken, c9m_name_attr1, c9m_name_attr2
+          elif test_name == 'c9_term':
+                targ1, targ2, attr1, attr2 = c9_term_targ1_shrunken, c9_term_targ2_shrunken, c9_term_attr1, c9_term_attr2
+          elif test_name == 'occ_name':
+                targ1, targ2, attr1, attr2 = occ_name_targ1_shrunken, occ_name_targ2_shrunken, occ_name_attr1, occ_name_attr2
+          else:
+                raise ValueError("Stimuli for bias test %s not found!" % test_name)
     else:
-        raise ValueError("Stimuli for bias test %s not found!" % test_name)
+          if test_name == 'c1_name':
+                targ1, targ2, attr1, attr2 = c1_name_targ1, c1_name_targ2, c1_name_attr1, c1_name_attr2
+          elif test_name == 'c3_name':
+                targ1, targ2, attr1, attr2 = c3_name_targ1, c3_name_targ2, c3_name_attr1, c3_name_attr2
+          elif test_name == 'c3_term':
+                targ1, targ2, attr1, attr2 = c3_term_targ1, c3_term_targ2, c3_term_attr1, c3_term_attr2
+          elif test_name == 'c6_name':
+                targ1, targ2, attr1, attr2 = c6_name_targ1, c6_name_targ2, c6_name_attr1, c6_name_attr2
+          elif test_name == 'c6_term':
+                targ1, targ2, attr1, attr2 = c6_term_targ1, c6_term_targ2, c6_term_attr1, c6_term_attr2
+          elif test_name == 'c9_name':
+                targ1, targ2, attr1, attr2 = c9_name_targ1, c9_name_targ2, c9_name_attr1, c9_name_attr2
+          elif test_name == 'c9m_name':
+                targ1, targ2, attr1, attr2 = c9m_name_targ1, c9m_name_targ2, c9m_name_attr1, c9m_name_attr2
+          elif test_name == 'c9_term':
+                targ1, targ2, attr1, attr2 = c9_term_targ1, c9_term_targ2, c9_term_attr1, c9_term_attr2
+          elif test_name == 'dis_term':
+                targ1, targ2, attr1, attr2 = dis_term_targ1, dis_term_targ2, dis_term_attr1, dis_term_attr2
+          elif test_name == 'dism_term':
+                targ1, targ2, attr1, attr2 = dism_term_targ1, dism_term_targ2, dism_term_attr1, dism_term_attr2
+          elif test_name == 'occ_name':
+                targ1, targ2, attr1, attr2 = occ_name_targ1, occ_name_targ2, occ_name_attr1, occ_name_attr2
+          elif test_name == 'occ_term':
+                targ1, targ2, attr1, attr2 = occ_term_targ1, occ_term_targ2, occ_term_attr1, occ_term_attr2
+          elif test_name == 'ibd_name':
+                targ1, targ2, attr1, attr2 = ibd_name_targ1, ibd_name_targ2, ibd_name_attr1, ibd_name_attr2
+          elif test_name == 'ibd_term':
+                targ1, targ2, attr1, attr2 = ibd_term_targ1, ibd_term_targ2, ibd_term_attr1, ibd_term_attr2
+          elif test_name == 'eibd_name':
+                targ1, targ2, attr1, attr2 = eibd_name_targ1, eibd_name_targ2, eibd_name_attr1, eibd_name_attr2
+          elif test_name == 'eibd_term':
+                targ1, targ2, attr1, attr2 = eibd_term_targ1, eibd_term_targ2, eibd_term_attr1, eibd_term_attr2
+          else:
+                raise ValueError("Stimuli for bias test %s not found!" % test_name)
+
     return targ1, targ2, attr1, attr2
 
 def create_batches(sent_lst):
@@ -889,10 +920,10 @@ def load_model(model_name):
 
     return model.to(device), tokenizer, subword_tokenizer
 
-def bert(sent_dict, test_name):
+def bert(sent_dict, test_name, shrunken_wd_sets):
     """ Function to encode sentences with BERT """
 
-    targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name)
+    targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name, shrunken_wd_sets)
     wd_list = targ1_lst + targ2_lst + attr1_lst + attr2_lst
     out_dict = {wd:{'sent': [],
                     'word-average': [],
@@ -1098,20 +1129,30 @@ def ceat_meta(encs, encoding, N=10000):
     v = 1/np.sum(w_star_array)
     z = ces/np.sqrt(v)
     # 2-tailed p-value, standard normal cdf (by CLS)
-    p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    p_value = 2 * scipy.stats.norm.sf(abs(z), loc=0, scale=1)
 
     return ces, p_value
 
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
-all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9m_name', 'c9_term',
+# TODO: indicate if shrunken word sets should be used
+shrunken_wd_sets = True
+
+if shrunken_wd_sets:
+      all_tests = ['c1_name', 'c3_name', 'c9_name', 'c9m_name', 'c9_term', 'occ_name']
+      # for c6_name, c6_term, occ_term the shrunken word sets did not change compared to the original word sets
+      # for c3_term, dis_term, dism_term, ibd_name, ibd_term , eibd_name, eibd_term the shrunken word sets reduced to 0
+else:
+      all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9m_name', 'c9_term',
              'occ_name', 'occ_term', 'dis_term', 'dism_term', 'ibd_name', 'ibd_term', 'eibd_name', 'eibd_term']
+
 results = []
 
 for test in all_tests:
-      embeds = bert(sent_dict, test)
+      embeds = bert(sent_dict, test, shrunken_wd_sets)
 
-      targ1, targ2, attr1, attr2 = get_stimuli(test)
+      targ1, targ2, attr1, attr2 = get_stimuli(test, shrunken_wd_sets)
       encs = {}
       i = 0
       # map embeddings to respective word set

@@ -101,7 +101,8 @@ def ceat_meta(encs, encoding, N=10000):
     ces = np.sum(w_star_array*e_array)/np.sum(w_star_array)
     v = 1/np.sum(w_star_array)
     z = ces/np.sqrt(v)
-    # 2-tailed p-value, standard normal cdf (by CLS)
-    p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    # TODO: 2-tailed p-value, standard normal cdf (by CLS)
+    #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    p_value = 2 * scipy.stats.norm.sf(abs(z), loc = 0, scale = 1)
 
     return ces, p_value
