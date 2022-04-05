@@ -6,6 +6,7 @@ Supplementary?
   - [Requirements](#reqs)
   - [Language Models](#models)
   - [Reddit Data](#reddit)
+  - [Shrunken Word Sets](#shrinking)
 - [Generate Embeddings](#embeds)
 - [Author Information](#author) 
 
@@ -35,6 +36,10 @@ If you decide to fetch the reddit data yourself, then in the subfolder `data/red
 - `comment_sample_double.py`: from all 12 pickle files sample at most 10,000 sentences per stimuli and save them in a single pickle file
 
 > `sent_dict_double.pickle` <br />
+
+<a name="shrinking"></a>
+### Shrunken Word Sets
+To reproduce the results for the methods SEAT and CEAT in the case of shrunken word sets, you will have to set the variable `shrunken_wd_sets` in the respective `main.py` file to `True`.
 
 <a name="embeds"></a>
 ## Generate Embeddings
