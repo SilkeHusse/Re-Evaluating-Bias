@@ -912,6 +912,7 @@ def load_model(model_name):
     """ Load language model and corresponding tokenizer if applicable """
     if model_name == 'bert':
           model = BertModel.from_pretrained('bert-base-cased')
+          model.eval()
           tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
           # additional 'Fast' BERT tokenizer for subword tokenization ID mapping
           subword_tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
@@ -1137,8 +1138,7 @@ def ceat_meta(encs, encoding, N=10000):
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
 # TODO: indicate if shrunken word sets should be used
-shrunken_wd_sets = True
-
+shrunken_wd_sets = False
 if shrunken_wd_sets:
       all_tests = ['c1_name', 'c3_name', 'c9_name', 'c9m_name', 'c9_term', 'occ_name']
       # for c6_name, c6_term, occ_term the shrunken word sets did not change compared to the original word sets
