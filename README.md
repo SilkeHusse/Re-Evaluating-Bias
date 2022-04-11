@@ -6,7 +6,7 @@ Supplementary?
   - [Requirements](#reqs)
   - [Language Models](#models)
   - [Reddit Data](#reddit)
-  - [Shrunken Word Sets](#shrinking)
+  - [Modified Word Sets](#mod)
 - [Generate Embeddings](#embeds)
 - [Author Information](#author) 
 
@@ -37,9 +37,9 @@ If you decide to fetch the reddit data yourself, then in the subfolder `data/red
 
 > `sent_dict_double.pickle` <br />
 
-<a name="shrinking"></a>
-### Shrunken Word Sets
-To reproduce the results for the methods SEAT and CEAT in the case of shrunken word sets, you will have to set the variable `shrunken_wd_sets` in the respective `main.py` file to `True`.
+<a name="mod"></a>
+### Modified Word Sets
+To reproduce the results for the methods SEAT and CEAT in the case of shrunken word sets, you will have to set the variable `shrunken_wd_sets` in the respective `main.py` file to `True`. To reproduce the results for the methods SEAT and CEAT in the case of minimal word sets, you will have to set the variable `minimal_wd_sets` in the respective `main.py` file to `True`.
 
 <a name="embeds"></a>
 ## Generate Embeddings
