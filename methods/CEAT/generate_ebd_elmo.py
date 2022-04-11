@@ -1067,7 +1067,7 @@ def ceat_meta(encs, encoding, N=10000):
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
 # TODO: indicate if shrunken word sets should be used
-shrunken_wd_sets = True
+shrunken_wd_sets = False
 
 if shrunken_wd_sets:
       all_tests = ['c1_name', 'c3_name', 'c9_name', 'c9m_name', 'c9_term', 'occ_name']

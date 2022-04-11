@@ -912,6 +912,7 @@ def load_model(model_name):
     """ Load language model and corresponding tokenizer if applicable """
     if model_name == 'gpt2':
           model = GPT2Model.from_pretrained('gpt2')
+          model.eval()
           tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
           # specifications for padding and truncation
           tokenizer.truncation_side, tokenizer.padding_side = "right", "right"
@@ -1136,7 +1137,7 @@ def ceat_meta(encs, encoding, N=10000):
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
 # TODO: indicate if shrunken word sets should be used
-shrunken_wd_sets = True
+shrunken_wd_sets = False
 
 if shrunken_wd_sets:
       all_tests = ['c1_name', 'c3_name', 'c9_name', 'c9m_name', 'c9_term', 'occ_name']
