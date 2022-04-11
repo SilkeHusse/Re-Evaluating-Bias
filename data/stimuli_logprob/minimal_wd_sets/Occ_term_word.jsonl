@@ -1,0 +1,72 @@
+{
+  "targ1": {
+    "concept": "M_term",
+    "examples_singular": [
+      "he"
+    ],
+    "examples_plural": [
+      "men",
+      "boys"
+    ]
+  },
+  "targ2": {
+    "concept": "F_term",
+    "examples_singular": [
+      "she"
+    ],
+    "examples_plural": [
+      "women",
+      "girls"
+    ]
+  },
+  "attr1": {
+    "concept": "M_occupation",
+    "examples_singular": [
+      "driver",
+      "supervisor",
+      "janitor",
+      "mover",
+      "laborer",
+      "construction",
+      "worker",
+      "chief",
+      "developer",
+      "carpenter",
+      "manager",
+      "lawyer",
+      "farmer",
+      "salesperson",
+      "physician",
+      "guard",
+      "analyst",
+      "mechanic",
+      "sheriff",
+      "ceo"
+    ]
+  },
+  "attr2": {
+    "concept": "F_occupation",
+    "examples_singular": [
+      "attendant",
+      "cashier",
+      "teacher",
+      "nurse",
+      "assistant",
+      "secretary",
+      "auditor",
+      "cleaner",
+      "receptionist",
+      "clerk",
+      "counselor",
+      "designer",
+      "hairdresser",
+      "writer",
+      "housekeeper",
+      "baker",
+      "accountant",
+      "editor",
+      "librarian",
+      "tailor"
+    ]
+  }
+}

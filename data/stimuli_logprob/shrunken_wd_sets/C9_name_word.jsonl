@@ -1,0 +1,44 @@
+{
+    "targ1": {
+        "examples_singular": [
+            "depression",
+            "dementia",
+            "anxiety",
+            "stress",
+            "mania",
+            "panic"
+        ]
+    },
+    "targ2": {
+        "examples_singular": [
+            "cancer",
+            "virus",
+            "diabetes",
+            "arthritis",
+            "infection",
+            "asthma"
+        ]
+    },
+    "attr1": {
+        "examples_singular": [
+            "impermanent",
+            "unstable",
+            "variable",
+            "fleeting",
+            "short-term",
+            "brief",
+            "occasional"
+        ]
+    },
+    "attr2": {
+        "examples_singular": [
+            "stable",
+            "always",
+            "constant",
+            "persistent",
+            "chronic",
+            "prolonged",
+            "forever"
+        ]
+    }
+}

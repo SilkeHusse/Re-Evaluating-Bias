@@ -1,0 +1,88 @@
+{
+    "targ1": {
+        "examples_singular": [
+            "steve",
+            "john",
+            "leroy",
+            "tyrone",
+            "kevin",
+            "neil",
+            "mike",
+            "brad",
+            "jamal",
+            "brendan",
+            "malik",
+            "greg",
+            "brett",
+            "paul",
+            "marquis"
+        ]
+    },
+    "targ2": {
+        "examples_singular": [
+            "allison",
+            "anne",
+            "carrie",
+            "emily",
+            "jill",
+            "laurie",
+            "kristen",
+            "meredith",
+            "molly",
+            "amy",
+            "claire",
+            "katie",
+            "madeline",
+            "ebony",
+            "precious"
+        ]
+    },
+    "attr1": {
+        "examples_singular": [
+            "driver",
+            "supervisor",
+            "janitor",
+            "mover",
+            "laborer",
+            "construction",
+            "worker",
+            "chief",
+            "developer",
+            "carpenter",
+            "manager",
+            "lawyer",
+            "farmer",
+            "salesperson",
+            "physician",
+            "guard",
+            "analyst",
+            "mechanic",
+            "sheriff",
+            "ceo"
+        ]
+    },
+    "attr2": {
+        "examples_singular": [
+            "attendant",
+            "cashier",
+            "teacher",
+            "nurse",
+            "assistant",
+            "secretary",
+            "auditor",
+            "cleaner",
+            "receptionist",
+            "clerk",
+            "counselor",
+            "designer",
+            "hairdresser",
+            "writer",
+            "housekeeper",
+            "baker",
+            "accountant",
+            "editor",
+            "librarian",
+            "tailor"
+        ]
+    }
+}

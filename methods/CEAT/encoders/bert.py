@@ -12,6 +12,7 @@ def load_model():
     """ Load BERT model (bbc) and corresponding tokenizer from local files """
 
     model = BertModel.from_pretrained(models_dir + '/bert/base-cased/')
+    model.eval()
     tokenizer = BertTokenizer.from_pretrained(models_dir + '/bert/base-cased/')
     # additional 'Fast' BERT tokenizer for subword tokenization ID mapping
     subword_tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')

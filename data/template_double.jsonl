@@ -3,12 +3,25 @@
     "singular_basic": [
       "TTT is AAA."
     ],
+    "singular_person": [
+      "The TTT person is AAA."
+    ],
     "singular_hobby": [
       "TTT likes AAA.",
       "TTT is interested in AAA."
     ],
+    "singular_disease": [
+      "The TTT disease is AAA."
+    ],
     "plural_basic": [
       "TTT are AAA."
+    ],
+    "plural_person": [
+      "TTT people are AAA."
+    ],
+    "plural_hobby": [
+      "TTT like AAA.",
+      "TTT are interested in AAA."
     ]
   }
 }

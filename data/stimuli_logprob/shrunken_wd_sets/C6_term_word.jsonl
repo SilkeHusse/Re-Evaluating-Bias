@@ -1,0 +1,69 @@
+{
+    "targ1": {
+        "examples_singular": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son"
+        ]
+    },
+    "targ2": {
+        "examples_singular": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter"
+        ]
+    },
+    "attr1": {
+        "examples_singular": [
+            "executive",
+            "management",
+            "professional",
+            "corporation",
+            "salary",
+            "office",
+            "business",
+            "career"
+        ],
+        "examples_plural": [
+            "executives",
+            "managements",
+            "corporations",
+            "salaries",
+            "offices",
+            "businesses",
+            "careers"
+        ]
+    },
+    "attr2": {
+        "examples_singular": [
+            "home",
+            "parent",
+            "child",
+            "family",
+            "cousin",
+            "marriage",
+            "wedding",
+            "relative"
+        ],
+        "examples_plural": [
+            "homes",
+            "parents",
+            "children",
+            "families",
+            "cousins",
+            "marriages",
+            "weddings",
+            "relatives"
+        ]
+    }
+}

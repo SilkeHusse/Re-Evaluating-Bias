@@ -1,0 +1,69 @@
+{
+    "targ1": {
+        "examples_singular": [
+            "john",
+            "paul",
+            "mike",
+            "kevin",
+            "steve",
+            "greg",
+            "jeff",
+            "bill"
+        ]
+    },
+    "targ2": {
+        "examples_singular": [
+            "amy",
+            "joan",
+            "lisa",
+            "sarah",
+            "diana",
+            "kate",
+            "ann",
+            "donna"
+        ]
+    },
+    "attr1": {
+        "examples_singular": [
+            "executive",
+            "management",
+            "professional",
+            "corporation",
+            "salary",
+            "office",
+            "business",
+            "career"
+        ],
+        "examples_plural": [
+            "executives",
+            "managements",
+            "corporations",
+            "salaries",
+            "offices",
+            "businesses",
+            "careers"
+        ]
+    },
+    "attr2": {
+        "examples_singular": [
+            "home",
+            "parent",
+            "child",
+            "family",
+            "cousin",
+            "marriage",
+            "wedding",
+            "relative"
+        ],
+        "examples_plural": [
+            "homes",
+            "parents",
+            "children",
+            "families",
+            "cousins",
+            "marriages",
+            "weddings",
+            "relatives"
+        ]
+    }
+}

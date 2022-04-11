@@ -12,6 +12,7 @@ def load_model():
     """ Load GPT2 model and corresponding tokenizer from local files """
 
     model = GPT2Model.from_pretrained(models_dir + '/gpt2/')
+    model.eval()
     tokenizer = GPT2Tokenizer.from_pretrained(models_dir + '/gpt2/')
     # additional 'Fast' GPT2 tokenizer for subword tokenization ID mapping
     subword_tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')

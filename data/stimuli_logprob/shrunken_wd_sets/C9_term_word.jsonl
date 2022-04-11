@@ -1,0 +1,40 @@
+{
+    "targ1": {
+        "examples_singular": [
+            "sad",
+            "hopeless",
+            "miserable",
+            "depressed"
+        ]
+    },
+    "targ2": {
+        "examples_singular": [
+            "influenza",
+            "cancer",
+            "illness",
+            "sick"
+        ]
+    },
+    "attr1": {
+        "examples_singular": [
+            "impermanent",
+            "unstable",
+            "variable",
+            "fleeting",
+            "short-term",
+            "brief",
+            "occasional"
+        ]
+    },
+    "attr2": {
+        "examples_singular": [
+            "stable",
+            "always",
+            "constant",
+            "persistent",
+            "chronic",
+            "prolonged",
+            "forever"
+        ]
+    }
+}
