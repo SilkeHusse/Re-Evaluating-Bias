@@ -97,8 +97,8 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
                             idx_new = len(subword_ids) - subword_ids[::-1].index(idx)
                             # extract rep of token of interest as last subword
                             encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy()
-
         elif encoding_level == 'sent':
             # extract rep of sent as [CLS] token
             encs[sent] = vecs['last_hidden_state'][0][0].detach().numpy()
+
     return encs

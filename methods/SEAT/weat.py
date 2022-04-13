@@ -137,4 +137,5 @@ def run_test(encs, parametric, n_samples=100000):
     cossims = construct_cossim_lookup(XY, AB)
     p_val = p_val_permutation_test(X, Y, A, B, n_samples=n_samples, cossims=cossims, parametric=parametric)
     esize = effect_size(X, Y, A, B, cossims=cossims)
+
     return esize, p_val

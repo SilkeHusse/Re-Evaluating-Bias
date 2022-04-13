@@ -16,7 +16,7 @@ from allennlp.commands.elmo import ElmoEmbedder
 
 if torch.cuda.is_available():
     print('GPU is available.')
-    device = torch.device("cuda") # set device
+    device = torch.device("cuda")
 else:
     print('No GPU available, using CPU instead.')
     device = torch.device("cpu")
@@ -908,7 +908,7 @@ def create_batches(sent_lst):
       return sents_batch
 
 def load_model(model_name):
-    """ Load language model and corresponding tokenizer if applicable """
+    """ Load model and corresponding tokenizers if applicable """
     if model_name == 'elmo':
           cuda_device = 0 if torch.cuda.is_available() else -1
           elmo = ElmoEmbedder(
@@ -1016,7 +1016,7 @@ def ceat_meta(encs, encoding, N=10000):
         for wd in list(weat_dict.keys()):
             if len(weat_dict[wd]) < N : # case: sample with replacement
                 idx_sents = random.choices(range(len(weat_dict[wd])), k=N)
-            else: # sample without replacement
+            else: # case: sample without replacement
                 idx_sents = random.sample(range(len(weat_dict[wd])), N)
             sents_dict[wd] = idx_sents
         sents_idx_lsts.append(sents_dict)

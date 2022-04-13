@@ -1,3 +1,4 @@
+""" Implementation of CEAT calculations """
 import numpy as np
 import scipy.stats
 import random
@@ -59,7 +60,7 @@ def ceat_meta(encs, encoding, N=10000):
         for wd in list(weat_dict.keys()):
             if len(weat_dict[wd]) < N : # case: sample with replacement
                 idx_sents = random.choices(range(len(weat_dict[wd])), k=N)
-            else: # sample without replacement
+            else: # case: sample without replacement
                 idx_sents = random.sample(range(len(weat_dict[wd])), N)
             sents_dict[wd] = idx_sents
         sents_idx_lsts.append(sents_dict)
@@ -101,7 +102,7 @@ def ceat_meta(encs, encoding, N=10000):
     ces = np.sum(w_star_array*e_array)/np.sum(w_star_array)
     v = 1/np.sum(w_star_array)
     z = ces/np.sqrt(v)
-    # TODO: 2-tailed p-value, standard normal cdf (by CLS)
+    # 2-tailed p-value, standard normal cdf (by CLS)
     #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
     p_value = 2 * scipy.stats.norm.sf(abs(z), loc = 0, scale = 1)
 

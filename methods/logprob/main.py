@@ -8,8 +8,8 @@ TEST_EXT = '.jsonl'
 dirname = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(dirname)), 'data')
 
-def main(models, tests, encodings, contexts, evaluations, original):
-    """ Main function of logprob method """
+def main(models, tests, contexts, evaluations, original):
+    """ Main function of (m-)logprob method """
 
     # original logprob method only applicable for certain bias tests
     if original:
@@ -21,64 +21,52 @@ def main(models, tests, encodings, contexts, evaluations, original):
 
     results = []
     for model in models:
+
+        if model == 'elmo':
+            model_loaded = elmo.load_model()
+            tokenizer_loaded, subword_tokenizer_loaded = None, None
+        elif model == 'bert':
+            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
+        elif model == 'gpt2':
+            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
+        else:
+            raise ValueError("Model %s not found!" % model)
+
         for test in tests:
 
             for measure in evaluations:
 
-                # TODO: cosine measure --> is this equivalent to SEAT?
                 if measure == 'cosine':
+                    # TODO: is this equivalent to SEAT?
                     for context in contexts:
                         if context == 'template':
                             pass
                         elif context == 'reddit':
                             pass
-                            #print(f'For context {context} no results can be generated at runtime and thus is skipped.')
-                            #print(f'Please see the results folder directly or execute a respective generate_ebd_* file.')
-                            #break
                         else:
                             raise ValueError("Context %s not found!" % context)
 
-                        for encoding in encodings:
-                            pass
-                            # default parameter: N = 10,000
-                            #esize, pval = ceat.ceat_meta(encs, encoding)
-                            #results.append(dict(
-                            #    method='CEAT',
-                            #    test=test,
-                            #    model=model,
-                            #    evaluation_measure=measure,
-                            #    context=context,
-                            #    encoding_level=encoding,
-                            #    p_value=pval,
-                            #    effect_size=esize))
+                        # here: esize, pval computation
+                        # here: append to results
 
                 elif measure == 'prob':
+
                     for context in contexts:
+
                         if context == 'template':
 
                             # load template sentences dataset
                             template_sents = json.load(open(
                                 os.path.join(data_dir, '%s%s' % ('template_double', TEST_EXT)), 'r'))
 
-                            # load respective LM
-                            if model == 'elmo':
-                                model_loaded = elmo.load_model()
-                                tokenizer_loaded, subword_tokenizer_loaded = None, None
-                            elif model == 'bert':
-                                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
-                            elif model == 'gpt2':
-                                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
-                            else:
-                                raise ValueError("Model %s not found!" % model)
-
                             # load stimuli dataset
                             if original:
+
                                 if test in tests_shrunken:
                                     stimuli = json.load(open(os.path.join(
                                             data_dir, 'stimuli_logprob/shrunken_wd_sets/%s%s' % (test, TEST_EXT)), 'r'))
 
-                                    # for each bias test
-                                    # adapt template sents for log prob bias score, save with respective stimuli
+                                    # adapt template sents for method, save with respective stimuli
                                     final_template = {}
                                     if test == 'C1_name_word':
                                         idx_template_sent = 0
@@ -157,9 +145,8 @@ def main(models, tests, encodings, contexts, evaluations, original):
                                     else:
                                         raise ValueError("Shrunken bias test %s not found!" % test)
 
-                                    esize, pval = logprob.logprob_cal(model_loaded, tokenizer_loaded,
-                                                                          subword_tokenizer_loaded,
-                                                                          None, final_template, original)
+                                    esize, pval = logprob.logprob_cal(model, model_loaded, tokenizer_loaded,
+                                                                      subword_tokenizer_loaded, final_template)
                                     if original:
                                         method_name = 'logprob'
                                     else:
@@ -174,12 +161,12 @@ def main(models, tests, encodings, contexts, evaluations, original):
                                         context=context,
                                         p_value=pval,
                                         effect_size=esize))
+
                                 if test in tests_minimal:
                                     stimuli = json.load(open(os.path.join(
                                             data_dir,'stimuli_logprob/minimal_wd_sets/%s%s' % (test, TEST_EXT)),'r'))
 
-                                    # for each bias test
-                                    # adapt template sents for log prob bias score, save with respective stimuli
+                                    # adapt template sents for method, save with respective stimuli
                                     final_template = {}
                                     if test == 'C1_name_word':
                                         idx_template_sent = 0
@@ -274,9 +261,8 @@ def main(models, tests, encodings, contexts, evaluations, original):
                                     else:
                                         raise ValueError("Minimal bias test %s not found!" % test)
 
-                                    esize, pval = logprob.logprob_cal(model_loaded, tokenizer_loaded,
-                                                                          subword_tokenizer_loaded,
-                                                                          None, final_template, original)
+                                    esize, pval = logprob.logprob_cal(model, model_loaded, tokenizer_loaded,
+                                                                      subword_tokenizer_loaded, final_template)
                                     if original:
                                         method_name = 'logprob'
                                     else:
@@ -294,8 +280,7 @@ def main(models, tests, encodings, contexts, evaluations, original):
                             else:
                                 stimuli = json.load(open(os.path.join(data_dir, '%s%s' % (test, TEST_EXT)), 'r'))
 
-                                # for each bias test
-                                # adapt template sents for log prob bias score, save with respective stimuli
+                                # adapt template sents for method, save with respective stimuli
                                 final_template = {}
                                 if test == 'C1_name_word' or test == 'C3_term_word':
                                     idx_template_sent = 0
@@ -420,28 +405,26 @@ def main(models, tests, encodings, contexts, evaluations, original):
                                 else:
                                     raise ValueError("Bias test %s not found!" % test)
 
-                                for encoding_level in encodings:
-                                    esize, pval = logprob.logprob_cal(model_loaded, tokenizer_loaded,
-                                                                      subword_tokenizer_loaded,
-                                                                      encoding_level, final_template, original)
-                                    if original:
-                                        method_name = 'logprob'
-                                    else:
-                                        method_name = 'm-logprob'
+                                # here: for encoding in ecodings
+                                esize, pval = logprob.logprob_cal(model, model_loaded, tokenizer_loaded,
+                                                                  subword_tokenizer_loaded, final_template)
+                                if original:
+                                    method_name = 'logprob'
+                                else:
+                                    method_name = 'm-logprob'
 
-                                    results.append(dict(
-                                        method=method_name,
-                                        test=test,
-                                        model=model,
-                                        evaluation_measure=measure,
-                                        context=context,
-                                        # encoding_level=encoding_level, # TODO ?
-                                        p_value=pval,
-                                        effect_size=esize))
+                                results.append(dict(
+                                    method=method_name,
+                                    test=test,
+                                    model=model,
+                                    evaluation_measure=measure,
+                                    context=context,
+                                    #encoding_level=encoding,
+                                    p_value=pval,
+                                    effect_size=esize))
 
-                        # TODO reddit dataset
                         elif context == 'reddit':
-                            # TODO: make sure that sentences contain . at the end --> leave it always out
-                            pass
+                            pass # TODO
+                            # note: make sure that sentences contain . at the end --> leave it out
 
     return results

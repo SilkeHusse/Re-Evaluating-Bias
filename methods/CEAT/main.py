@@ -13,12 +13,24 @@ def main(models, tests, encodings, contexts, evaluations):
 
     results = []
     for model in models:
+
+        if model == 'elmo':
+            model_loaded = elmo.load_model()
+            tokenizer_loaded, subword_tokenizer_loaded = None, None
+        elif model == 'bert':
+            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
+        elif model == 'gpt2':
+            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
+        else:
+            raise ValueError("Model %s not found!" % model)
+
         for test in tests:
 
             # TODO: indicate if shrunken word sets should be used
             shrunken_wd_sets = False
             # TODO: indicate if minimal word sets should be used
             minimal_wd_sets = False
+
             # load stimuli dataset
             if shrunken_wd_sets:
                 try:
@@ -36,6 +48,7 @@ def main(models, tests, encodings, contexts, evaluations):
             for measure in evaluations:
 
                 if measure == 'cosine':
+
                     for context in contexts:
 
                         if context == 'template':
@@ -62,6 +75,7 @@ def main(models, tests, encodings, contexts, evaluations):
                                     stimuli_attr2 = stimuli['attr2']['examples_singular']
                                 else:
                                     raise ValueError("Shrunken bias test %s not found!" % test)
+
                             elif minimal_wd_sets:
                                 # define lists of bias tests sharing same specifications
                                 specs_sp = ['C1_name_word', 'C3_term_word', 'C6_term_word']
@@ -90,6 +104,7 @@ def main(models, tests, encodings, contexts, evaluations):
                                     stimuli_attr2 = stimuli['attr2']['examples_singular']
                                 else:
                                     raise ValueError("Minimal bias test %s not found!" % test)
+
                             else:
                                 # define lists of bias tests sharing same specifications
                                 specs_sp = ['C1_name_word', 'C3_term_word', 'C6_term_word']
@@ -131,7 +146,6 @@ def main(models, tests, encodings, contexts, evaluations):
                             sents_targ1, sents_targ2 = {i:[] for i in stimuli_targ1}, {i:[] for i in stimuli_targ2}
                             sents_attr1, sents_attr2 = {i:[] for i in stimuli_attr1}, {i:[] for i in stimuli_attr2}
 
-                            # for each bias test
                             # create sents by replacing target and attribute words in template sentences
                             if shrunken_wd_sets:
                                 if test == 'C1_name_word':
@@ -491,7 +505,6 @@ def main(models, tests, encodings, contexts, evaluations):
                                             sents_attr2[stimulus].append(sent.replace('AAA', stimulus))
 
                             if model == 'elmo':
-                                model_loaded = elmo.load_model()
                                 encs_targ1 = elmo.encode(model_loaded,
                                                          sents_targ1, stimuli_targ1, encodings)
                                 encs_targ2 = elmo.encode(model_loaded,
@@ -501,7 +514,6 @@ def main(models, tests, encodings, contexts, evaluations):
                                 encs_attr2 = elmo.encode(model_loaded,
                                                          sents_attr2, stimuli_attr2, encodings)
                             elif model == 'bert':
-                                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
                                 encs_targ1 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents_targ1, stimuli_targ1, encodings)
                                 encs_targ2 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
@@ -511,7 +523,6 @@ def main(models, tests, encodings, contexts, evaluations):
                                 encs_attr2 = bert.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents_attr2, stimuli_attr2, encodings)
                             elif model == 'gpt2':
-                                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
                                 encs_targ1 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents_targ1, stimuli_targ1, encodings)
                                 encs_targ2 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
@@ -520,8 +531,6 @@ def main(models, tests, encodings, contexts, evaluations):
                                                          sents_attr1, stimuli_attr1, encodings)
                                 encs_attr2 = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents_attr2, stimuli_attr2, encodings)
-                            else:
-                                raise ValueError("Model %s not found!" % model)
 
                         elif context == 'reddit':
                             print(f'For context {context} no results can be generated at runtime and thus is skipped.')
@@ -549,8 +558,7 @@ def main(models, tests, encodings, contexts, evaluations):
                                 p_value=pval,
                                 effect_size=esize))
 
-                # TODO
                 elif measure == 'prob':
-                    pass
+                    pass # TODO
 
     return results

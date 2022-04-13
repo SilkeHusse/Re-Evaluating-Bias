@@ -15,6 +15,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
 
     results = []
     for model in models:
+
         if contexts != ['reddit']: # only load models if required
             if model == 'elmo':
                 model_loaded = elmo.load_model()
@@ -34,6 +35,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
             shrunken_wd_sets = False
             # TODO: indicate if minimal word sets should be used
             minimal_wd_sets = False
+
             # load stimuli dataset
             if shrunken_wd_sets:
                 try:
@@ -51,6 +53,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
             for measure in evaluations:
 
                 if measure == 'cosine':
+
                     for context in contexts:
                         sents_targ1, sents_targ2 = [], []
                         sents_attr1, sents_attr2 = [], []
@@ -574,15 +577,14 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                     sents_targ2 = random.sample(sents_targ2, min_n)
 
                         elif context == 'reddit':
-                            print(
-                                f'For context {context} no results can be generated at runtime and thus is skipped.')
-                            print(
-                                f'Please see the results folder directly or execute a respective generate_ebd_* file.')
+                            print(f'For context {context} no results can be generated at runtime and thus is skipped.')
+                            print(f'Please see the results folder directly or execute a respective generate_ebd_* file.')
                             break
                         else:
                             raise ValueError("Context %s not found!" % context)
 
                         for encoding in encodings:
+
                             if model == 'elmo':
                                 encs_targ1 = elmo.encode(model_loaded,
                                                          sents_targ1, stimuli_targ1, encoding, multiple_targ)
@@ -631,8 +633,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 p_value=pval,
                                 effect_size=esize))
 
-                # TODO
                 elif measure == 'prob':
-                    pass
+                    pass # TODO
 
     return results

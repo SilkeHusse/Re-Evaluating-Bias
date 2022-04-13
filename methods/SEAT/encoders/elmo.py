@@ -42,9 +42,9 @@ def encode(elmo, sents, stimuli, encoding, multiple_words):
                 # extract rep of token of interest
                 vec = vec_seq[:, idx, :]
             encs[sent] = vec.sum(axis=0) # layer_combine_method = add
-
         elif encoding_level == 'sent':
             # extract rep of sent as average over all words
             vec = vec_seq.mean(axis=1)
             encs[sent] = vec.sum(axis=0) # layer_combine_method = add
+
     return encs

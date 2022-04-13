@@ -1,8 +1,8 @@
 """ Main script
 args:
-    - method (str): s-SEAT, w-SEAT, CEAT, logprob
-    - tests (str): file names of single word datasets in data folder
-    - models (str): elmo, bert (bbc), gpt2 (small)
+    - method (str): s-SEAT, w-SEAT, CEAT, logprob, m-logprob
+    - tests (str): file names of stimuli datasets in data folder
+    - models (str): elmo, bert (bbc or bbu), gpt2 (small)
     - encoding level (str): word (in case of subword tokenization: -average, -start, -end), sent
     - context (str): template, reddit
     - evaluation measure (str): cosine, prob
@@ -20,6 +20,8 @@ from enum import Enum
 
 import methods.SEAT.main as SEAT
 import methods.CEAT.main as CEAT
+import methods.logprob.main as logprob
+
 dirname = os.path.dirname(os.path.realpath(__file__))
 
 class MethodName(Enum):
@@ -27,6 +29,7 @@ class MethodName(Enum):
     WORDSEAT = 'w-SEAT'
     CEAT = 'CEAT'
     LOGPROB = 'logprob'
+    LOGPROB_M = 'm-logprob'
 class ModelName(Enum):
     ELMO = 'elmo'
     BERT = 'bert'
@@ -104,7 +107,7 @@ def main(arguments):
     if args.log_file:
         log.getLogger().addHandler(log.FileHandler(args.log_file))
 
-    # set seeds for reproducability
+    # set seeds for reproducibility
     random.seed(1111)
     np.random.seed(1111)
 
@@ -126,17 +129,17 @@ def main(arguments):
     for test in tests:
         log.info('\t{}'.format(test))
 
-    encodings = check_allowance(args.encoding, ENCODING_NAMES, 'encoding') if args.encoding is not None else 'word-average'
+    encodings = check_allowance(args.encoding, ENCODING_NAMES, 'encoding') if args.encoding is not None else ['word-average']
     log.info('Encodings selected:')
     for encoding in encodings:
         log.info('\t{}'.format(encoding))
 
-    contexts = check_allowance(args.context, CONTEXT_NAMES, 'context') if args.context is not None else 'template'
+    contexts = check_allowance(args.context, CONTEXT_NAMES, 'context') if args.context is not None else ['template']
     log.info('Contexts selected:')
     for context in contexts:
         log.info('\t{}'.format(context))
 
-    evaluations = check_allowance(args.bias_evaluation, EVALUATION_NAMES, 'evaluation') if args.bias_evaluation is not None else 'cosine'
+    evaluations = check_allowance(args.bias_evaluation, EVALUATION_NAMES, 'evaluation') if args.bias_evaluation is not None else ['cosine']
     log.info('Evaluations selected:')
     for evaluation in evaluations:
         log.info('\t{}'.format(evaluation))
@@ -144,6 +147,7 @@ def main(arguments):
     results = []
     results_method = []
     for method_name in methods:
+        
         if method_name == MethodName.SENTSEAT.value:
             if any('word' in encoding_level for encoding_level in encodings):
                 log.info('Note: word encoding level for method s-SEAT is equivalent to method w-SEAT.')
@@ -154,9 +158,13 @@ def main(arguments):
             results_method = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
         elif method_name == MethodName.CEAT.value:
             results_method = CEAT.main(models, tests, encodings, contexts, evaluations)
-        # TODO logprob
         elif method_name == MethodName.LOGPROB.value:
-            pass
+            log.info('Note: encoding level for method logprob is not applicable and thus skipped.')
+            log.info('Note: experiments are conducted with shrunken and minimal word sets.')
+            results_method = logprob.main(models, tests, contexts, evaluations, original=True)
+        elif method_name == MethodName.LOGPROB_M.value:
+            log.info('Note: encoding level for method m-logprob is not applicable and thus skipped.')
+            results_method = logprob.main(models, tests, contexts, evaluations, original=False)
         results = results + results_method
 
     # save results and specs of code run (time, date)
@@ -172,9 +180,9 @@ def main(arguments):
 #if __name__ == '__main__':
 #    main(sys.argv[1:])
 
-main(['-mCEAT',
-      #'-tC1_name_word,C3_name_word',#,C6_name_word,C9_term_word,Dis_term_word,Occ_name_word,IBD_name_word,EIBD_name_word',
-      '-lelmo,bert,gpt2',
-      '-eword-average',
+main(['-mm-logprob',
+      #'-tDis_term_word',#,C3_name_word,C3_term_word',#C9_name_word,C9m_name_word,C9_term_word,Occ_name_word',
+      '-lgpt2',#bert,gpt2',
+      #'-esent,word-average,word-start,word-end',
       '-ctemplate',
-      '-bcosine'])
+      '-bprob'])
