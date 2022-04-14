@@ -55,7 +55,7 @@ def bert_logits(template, sent, targ_wds, model, tok, subword_tok, apply_softmax
            subword_token_ids = subword_tok(targ_wd, add_special_tokens=False)['input_ids']
            subwords = [k for k, v in tok.vocab.items() if v in subword_token_ids]
            subwords_logits = [logits[idx_mask, tok.vocab[subwd]] for subwd in subwords]
-           result[targ_wd] = np.nanprod(subwords_logits)  # take prod of all probs
+           result[targ_wd] = np.prod(subwords_logits)  # take prod of all probs
            # here: word encoding level
            #if encoding == 'word-start':
            #    subword = [k for k, v in tok.vocab.items() if v == subword_token_ids[0]][0]
@@ -90,7 +90,7 @@ def gpt2_logits(sent, targ_wds, model, tok, apply_softmax=True):
         for idx in range(len(token_ids['input_ids'][0])):
             token_id = token_ids['input_ids'][0][idx]
             probs.append(logits[idx, token_id])
-        result[targ_wd] = np.nanprod(probs)
+        result[targ_wd] = np.prod(probs)
 
     return result
 
@@ -110,7 +110,7 @@ def gpt2_prior_logits(sent, targ_wds, model, tok, subword_tok, apply_softmax=Tru
             max_length=len_sent,
             top_p=0.95,
             top_k=0,
-            num_return_sequences = 10
+            num_return_sequences = 5
         )
 
         probs_total = []
@@ -125,7 +125,7 @@ def gpt2_prior_logits(sent, targ_wds, model, tok, subword_tok, apply_softmax=Tru
             for idx in range(len(sample_output)):
                 token_id = sample_output[idx]
                 probs.append(logits[idx, token_id])
-            probs_total.append(np.nanprod(probs))
+            probs_total.append(np.prod(probs))
 
         # combine all probs via mean over all sample sentences
         result[targ_wd] = np.nanmean(probs_total)
@@ -153,20 +153,20 @@ def bias_score(template_sent, targ1_wds, targ2_wds, attr_wd, model_name, model, 
     elif model_name == 'gpt2':
         logits_tgt = gpt2_logits(template_sent.replace('AAA', attr_wd), targ_wds, model, tok)
 
-    bias = np.log(sum(logits_tgt[wd.lower()] for wd in targ1_wds)) - \
-                        np.log(sum(logits_tgt[wd.lower()] for wd in targ2_wds))
+    bias = np.log(np.nansum([logits_tgt[wd.lower()] for wd in targ1_wds])) - \
+           np.log(np.nansum([logits_tgt[wd.lower()] for wd in targ2_wds]))
 
     # p_prior : prob of filling [MASK] token with target words given sent with masked attribute word
     if model_name == 'elmo':
-        logits_prior = elmo_prior_logits() #TODO
+        logits_prior = elmo_logits() #TODO elmo_prior_logits()
     elif model_name == 'bert':
         logits_prior = bert_logits(template_sent, template_sent.replace('AAA', '[MASK]').replace('TTT', '[MASK]'),
                                                 targ_wds, model, tok, subword_tok)
     elif model_name == 'gpt2':
         logits_prior = gpt2_prior_logits(template_sent.replace('AAA', attr_wd), targ_wds, model, tok, subword_tok)
 
-    bias_prior_correction = np.log(sum(logits_prior[wd.lower()] for wd in targ1_wds)) - \
-                                         np.log(sum(logits_prior[wd.lower()] for wd in targ2_wds))
+    bias_prior_correction = np.log(np.nansum([logits_prior[wd.lower()] for wd in targ1_wds])) - \
+                            np.log(np.nansum([logits_prior[wd.lower()] for wd in targ2_wds]))
 
     return {"stimulus": attr_wd,
             "bias": bias,

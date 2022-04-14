@@ -33,6 +33,7 @@ def main(models, tests, contexts, evaluations, original):
             raise ValueError("Model %s not found!" % model)
 
         for test in tests:
+            print(f'Executing log prob bias score calculations for bias test {test}...')
 
             for measure in evaluations:
 
