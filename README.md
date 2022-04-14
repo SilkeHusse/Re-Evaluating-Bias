@@ -39,7 +39,7 @@ If you decide to fetch the reddit data yourself, then in the subfolder `data/red
 
 <a name="mod"></a>
 ### Modified Word Sets
-To reproduce the results for the methods SEAT and CEAT in the case of shrunken word sets, you will have to set the variable `shrunken_wd_sets` in the respective `main.py` file to `True`. To reproduce the results for the methods SEAT and CEAT in the case of minimal word sets, you will have to set the variable `minimal_wd_sets` in the respective `main.py` file to `True`.
+To reproduce the results for the methods SEAT and CEAT in the case of shrunken word sets, you will have to set the variable `shrunken_wd_sets` in the respective `main.py` file to `True`. To reproduce the results for the methods SEAT and CEAT in the case of minimal word sets, you will have to set the variable `minimal_wd_sets` in the respective `main.py` file to `True`. Note that minimal word sets are only applicable if the context is `template`.
 
 <a name="embeds"></a>
 ## Generate Embeddings
