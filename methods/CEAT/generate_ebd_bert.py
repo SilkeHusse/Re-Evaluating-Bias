@@ -939,6 +939,7 @@ def bert(sent_dict, test_name, reduced_wd_sets):
 
     for wd in wd_list:
           batches = create_batches(sent_dict[wd])
+
           for batch in batches:
                 batch = [shorten_sent(sent, wd) for sent in batch]
                 # [CLS] and [SEP] tokens are added automatically
