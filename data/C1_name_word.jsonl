@@ -1,7 +1,7 @@
 {
   "targ1": {
     "concept": "Flower_name",
-    "examples_singular": [
+    "singular": [
       "aster",
       "clover",
       "hyacinth",
@@ -28,7 +28,7 @@
       "petunia",
       "zinnia"
     ],
-    "examples_plural": [
+    "plural": [
       "asters",
       "clovers",
       "hyacinths",
@@ -58,7 +58,7 @@
   },
   "targ2": {
     "concept": "Insect_name",
-    "examples_singular": [
+    "singular": [
       "ant",
       "caterpillar",
       "flea",
@@ -85,7 +85,7 @@
       "roach",
       "weevil"
     ],
-    "examples_plural": [
+    "plural": [
       "ants",
       "caterpillars",
       "fleas",
@@ -115,7 +115,7 @@
   },
   "attr1": {
     "concept": "Pleasant",
-    "examples_singular": [
+    "singular": [
       "caress",
       "freedom",
       "health",
@@ -142,7 +142,7 @@
       "paradise",
       "vacation"
     ],
-    "examples_plural": [
+    "plural": [
       "caresses",
       "friends",
       "diamonds",
@@ -156,7 +156,7 @@
       "paradises",
       "vacations"
     ],
-    "examples_adjective": [
+    "adjective": [
       "free",
       "healthy",
       "lovable",
@@ -177,7 +177,7 @@
   },
   "attr2": {
     "concept": "Unpleasant",
-    "examples_singular": [
+    "singular": [
       "abuse",
       "crash",
       "filth",
@@ -204,7 +204,7 @@
       "agony",
       "prison"
     ],
-    "examples_plural": [
+    "plural": [
       "abuses",
       "crashes",
       "murders",
@@ -220,7 +220,7 @@
       "cancers",
       "prisons"
     ],
-    "examples_adjective": [
+    "adjective": [
       "abusive",
       "filthy",
       "murderous",

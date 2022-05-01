@@ -1,7 +1,7 @@
 {
   "targ1": {
     "concept": "M_name",
-    "examples_singular": [
+    "singular": [
       "John",
       "Paul",
       "Mike",
@@ -32,7 +32,7 @@
   },
   "targ2": {
     "concept": "F_name",
-    "examples_singular": [
+    "singular": [
       "Allison",
       "Anne",
       "Carrie",
@@ -63,7 +63,7 @@
   },
   "attr1": {
     "concept": "M_occupation",
-    "examples_singular": [
+    "singular": [
       "driver",
       "supervisor",
       "janitor",
@@ -88,7 +88,7 @@
   },
   "attr2": {
     "concept": "F_occupation",
-    "examples_singular": [
+    "singular": [
       "attendant",
       "cashier",
       "teacher",

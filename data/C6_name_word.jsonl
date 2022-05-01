@@ -1,7 +1,7 @@
 {
   "targ1": {
     "concept": "M_name",
-    "examples_singular": [
+    "singular": [
       "John",
       "Paul",
       "Mike",
@@ -14,7 +14,7 @@
   },
   "targ2": {
     "concept": "F_name",
-    "examples_singular": [
+    "singular": [
       "Amy",
       "Joan",
       "Lisa",
@@ -27,7 +27,7 @@
   },
   "attr1": {
     "concept": "Career",
-    "examples_singular": [
+    "singular": [
       "executive",
       "management",
       "professional",
@@ -37,7 +37,7 @@
       "business",
       "career"
     ],
-    "examples_plural": [
+    "plural": [
       "executives",
       "managements",
       "corporations",
@@ -49,7 +49,7 @@
   },
   "attr2": {
     "concept": "Family",
-    "examples_singular": [
+    "singular": [
       "home",
       "parent",
       "child",
@@ -59,7 +59,7 @@
       "wedding",
       "relative"
     ],
-    "examples_plural": [
+    "plural": [
       "homes",
       "parents",
       "children",

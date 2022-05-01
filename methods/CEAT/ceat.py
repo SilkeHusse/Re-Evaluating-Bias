@@ -31,24 +31,22 @@ def ceat_meta(encs, encoding, N=10000):
     """ Function to run CEAT calculations
     args:
         - encs (Dict[str: Dict]): dictionary mapping targ1, targ2, attr1, attr2
-        to dictionaries containing the concept and the encodings, the encodings are further saved
-        in dictionaries with the relevant stimuli as key and dictionaries for each encoding level as value
+        to dictionaries containing the encodings which are saved in dictionaries with
+        the relevant stimuli as key and dictionaries for each encoding level as value
         example:
-        encs['targ1'] = {'concept': 'Flower_name', 'encs': encs_targ1}
-        encs_targ1 = {'aster': {
-                        'sent': [sents],
-                        'word-average': [sents],
-                        'word-start': [sents],
-                        'word-end': [sents]     },
-                      ...  }
+        encs['targ1'] = {'aster': { 'sent': [sents],
+                                    'word-average': [sents],
+                                    'word-start': [sents],
+                                    'word-end': [sents]     },
+                          ...  }
         - encoding (str): specifies encoding level
         - N (int): number of effect size samples
     """
 
-    weat_dict_targ1 = {wd: encs['targ1']['encs'][wd][encoding] for wd in list(encs['targ1']['encs'].keys())}
-    weat_dict_targ2 = {wd: encs['targ2']['encs'][wd][encoding] for wd in list(encs['targ2']['encs'].keys())}
-    weat_dict_attr1 = {wd: encs['attr1']['encs'][wd][encoding] for wd in list(encs['attr1']['encs'].keys())}
-    weat_dict_attr2 = {wd: encs['attr2']['encs'][wd][encoding] for wd in list(encs['attr2']['encs'].keys())}
+    weat_dict_targ1 = {wd: encs['targ1'][wd][encoding] for wd in list(encs['targ1'].keys())}
+    weat_dict_targ2 = {wd: encs['targ2'][wd][encoding] for wd in list(encs['targ2'].keys())}
+    weat_dict_attr1 = {wd: encs['attr1'][wd][encoding] for wd in list(encs['attr1'].keys())}
+    weat_dict_attr2 = {wd: encs['attr2'][wd][encoding] for wd in list(encs['attr2'].keys())}
 
     e_lst = [] # list containing N effect sizes
     v_lst = [] # list containing corresponding N variances

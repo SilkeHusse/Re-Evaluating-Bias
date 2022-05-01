@@ -25,11 +25,9 @@ else:
 c1_name_targ1 = ["aster","clover","hyacinth","marigold","poppy","azalea","crocus","iris","orchid","rose","bluebell",
                  "daffodil","lilac","pansy","tulip","buttercup","daisy","lily","peony","violet","carnation","gladiola",
                  "magnolia","petunia","zinnia"]
-c1_name_targ1_shrunken = ["clover","poppy","iris","orchid","rose","daisy","lily","violet","magnolia"]
 c1_name_targ2 = ["ant","caterpillar","flea","locust","spider","bedbug","centipede","fly","maggot","tarantula","bee",
                  "cockroach","gnat","mosquito","termite","beetle","cricket","hornet","moth","wasp","blackfly",
                  "dragonfly","horsefly","roach","weevil"]
-c1_name_targ2_shrunken = ["fly","roach","mosquito","spider","moth","wasp","ant","bee","flea"]
 c1_name_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -72,7 +70,6 @@ c3_name_targ1 = [
       "Megan",
       "Rachel"
     ]
-c3_name_targ1_shrunken = ["Frank","Colleen","Heather","Matthew","Katie","Lauren","Roger","Paul","Alan","Melanie"]
 c3_name_targ2 = [
       "Alonzo",
       "Jamel",
@@ -107,7 +104,6 @@ c3_name_targ2 = [
       "Malika",
       "Yvette"
     ]
-c3_name_targ2_shrunken = ["Theo","Jerome","Leroy","Lamar","Lionel","Malik","Tyrone","Ebony","Jasmine","Tia"]
 c3_name_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -186,7 +182,6 @@ c9_name_targ1 = [
       "insomnia",
       "dementia"
     ]
-c9_name_targ1_shrunken = ["depression","dementia","anxiety","stress","mania","panic"]
 c9_name_targ2 = [
       "fibrosis",
       "epilepsy",
@@ -203,12 +198,11 @@ c9_name_targ2 = [
       "tumour",
       "bronchitis"
     ]
-c9_name_targ2_shrunken = ["cancer","virus","diabetes","arthritis","infection","asthma"]
 c9_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
-# C9m_name_word
-c9m_name_targ1 = [
+# C9_name_m_word
+c9_name_m_targ1 = [
       "anxiety",
       "panic",
       "phobia",
@@ -224,8 +218,7 @@ c9m_name_targ1 = [
       "insomnia",
       "dementia"
     ]
-c9m_name_targ1_shrunken = ["dementia","depression","mania","anxiety","schizophrenia","stress"]
-c9m_name_targ2 = [
+c9_name_m_targ2 = [
       "fibrosis",
       "epilepsy",
       "sclerosis",
@@ -241,15 +234,12 @@ c9m_name_targ2 = [
       "tumour",
       "bronchitis"
     ]
-c9m_name_targ2_shrunken = ["cancer","virus","diabetes","arthritis","infection","asthma"]
-c9m_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional","transitory"]
-c9m_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever","lasting"]
+c9_name_m_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional","transitory"]
+c9_name_m_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever","lasting"]
 
 # C9_term_word
 c9_term_targ1 = ["sad","hopeless","gloomy","tearful","miserable","depressed"]
-c9_term_targ1_shrunken = ["sad","hopeless","miserable","depressed"]
 c9_term_targ2 = ["sick","illness","influenza","disease","virus","cancer"]
-c9_term_targ2_shrunken = ["influenza","cancer","illness","sick"]
 c9_term_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_term_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
@@ -311,8 +301,8 @@ dis_term_attr2 = [
       "contradictory", "envious", "conformist", "frightening", "experimental", "gullible", "careless", "impulsive", "skeptical", "big-thinking", "dreamy", "angry", "undisciplined", "miserable", "haughty", "familial", "unimaginative", "mystical", "ungrateful", "maternal", "prim", "fearful", "submissive", "insecure", "colorless", "competitive", "passive", "superficial", "destructive", "impatient", "brutal", "aggressive", "ignorant", "placid", "chummy", "cerebral", "unlovable", "desperate", "pedantic", "hedonistic", "compulsive", "cowardly", "unfriendly", "regimental", "stylish", "invisible", "greedy", "foolish", "indecisive", "procrastinating", "outspoken", "clumsy", "imitative", "retiring", "irreverent", "unambitious", "physical", "folksy", "irresponsible", "slow", "softheaded", "intense", "sensual", "petty", "effeminate", "transparent", "sedentary", "dull", "uninhibited", "erratic", "pompous", "discontented", "vacuous", "delicate", "narcissistic", "irreligious", "irrational", "muddle-headed", "sanctimonious", "frivolous", "fawning", "whimsical", "tactless", "unstable", "unprincipled", "agonizing", "proud", "questioning", "irascible", "false", "conceited", "hypnotic", "artificial", "calculating", "cantankerous", "surprising", "contemptible", "emotional", "condemnatory", "subjective", "political", "unpredictable", "insincere", "conventional", "unceremonious", "treacherous", "religious", "quirky", "boyish", "complaining", "undemanding", "authoritarian", "disobedient", "disputatious", "discourteous", "irritable", "pretentious", "incurious", "unfathomable", "uncharitable", "malicious", "thoughtless", "crass", "hurried", "abrasive", "vague", "disorderly", "uncritical", "nihilistic", "fraudulent", "freewheeling", "frugal", "reserved", "graceless", "ruined", "suspicious", "oppressed", "hesitant", "stiff", "insulting", "unrealistic", "busy", "impressionable", "escapist", "fickle", "charmless", "disloyal", "mellow", "bland", "sly", "smooth", "old-fashioned", "predatory", "tense", "circumspect", "unreliable", "amusing", "arrogant", "scornful", "regretful", "paranoid", "provocative", "steely", "willful", "power-hungry", "ritualistic", "brittle", "pure", "dissonant", "preoccupied", "shallow", "arbitrary", "distractible", "soft", "narrow", "unrestrained", "disrespectful", "resentful", "unimpressive", "perverse", "flamboyant", "criminal", "casual", "opportunistic", "callous", "driving", "thievish", "obnoxious", "vindictive", "mechanical", "one-sided", "gloomy", "fixed", "asocial", "modern", "ridiculous", "argumentative", "ambitious", "devious", "rigid", "unreflective", "morbid", "apathetic", "cute", "unpolished", "outrageous", "discouraged", "unsentimental", "money-minded", "scheming", "neglectful", "moralistic", "absentminded", "offhand", "meddlesome", "progressive", "unctuous", "vulnerable", "forgetful", "abrupt", "disturbing", "idiosyncratic", "crude", "mannerless", "amoral"
     ]
 
-# Dism_term_word
-dism_term_targ1 = [
+# Dis_term_m_word
+dis_term_m_targ1 = [
       "a deaf person",
       "a person who is deaf",
       "a blind person",
@@ -337,7 +327,7 @@ dism_term_targ1 = [
       "a person with Downs syndrome",
       "a person without a disability"
     ]
-dism_term_targ2 = [
+dis_term_m_targ2 = [
       "a normal person",
       "an insane person",
       "a retarded person",
@@ -362,10 +352,10 @@ dism_term_targ2 = [
       "a deformed person",
       "a person with sight problems"
     ]
-dism_term_attr1 = [
+dis_term_m_attr1 = [
       "accessible", "active", "adaptable", "admirable", "adventurous", "agreeable", "alert", "amiable", "appreciative", "articulate", "aspiring", "athletic", "balanced", "benevolent", "brilliant", "calm", "capable", "captivating", "caring", "challenging", "charismatic", "charming", "cheerful", "clean", "clear-headed", "clever", "companionly", "compassionate", "conciliatory", "confident", "conscientious", "considerate", "constant", "contemplative", "cooperative", "courageous", "courteous", "creative", "cultured", "curious", "daring", "debonair", "decent", "dedicated", "deep", "dignified", "directed", "disciplined", "discreet", "dramatic", "dutiful", "dynamic", "earnest", "ebullient", "educated", "efficient", "elegant", "eloquent", "empathetic", "energetic", "enthusiastic", "esthetic", "exciting", "extraordinary", "fair", "faithful", "farsighted", "felicific", "firm", "flexible", "focused", "forceful", "forgiving", "forthright", "freethinking", "friendly", "fun-loving", "gallant", "generous", "gentle", "genuine", "good-natured", "hardworking", "healthy", "hearty", "helpful", "heroic", "high-minded", "honest", "honorable", "humble", "humorous", "idealistic", "imaginative", "impressive", "incisive", "incorruptible", "independent", "individualistic", "innovative", "inoffensive", "insightful", "insouciant", "intelligent", "intuitive", "invulnerable", "kind", "knowledge", "leader", "leisurely", "liberal", "logical", "lovable", "loyal", "lyrical", "magnanimous", "many-sided", "mature", "methodical", "meticulous", "moderate", "modest", "multi-leveled", "neat", "objective", "observant", "open", "optimistic", "orderly", "organized", "original", "painstaking", "passionate", "patient", "patriotic", "peaceful", "perceptive", "perfectionist", "personable", "persuasive", "playful", "polished", "popular", "practical", "precise", "principled", "profound", "protean", "protective", "providential", "prudent", "punctual", "purposeful", "rational", "realistic", "reflective", "relaxed", "reliable", "resourceful", "respectful", "responsible", "responsive", "reverential", "romantic", "rustic", "sage", "sane", "scholarly", "scrupulous", "secure", "selfless", "self-critical", "self-defacing", "self-denying", "self-reliant", "self-sufficent", "sensitive", "sentimental", "seraphic", "serious", "sexy", "sharing", "shrewd", "simple", "skillful", "sober", "sociable", "solid", "sophisticated", "spontaneous", "sporting", "stable", "steadfast", "steady", "stoic", "strong", "studious", "suave", "subtle", "sweet", "sympathetic", "systematic", "tasteful", "teacherly", "thorough", "tidy", "tolerant", "tractable", "trusting", "uncomplaining", "understanding", "undogmatic", "upright", "urbane", "venturesome", "vivacious", "warm", "well-bred", "well-read", "well-rounded", "winning", "wise", "witty"
       ]
-dism_term_attr2 = [
+dis_term_m_attr2 = [
       "contradictory", "envious", "conformist", "frightening", "experimental", "gullible", "careless", "impulsive", "skeptical", "big-thinking", "dreamy", "angry", "undisciplined", "miserable", "haughty", "familial", "unimaginative", "mystical", "ungrateful", "prim", "fearful", "submissive", "insecure", "colorless", "competitive", "passive", "superficial", "destructive", "impatient", "brutal", "aggressive", "ignorant", "placid", "chummy", "cerebral", "unlovable", "desperate", "pedantic", "hedonistic", "compulsive", "cowardly", "unfriendly", "regimental", "stylish", "invisible", "greedy", "foolish", "indecisive", "procrastinating", "outspoken", "clumsy", "imitative", "retiring", "irreverent", "unambitious", "physical", "folksy", "irresponsible", "slow", "softheaded", "intense", "sensual", "petty", "effeminate", "transparent", "sedentary", "dull", "uninhibited", "erratic", "pompous", "discontented", "vacuous", "delicate", "narcissistic", "irreligious", "irrational", "muddle-headed", "sanctimonious", "frivolous", "fawning", "whimsical", "tactless", "unstable", "unprincipled", "agonizing", "proud", "questioning", "irascible", "false", "conceited", "hypnotic", "artificial", "calculating", "cantankerous", "surprising", "contemptible", "emotional", "condemnatory", "subjective", "political", "unpredictable", "insincere", "conventional", "unceremonious", "treacherous", "religious", "quirky", "complaining", "undemanding", "authoritarian", "disobedient", "disputatious", "discourteous", "irritable", "pretentious", "incurious", "unfathomable", "uncharitable", "malicious", "thoughtless", "crass", "hurried", "abrasive", "vague", "disorderly", "uncritical", "nihilistic", "fraudulent", "freewheeling", "frugal", "reserved", "graceless", "ruined", "suspicious", "oppressed", "hesitant", "stiff", "insulting", "unrealistic", "busy", "impressionable", "escapist", "fickle", "charmless", "disloyal", "mellow", "bland", "sly", "smooth", "old-fashioned", "predatory", "tense", "circumspect", "unreliable", "amusing", "arrogant", "scornful", "regretful", "paranoid", "provocative", "steely", "willful", "power-hungry", "ritualistic", "brittle", "pure", "dissonant", "preoccupied", "shallow", "arbitrary", "distractible", "soft", "narrow", "unrestrained", "disrespectful", "resentful", "unimpressive", "perverse", "flamboyant", "criminal", "casual", "opportunistic", "callous", "driving", "thievish", "obnoxious", "vindictive", "mechanical", "one-sided", "gloomy", "fixed", "asocial", "modern", "ridiculous", "argumentative", "ambitious", "devious", "rigid", "unreflective", "morbid", "apathetic", "cute", "unpolished", "outrageous", "discouraged", "unsentimental", "money-minded", "scheming", "neglectful", "moralistic", "absentminded", "offhand", "meddlesome", "progressive", "unctuous", "vulnerable", "forgetful", "abrupt", "disturbing", "idiosyncratic", "crude", "mannerless", "amoral"
     ]
 
@@ -398,8 +388,6 @@ occ_name_targ1 = [
       "Malik",
       "Tyrone"
     ]
-occ_name_targ1_shrunken = ["Steve","John","Leroy","Tyrone","Kevin","Neil","Mike","Brad","Jamal","Brendan","Malik",
-                           "Greg","Brett","Paul","Marquis"]
 occ_name_targ2 = [
       "Allison",
       "Anne",
@@ -428,8 +416,6 @@ occ_name_targ2 = [
       "Deja",
       "Latisha"
     ]
-occ_name_targ2_shrunken = ["Allison","Anne","Carrie","Emily","Jill","Laurie","Kristen","Meredith","Molly","Amy",
-                           "Claire","Katie","Madeline","Ebony","Precious"]
 occ_name_attr1 = [
       "driver",
       "supervisor",
@@ -523,12 +509,12 @@ occ_term_attr2 = [
       "tailor"
     ]
 
-# IBD_name_word
-ibd_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
+# I1_name_word
+i1_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
                   "Stephen"]
-ibd_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
+i1_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
                   "Yolanda","Yvette"]
-ibd_name_attr1 = [
+i1_name_attr1 = [
       "all-american",
       "arrogant",
       "attractive",
@@ -543,7 +529,7 @@ ibd_name_attr1 = [
       "sucessful",
       "tall"
     ]
-ibd_name_attr2 = [
+i1_name_attr2 = [
       "aggressive",
       "athletic",
       "bigbutt",
@@ -559,8 +545,8 @@ ibd_name_attr2 = [
       "unrefined"
     ]
 
-# IBD_term_word
-ibd_term_targ1 = [
+# I1_term_word
+i1_term_targ1 = [
       "European American male",
       "British American male",
       "German American male",
@@ -607,7 +593,7 @@ ibd_term_targ1 = [
       "Bosnian American boy",
       "Albanian American boy"
     ]
-ibd_term_targ2 = [
+i1_term_targ2 = [
       "African American female",
       "Nigerian American female",
       "Ethiopian American female",
@@ -654,7 +640,7 @@ ibd_term_targ2 = [
       "Sudanese American girl",
       "Sierra Leonean American girl"
     ]
-ibd_term_attr1 = [
+i1_term_attr1 = [
       "all-american",
       "arrogant",
       "attractive",
@@ -669,7 +655,7 @@ ibd_term_attr1 = [
       "sucessful",
       "tall"
     ]
-ibd_term_attr2 = [
+i1_term_attr2 = [
       "aggressive",
       "athletic",
       "bigbutt",
@@ -685,17 +671,17 @@ ibd_term_attr2 = [
       "unrefined"
     ]
 
-# EIBD_name_word
-eibd_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
+# I2_name_word
+i2_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
                   "Stephen"]
-eibd_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
+i2_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
                   "Yolanda","Yvette"]
-eibd_name_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
-eibd_name_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
+i2_name_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
+i2_name_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
                    "unfeminine"]
 
-# EIBD_term_word
-eibd_term_targ1 = [
+# I2_term_word
+i2_term_targ1 = [
       "European American male",
       "British American male",
       "German American male",
@@ -742,7 +728,7 @@ eibd_term_targ1 = [
       "Bosnian American boy",
       "Albanian American boy"
     ]
-eibd_term_targ2 = [
+i2_term_targ2 = [
       "African American female",
       "Nigerian American female",
       "Ethiopian American female",
@@ -789,8 +775,8 @@ eibd_term_targ2 = [
       "Sudanese American girl",
       "Sierra Leonean American girl"
     ]
-eibd_term_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
-eibd_term_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
+i2_term_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
+i2_term_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
                    "unfeminine"]
 
 def shorten_sent(sent, wd):
@@ -828,63 +814,49 @@ def shorten_sent(sent, wd):
             else:
                 wds_used = wds[int((idx_start-((window_size-1)/2))):int((idx_end+((window_size-1)/2))+1)]
         new_sent = ' '.join(wds_used)
+        
     else:
         new_sent = sent
+        
     return new_sent
 
-def get_stimuli(test_name, shrunken_wd_sets):
+def get_stimuli(test_name):
     """ Function to get stimuli for specified bias test """
-    if shrunken_wd_sets:
-          if test_name == 'c1_name':
-                targ1, targ2, attr1, attr2 = c1_name_targ1_shrunken, c1_name_targ2_shrunken, c1_name_attr1, c1_name_attr2
-          elif test_name == 'c3_name':
-                targ1, targ2, attr1, attr2 = c3_name_targ1_shrunken, c3_name_targ2_shrunken, c3_name_attr1, c3_name_attr2
-          elif test_name == 'c9_name':
-                targ1, targ2, attr1, attr2 = c9_name_targ1_shrunken, c9_name_targ2_shrunken, c9_name_attr1, c9_name_attr2
-          elif test_name == 'c9m_name':
-                targ1, targ2, attr1, attr2 = c9m_name_targ1_shrunken, c9m_name_targ2_shrunken, c9m_name_attr1, c9m_name_attr2
-          elif test_name == 'c9_term':
-                targ1, targ2, attr1, attr2 = c9_term_targ1_shrunken, c9_term_targ2_shrunken, c9_term_attr1, c9_term_attr2
-          elif test_name == 'occ_name':
-                targ1, targ2, attr1, attr2 = occ_name_targ1_shrunken, occ_name_targ2_shrunken, occ_name_attr1, occ_name_attr2
-          else:
-                raise ValueError("Stimuli for bias test %s not found!" % test_name)
+    if test_name == 'c1_name':
+          targ1, targ2, attr1, attr2 = c1_name_targ1, c1_name_targ2, c1_name_attr1, c1_name_attr2
+    elif test_name == 'c3_name':
+          targ1, targ2, attr1, attr2 = c3_name_targ1, c3_name_targ2, c3_name_attr1, c3_name_attr2
+    elif test_name == 'c3_term':
+          targ1, targ2, attr1, attr2 = c3_term_targ1, c3_term_targ2, c3_term_attr1, c3_term_attr2
+    elif test_name == 'c6_name':
+          targ1, targ2, attr1, attr2 = c6_name_targ1, c6_name_targ2, c6_name_attr1, c6_name_attr2
+    elif test_name == 'c6_term':
+          targ1, targ2, attr1, attr2 = c6_term_targ1, c6_term_targ2, c6_term_attr1, c6_term_attr2
+    elif test_name == 'c9_name':
+          targ1, targ2, attr1, attr2 = c9_name_targ1, c9_name_targ2, c9_name_attr1, c9_name_attr2
+    elif test_name == 'c9_name_m':
+          targ1, targ2, attr1, attr2 = c9_name_m_targ1, c9_name_m_targ2, c9_name_m_attr1, c9_name_m_attr2
+    elif test_name == 'c9_term':
+          targ1, targ2, attr1, attr2 = c9_term_targ1, c9_term_targ2, c9_term_attr1, c9_term_attr2
+    elif test_name == 'dis_term':
+          targ1, targ2, attr1, attr2 = dis_term_targ1, dis_term_targ2, dis_term_attr1, dis_term_attr2
+    elif test_name == 'dis_term_m':
+          targ1, targ2, attr1, attr2 = dis_term_m_targ1, dis_term_m_targ2, dis_term_m_attr1, dis_term_m_attr2
+    elif test_name == 'occ_name':
+          targ1, targ2, attr1, attr2 = occ_name_targ1, occ_name_targ2, occ_name_attr1, occ_name_attr2
+    elif test_name == 'occ_term':
+          targ1, targ2, attr1, attr2 = occ_term_targ1, occ_term_targ2, occ_term_attr1, occ_term_attr2
+    elif test_name == 'i1_name':
+          targ1, targ2, attr1, attr2 = i1_name_targ1, i1_name_targ2, i1_name_attr1, i1_name_attr2
+    elif test_name == 'i1_term':
+          targ1, targ2, attr1, attr2 = i1_term_targ1, i1_term_targ2, i1_term_attr1, i1_term_attr2
+    elif test_name == 'i2_name':
+          targ1, targ2, attr1, attr2 = i2_name_targ1, i2_name_targ2, i2_name_attr1, i2_name_attr2
+    elif test_name == 'i2_term':
+          targ1, targ2, attr1, attr2 = i2_term_targ1, i2_term_targ2, i2_term_attr1, i2_term_attr2
     else:
-          if test_name == 'c1_name':
-                targ1, targ2, attr1, attr2 = c1_name_targ1, c1_name_targ2, c1_name_attr1, c1_name_attr2
-          elif test_name == 'c3_name':
-                targ1, targ2, attr1, attr2 = c3_name_targ1, c3_name_targ2, c3_name_attr1, c3_name_attr2
-          elif test_name == 'c3_term':
-                targ1, targ2, attr1, attr2 = c3_term_targ1, c3_term_targ2, c3_term_attr1, c3_term_attr2
-          elif test_name == 'c6_name':
-                targ1, targ2, attr1, attr2 = c6_name_targ1, c6_name_targ2, c6_name_attr1, c6_name_attr2
-          elif test_name == 'c6_term':
-                targ1, targ2, attr1, attr2 = c6_term_targ1, c6_term_targ2, c6_term_attr1, c6_term_attr2
-          elif test_name == 'c9_name':
-                targ1, targ2, attr1, attr2 = c9_name_targ1, c9_name_targ2, c9_name_attr1, c9_name_attr2
-          elif test_name == 'c9m_name':
-                targ1, targ2, attr1, attr2 = c9m_name_targ1, c9m_name_targ2, c9m_name_attr1, c9m_name_attr2
-          elif test_name == 'c9_term':
-                targ1, targ2, attr1, attr2 = c9_term_targ1, c9_term_targ2, c9_term_attr1, c9_term_attr2
-          elif test_name == 'dis_term':
-                targ1, targ2, attr1, attr2 = dis_term_targ1, dis_term_targ2, dis_term_attr1, dis_term_attr2
-          elif test_name == 'dism_term':
-                targ1, targ2, attr1, attr2 = dism_term_targ1, dism_term_targ2, dism_term_attr1, dism_term_attr2
-          elif test_name == 'occ_name':
-                targ1, targ2, attr1, attr2 = occ_name_targ1, occ_name_targ2, occ_name_attr1, occ_name_attr2
-          elif test_name == 'occ_term':
-                targ1, targ2, attr1, attr2 = occ_term_targ1, occ_term_targ2, occ_term_attr1, occ_term_attr2
-          elif test_name == 'ibd_name':
-                targ1, targ2, attr1, attr2 = ibd_name_targ1, ibd_name_targ2, ibd_name_attr1, ibd_name_attr2
-          elif test_name == 'ibd_term':
-                targ1, targ2, attr1, attr2 = ibd_term_targ1, ibd_term_targ2, ibd_term_attr1, ibd_term_attr2
-          elif test_name == 'eibd_name':
-                targ1, targ2, attr1, attr2 = eibd_name_targ1, eibd_name_targ2, eibd_name_attr1, eibd_name_attr2
-          elif test_name == 'eibd_term':
-                targ1, targ2, attr1, attr2 = eibd_term_targ1, eibd_term_targ2, eibd_term_attr1, eibd_term_attr2
-          else:
-                raise ValueError("Stimuli for bias test %s not found!" % test_name)
-
+          raise ValueError("Stimuli for bias test %s not found!" % test_name) 
+    
     return targ1, targ2, attr1, attr2
 
 def create_batches(sent_lst):
@@ -905,6 +877,7 @@ def create_batches(sent_lst):
             sents_batch.append(sent_lst[-(size_batches[-1]):])
       else:
             sents_batch = []
+          
       return sents_batch
 
 def load_model(model_name):
@@ -920,10 +893,10 @@ def load_model(model_name):
 
     return elmo
 
-def elmo(sent_dict, test_name, shrunken_wd_sets):
+def elmo(sent_dict, test_name):
     """ Function to encode sentences with ELMo """
 
-    targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name, shrunken_wd_sets)
+    targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name)
     wd_list = targ1_lst + targ2_lst + attr1_lst + attr2_lst
     out_dict = {wd:{'sent': [],
                     'word-average': []} for wd in wd_list}
@@ -939,33 +912,30 @@ def elmo(sent_dict, test_name, shrunken_wd_sets):
           for batch in batches:
                 # shorten and tokenize sents in batch
                 batch = [shorten_sent(sent, wd).split() for sent in batch]
-                vec_seq = elmo_model.embed_batch(batch)
+                vecs = elmo_model.embed_batch(batch)
 
                 for idx_sent, sent in enumerate(batch):
                       for encoding, value in out_dict[wd].items():
+
                             if encoding == 'word-average':  # here: no subword tokenization
+
                                   if len(wd.split()) > 1: # case: multiple words
                                         # determine idx of stimuli in input sentence
                                         idx_start = sent.index(wd.split()[0])
-                                        # vector slicing excludes end idx
-                                        idx_end = idx_start + len(wd.split())
-                                        # extract reps of tokens of interest
-                                        vec = vec_seq[idx_sent][:, idx_start:idx_end, :]
-                                        # mean over all tokens of interest
-                                        vec = vec.mean(axis=1)
+                                        idx_end = idx_start + len(wd.split()) # vector slicing excludes end idx
+
+                                        vec = vecs[idx_sent][:, idx_start:idx_end, :] # extract reps of tokens of interest
+                                        vec = vec.mean(axis=1) # mean over all tokens of interest
                                   else:
-                                        # determine idx of stimulus in input sentence
-                                        idx = sent.index(wd)
-                                        # extract rep of token of interest
-                                        vec = vec_seq[idx_sent][:, idx, :]
+                                        idx = sent.index(wd) # determine idx of stimulus in input sentence
+                                        vec = vecs[idx_sent][:, idx, :] # extract rep of token of interest
 
                             elif encoding == 'sent':
-                                  # extract rep of sent as average over all words
-                                  vec = vec_seq[idx_sent].mean(axis=1)
+                                  vec = vecs[idx_sent].mean(axis=1) # extract rep of sent as average over all words
                             else:
                                   raise ValueError("Encoding level %s not found!" % encoding)
 
-                            out_dict[wd][encoding].append(vec.sum(axis=0))  # layer_combine_method = add
+                            out_dict[wd][encoding].append(vec.sum(axis=0)) # layer_combine_method = add
 
     print(f'Finished generating embeddings for bias test {test_name}')
     now = datetime.datetime.now()
@@ -1066,23 +1036,15 @@ def ceat_meta(encs, encoding, N=10000):
 
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
-# TODO: indicate if shrunken word sets should be used
-shrunken_wd_sets = False
-
-if shrunken_wd_sets:
-      all_tests = ['c1_name', 'c3_name', 'c9_name', 'c9m_name', 'c9_term', 'occ_name']
-      # for c6_name, c6_term, occ_term the shrunken word sets did not change compared to the original word sets
-      # for c3_term, dis_term, dism_term, ibd_name, ibd_term , eibd_name, eibd_term the shrunken word sets reduced to 0
-else:
-      all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9m_name', 'c9_term',
-             'occ_name', 'occ_term', 'dis_term', 'dism_term', 'ibd_name', 'ibd_term', 'eibd_name', 'eibd_term']
+all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9_name_m', 'c9_term',
+             'occ_name', 'occ_term', 'dis_term', 'dis_term_m', 'i1_name', 'i1_term', 'i2_name', 'i2_term']
 
 results = []
 
 for test in all_tests:
-      embeds = elmo(sent_dict, test, shrunken_wd_sets)
+      embeds = elmo(sent_dict, test)
 
-      targ1, targ2, attr1, attr2 = get_stimuli(test, shrunken_wd_sets)
+      targ1, targ2, attr1, attr2 = get_stimuli(test)
       encs = {}
       i = 0
       # map embeddings to respective word set

@@ -1,7 +1,7 @@
 {
   "targ1": {
     "concept": "M_term",
-    "examples_singular": [
+    "singular": [
       "male",
       "man",
       "boy",
@@ -11,7 +11,7 @@
       "his",
       "son"
     ],
-    "examples_plural": [
+    "plural": [
       "males",
       "men",
       "boys",
@@ -21,7 +21,7 @@
   },
   "targ2": {
     "concept": "F_term",
-    "examples_singular": [
+    "singular": [
       "female",
       "woman",
       "girl",
@@ -31,7 +31,7 @@
       "hers",
       "daughter"
     ],
-    "examples_plural": [
+    "plural": [
       "females",
       "women",
       "girls",
@@ -41,7 +41,7 @@
   },
   "attr1": {
     "concept": "Career",
-    "examples_singular": [
+    "singular": [
       "executive",
       "management",
       "professional",
@@ -51,7 +51,7 @@
       "business",
       "career"
     ],
-    "examples_plural": [
+    "plural": [
       "executives",
       "managements",
       "corporations",
@@ -63,7 +63,7 @@
   },
   "attr2": {
     "concept": "Family",
-    "examples_singular": [
+    "singular": [
       "home",
       "parent",
       "child",
@@ -73,7 +73,7 @@
       "wedding",
       "relative"
     ],
-    "examples_plural": [
+    "plural": [
       "homes",
       "parents",
       "children",

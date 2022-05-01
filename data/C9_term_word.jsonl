@@ -1,7 +1,7 @@
 {
   "targ1": {
     "concept": "MentalDisease_term",
-    "examples_singular": [
+    "singular": [
       "sad",
       "hopeless",
       "gloomy",
@@ -12,7 +12,7 @@
   },
   "targ2": {
     "concept": "PhysicalDisease_term",
-    "examples_singular": [
+    "singular": [
       "sick",
       "illness",
       "influenza",
@@ -23,7 +23,7 @@
   },
   "attr1": {
     "concept": "Temporary",
-    "examples_singular": [
+    "singular": [
       "impermanent",
       "unstable",
       "variable",
@@ -35,7 +35,7 @@
   },
   "attr2": {
     "concept": "Permanent",
-    "examples_singular": [
+    "singular": [
       "stable",
       "always",
       "constant",

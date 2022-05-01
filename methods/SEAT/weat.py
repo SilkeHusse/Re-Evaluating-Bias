@@ -6,8 +6,6 @@ import scipy.special
 import scipy.stats
 
 np.random.seed(1111)
-# X and Y are two sets of target words of equal size.
-# A and B are two sets of attribute words.
 
 def cossim(x, y):
     return np.dot(x, y) / math.sqrt(np.dot(x, x) * np.dot(y, y))
@@ -119,13 +117,12 @@ def effect_size(X, Y, A, B, cossims):
 def run_test(encs, parametric, n_samples=100000):
     """ Function to run a SEAT test
     args:
-        - encs (Dict[str: Dict]): dictionary mapping targ1, targ2, attr1, attr2
-            to dictionaries containing the concept and the encodings
+        - encs (Dict[str: list]): dictionary containing sents from targ1, targ2, attr1, attr2
         - parametric (bool): execute (non)-parametric version of test
         - n_samples (int): number of samples to draw to estimate p-value
     """
-    X, Y = encs["targ1"]['encs'], encs["targ2"]['encs']
-    A, B = encs["attr1"]['encs'], encs["attr2"]['encs']
+    X, Y = encs["targ1"], encs["targ2"]
+    A, B = encs["attr1"], encs["attr2"]
     # convert keys to ints for easier array lookups
     (X, Y) = convert_keys_to_ints(X, Y)
     (A, B) = convert_keys_to_ints(A, B)

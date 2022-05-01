@@ -1,7 +1,7 @@
 {
   "targ1": {
     "concept": "MentalDisease_name",
-    "examples_singular": [
+    "singular": [
       "anxiety",
       "panic",
       "phobia",
@@ -20,7 +20,7 @@
   },
   "targ2": {
     "concept": "PhysicalDisease_name",
-    "examples_singular": [
+    "singular": [
       "fibrosis",
       "epilepsy",
       "sclerosis",
@@ -39,7 +39,7 @@
   },
   "attr1": {
     "concept": "Temporary",
-    "examples_singular": [
+    "singular": [
       "impermanent",
       "unstable",
       "variable",
@@ -51,7 +51,7 @@
   },
   "attr2": {
     "concept": "Permanent",
-    "examples_singular": [
+    "singular": [
       "stable",
       "always",
       "constant",
