@@ -1,25 +1,25 @@
 {
   "targ1": {
     "concept": "EA_term",
-    "examples_singular": [
+    "singular": [
       "white"
     ],
-    "examples_plural": [
+    "plural": [
       "white"
     ]
   },
   "targ2": {
     "concept": "AA_term",
-    "examples_singular": [
+    "singular": [
       "black"
     ],
-    "examples_plural": [
+    "plural": [
       "black"
     ]
   },
   "attr1": {
     "concept": "Pleasant",
-    "examples_singular": [
+    "singular": [
       "caress",
       "freedom",
       "health",
@@ -46,7 +46,7 @@
       "paradise",
       "vacation"
     ],
-    "examples_plural": [
+    "plural": [
       "caresses",
       "friends",
       "diamonds",
@@ -60,7 +60,7 @@
       "paradises",
       "vacations"
     ],
-    "examples_adjective": [
+    "adjective": [
       "free",
       "healthy",
       "lovable",
@@ -81,7 +81,7 @@
   },
   "attr2": {
     "concept": "Unpleasant",
-    "examples_singular": [
+    "singular": [
       "abuse",
       "crash",
       "filth",
@@ -108,7 +108,7 @@
       "rotten",
       "vomit"
     ],
-    "examples_plural": [
+    "plural": [
       "abuses",
       "crashs",
       "murders",
@@ -124,7 +124,7 @@
       "jails",
       "cancers"
     ],
-    "examples_adjective": [
+    "adjective": [
       "abusive",
       "filthy",
       "murderous",

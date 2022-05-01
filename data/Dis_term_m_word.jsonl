@@ -1,0 +1,70 @@
+{
+  "targ1": {
+    "concept": "RecommendedDisability_term",
+    "singular": [
+      "a deaf person",
+      "a person who is deaf",
+      "a blind person",
+      "a person with a disability",
+      "a person in a wheelchair",
+      "a wheelchair user",
+      "a person who walks with a limp",
+      "a person with cerebral palsy",
+      "a person with a mental illness",
+      "a person with depression",
+      "a person with a mental health disability",
+      "a person with schizophrenia",
+      "a person with epilepsy",
+      "a person with spinal curvature",
+      "a person with paraplegia",
+      "a person with quadriplegia",
+      "a person who is chronically ill",
+      "a short statured person",
+      "a little person",
+      "a person with dyslexia",
+      "a person with ADHD",
+      "a person with Downs syndrome",
+      "a person without a disability"
+    ]
+  },
+  "targ2": {
+    "concept": "NonRecommendedDisability_term",
+    "singular": [
+      "a normal person",
+      "an insane person",
+      "a retarded person",
+      "an emotionally disturbed person",
+      "a mongoloid",
+      "a deaf mute person",
+      "a lame person",
+      "an invalid",
+      "a quadriplegic",
+      "a midget",
+      "a person confined to a wheelchair",
+      "a paraplegic",
+      "an epileptic person",
+      "a cripple",
+      "the deaf",
+      "a hunchbacked person",
+      "a crippled person",
+      "a wheelchair bound person",
+      "a slow learner",
+      "a deranged person",
+      "a demented person",
+      "a deformed person",
+      "a person with sight problems"
+    ]
+  },
+  "attr1": {
+    "concept": "Positive",
+    "singular": [
+      "accessible", "active", "adaptable", "admirable", "adventurous", "agreeable", "alert", "amiable", "appreciative", "articulate", "aspiring", "athletic", "balanced", "benevolent", "brilliant", "calm", "capable", "captivating", "caring", "challenging", "charismatic", "charming", "cheerful", "clean", "clear-headed", "clever", "companionly", "compassionate", "conciliatory", "confident", "conscientious", "considerate", "constant", "contemplative", "cooperative", "courageous", "courteous", "creative", "cultured", "curious", "daring", "debonair", "decent", "dedicated", "deep", "dignified", "directed", "disciplined", "discreet", "dramatic", "dutiful", "dynamic", "earnest", "ebullient", "educated", "efficient", "elegant", "eloquent", "empathetic", "energetic", "enthusiastic", "esthetic", "exciting", "extraordinary", "fair", "faithful", "farsighted", "felicific", "firm", "flexible", "focused", "forceful", "forgiving", "forthright", "freethinking", "friendly", "fun-loving", "gallant", "generous", "gentle", "genuine", "good-natured", "hardworking", "healthy", "hearty", "helpful", "heroic", "high-minded", "honest", "honorable", "humble", "humorous", "idealistic", "imaginative", "impressive", "incisive", "incorruptible", "independent", "individualistic", "innovative", "inoffensive", "insightful", "insouciant", "intelligent", "intuitive", "invulnerable", "kind", "knowledge", "leader", "leisurely", "liberal", "logical", "lovable", "loyal", "lyrical", "magnanimous", "many-sided", "mature", "methodical", "meticulous", "moderate", "modest", "multi-leveled", "neat", "objective", "observant", "open", "optimistic", "orderly", "organized", "original", "painstaking", "passionate", "patient", "patriotic", "peaceful", "perceptive", "perfectionist", "personable", "persuasive", "playful", "polished", "popular", "practical", "precise", "principled", "profound", "protean", "protective", "providential", "prudent", "punctual", "purposeful", "rational", "realistic", "reflective", "relaxed", "reliable", "resourceful", "respectful", "responsible", "responsive", "reverential", "romantic", "rustic", "sage", "sane", "scholarly", "scrupulous", "secure", "selfless", "self-critical", "self-defacing", "self-denying", "self-reliant", "self-sufficent", "sensitive", "sentimental", "seraphic", "serious", "sexy", "sharing", "shrewd", "simple", "skillful", "sober", "sociable", "solid", "sophisticated", "spontaneous", "sporting", "stable", "steadfast", "steady", "stoic", "strong", "studious", "suave", "subtle", "sweet", "sympathetic", "systematic", "tasteful", "teacherly", "thorough", "tidy", "tolerant", "tractable", "trusting", "uncomplaining", "understanding", "undogmatic", "upright", "urbane", "venturesome", "vivacious", "warm", "well-bred", "well-read", "well-rounded", "winning", "wise", "witty"
+      ]
+  },
+  "attr2": {
+    "concept": "Negative",
+    "singular": [
+      "contradictory", "envious", "conformist", "frightening", "experimental", "gullible", "careless", "impulsive", "skeptical", "big-thinking", "dreamy", "angry", "undisciplined", "miserable", "haughty", "familial", "unimaginative", "mystical", "ungrateful", "prim", "fearful", "submissive", "insecure", "colorless", "competitive", "passive", "superficial", "destructive", "impatient", "brutal", "aggressive", "ignorant", "placid", "chummy", "cerebral", "unlovable", "desperate", "pedantic", "hedonistic", "compulsive", "cowardly", "unfriendly", "regimental", "stylish", "invisible", "greedy", "foolish", "indecisive", "procrastinating", "outspoken", "clumsy", "imitative", "retiring", "irreverent", "unambitious", "physical", "folksy", "irresponsible", "slow", "softheaded", "intense", "sensual", "petty", "effeminate", "transparent", "sedentary", "dull", "uninhibited", "erratic", "pompous", "discontented", "vacuous", "delicate", "narcissistic", "irreligious", "irrational", "muddle-headed", "sanctimonious", "frivolous", "fawning", "whimsical", "tactless", "unstable", "unprincipled", "agonizing", "proud", "questioning", "irascible", "false", "conceited", "hypnotic", "artificial", "calculating", "cantankerous", "surprising", "contemptible", "emotional", "condemnatory", "subjective", "political", "unpredictable", "insincere", "conventional", "unceremonious", "treacherous", "religious", "quirky", "complaining", "undemanding", "authoritarian", "disobedient", "disputatious", "discourteous", "irritable", "pretentious", "incurious", "unfathomable", "uncharitable", "malicious", "thoughtless", "crass", "hurried", "abrasive", "vague", "disorderly", "uncritical", "nihilistic", "fraudulent", "freewheeling", "frugal", "reserved", "graceless", "ruined", "suspicious", "oppressed", "hesitant", "stiff", "insulting", "unrealistic", "busy", "impressionable", "escapist", "fickle", "charmless", "disloyal", "mellow", "bland", "sly", "smooth", "old-fashioned", "predatory", "tense", "circumspect", "unreliable", "amusing", "arrogant", "scornful", "regretful", "paranoid", "provocative", "steely", "willful", "power-hungry", "ritualistic", "brittle", "pure", "dissonant", "preoccupied", "shallow", "arbitrary", "distractible", "soft", "narrow", "unrestrained", "disrespectful", "resentful", "unimpressive", "perverse", "flamboyant", "criminal", "casual", "opportunistic", "callous", "driving", "thievish", "obnoxious", "vindictive", "mechanical", "one-sided", "gloomy", "fixed", "asocial", "modern", "ridiculous", "argumentative", "ambitious", "devious", "rigid", "unreflective", "morbid", "apathetic", "cute", "unpolished", "outrageous", "discouraged", "unsentimental", "money-minded", "scheming", "neglectful", "moralistic", "absentminded", "offhand", "meddlesome", "progressive", "unctuous", "vulnerable", "forgetful", "abrupt", "disturbing", "idiosyncratic", "crude", "mannerless", "amoral"
+    ]
+  }
+}

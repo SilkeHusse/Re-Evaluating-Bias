@@ -1,30 +1,45 @@
 {
     "targ1": {
-        "examples_singular": [
-            "john",
-            "paul",
-            "mike",
-            "kevin",
-            "steve",
-            "greg",
-            "jeff",
-            "bill"
+        "singular": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son"
+        ],
+        "plural": [
+            "males",
+            "men",
+            "boys",
+            "brothers",
+            "sons"
         ]
     },
     "targ2": {
-        "examples_singular": [
-            "amy",
-            "joan",
-            "lisa",
-            "sarah",
-            "diana",
-            "kate",
-            "ann",
-            "donna"
+        "singular": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter"
+        ],
+        "plural": [
+            "females",
+            "women",
+            "girls",
+            "sisters",
+            "daughters"
         ]
     },
     "attr1": {
-        "examples_singular": [
+        "concept": "Career",
+        "singular": [
             "executive",
             "management",
             "professional",
@@ -34,7 +49,7 @@
             "business",
             "career"
         ],
-        "examples_plural": [
+        "plural": [
             "executives",
             "managements",
             "corporations",
@@ -45,7 +60,8 @@
         ]
     },
     "attr2": {
-        "examples_singular": [
+        "concept": "Family",
+        "singular": [
             "home",
             "parent",
             "child",
@@ -55,7 +71,7 @@
             "wedding",
             "relative"
         ],
-        "examples_plural": [
+        "plural": [
             "homes",
             "parents",
             "children",

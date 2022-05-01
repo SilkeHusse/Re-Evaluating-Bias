@@ -1,27 +1,27 @@
 {
   "targ1": {
     "concept": "M_term",
-    "examples_singular": [
+    "singular": [
       "he"
     ],
-    "examples_plural": [
+    "plural": [
       "men",
       "boys"
     ]
   },
   "targ2": {
     "concept": "F_term",
-    "examples_singular": [
+    "singular": [
       "she"
     ],
-    "examples_plural": [
+    "plural": [
       "women",
       "girls"
     ]
   },
   "attr1": {
     "concept": "M_occupation",
-    "examples_singular": [
+    "singular": [
       "driver",
       "supervisor",
       "janitor",
@@ -46,7 +46,7 @@
   },
   "attr2": {
     "concept": "F_occupation",
-    "examples_singular": [
+    "singular": [
       "attendant",
       "cashier",
       "teacher",

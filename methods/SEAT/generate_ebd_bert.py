@@ -17,7 +17,7 @@ from transformers import BertTokenizerFast
 
 if torch.cuda.is_available():
     print('GPU is available.')
-    device = torch.device("cuda") # set device
+    device = torch.device("cuda")
 else:
     print('No GPU available, using CPU instead.')
     device = torch.device("cpu")
@@ -202,8 +202,8 @@ c9_name_targ2 = [
 c9_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
-# C9m_name_word
-c9m_name_targ1 = [
+# C9_name_m_word
+c9_name_m_targ1 = [
       "anxiety",
       "panic",
       "phobia",
@@ -219,7 +219,7 @@ c9m_name_targ1 = [
       "insomnia",
       "dementia"
     ]
-c9m_name_targ2 = [
+c9_name_m_targ2 = [
       "fibrosis",
       "epilepsy",
       "sclerosis",
@@ -235,8 +235,8 @@ c9m_name_targ2 = [
       "tumour",
       "bronchitis"
     ]
-c9m_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional","transitory"]
-c9m_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever","lasting"]
+c9_name_m_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional","transitory"]
+c9_name_m_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever","lasting"]
 
 # C9_term_word
 c9_term_targ1 = ["sad","hopeless","gloomy","tearful","miserable","depressed"]
@@ -302,8 +302,8 @@ dis_term_attr2 = [
       "contradictory", "envious", "conformist", "frightening", "experimental", "gullible", "careless", "impulsive", "skeptical", "big-thinking", "dreamy", "angry", "undisciplined", "miserable", "haughty", "familial", "unimaginative", "mystical", "ungrateful", "maternal", "prim", "fearful", "submissive", "insecure", "colorless", "competitive", "passive", "superficial", "destructive", "impatient", "brutal", "aggressive", "ignorant", "placid", "chummy", "cerebral", "unlovable", "desperate", "pedantic", "hedonistic", "compulsive", "cowardly", "unfriendly", "regimental", "stylish", "invisible", "greedy", "foolish", "indecisive", "procrastinating", "outspoken", "clumsy", "imitative", "retiring", "irreverent", "unambitious", "physical", "folksy", "irresponsible", "slow", "softheaded", "intense", "sensual", "petty", "effeminate", "transparent", "sedentary", "dull", "uninhibited", "erratic", "pompous", "discontented", "vacuous", "delicate", "narcissistic", "irreligious", "irrational", "muddle-headed", "sanctimonious", "frivolous", "fawning", "whimsical", "tactless", "unstable", "unprincipled", "agonizing", "proud", "questioning", "irascible", "false", "conceited", "hypnotic", "artificial", "calculating", "cantankerous", "surprising", "contemptible", "emotional", "condemnatory", "subjective", "political", "unpredictable", "insincere", "conventional", "unceremonious", "treacherous", "religious", "quirky", "boyish", "complaining", "undemanding", "authoritarian", "disobedient", "disputatious", "discourteous", "irritable", "pretentious", "incurious", "unfathomable", "uncharitable", "malicious", "thoughtless", "crass", "hurried", "abrasive", "vague", "disorderly", "uncritical", "nihilistic", "fraudulent", "freewheeling", "frugal", "reserved", "graceless", "ruined", "suspicious", "oppressed", "hesitant", "stiff", "insulting", "unrealistic", "busy", "impressionable", "escapist", "fickle", "charmless", "disloyal", "mellow", "bland", "sly", "smooth", "old-fashioned", "predatory", "tense", "circumspect", "unreliable", "amusing", "arrogant", "scornful", "regretful", "paranoid", "provocative", "steely", "willful", "power-hungry", "ritualistic", "brittle", "pure", "dissonant", "preoccupied", "shallow", "arbitrary", "distractible", "soft", "narrow", "unrestrained", "disrespectful", "resentful", "unimpressive", "perverse", "flamboyant", "criminal", "casual", "opportunistic", "callous", "driving", "thievish", "obnoxious", "vindictive", "mechanical", "one-sided", "gloomy", "fixed", "asocial", "modern", "ridiculous", "argumentative", "ambitious", "devious", "rigid", "unreflective", "morbid", "apathetic", "cute", "unpolished", "outrageous", "discouraged", "unsentimental", "money-minded", "scheming", "neglectful", "moralistic", "absentminded", "offhand", "meddlesome", "progressive", "unctuous", "vulnerable", "forgetful", "abrupt", "disturbing", "idiosyncratic", "crude", "mannerless", "amoral"
     ]
 
-# Dism_term_word
-dism_term_targ1 = [
+# Dis_term_m_word
+dis_term_m_targ1 = [
       "a deaf person",
       "a person who is deaf",
       "a blind person",
@@ -328,7 +328,7 @@ dism_term_targ1 = [
       "a person with Downs syndrome",
       "a person without a disability"
     ]
-dism_term_targ2 = [
+dis_term_m_targ2 = [
       "a normal person",
       "an insane person",
       "a retarded person",
@@ -353,10 +353,10 @@ dism_term_targ2 = [
       "a deformed person",
       "a person with sight problems"
     ]
-dism_term_attr1 = [
+dis_term_m_attr1 = [
       "accessible", "active", "adaptable", "admirable", "adventurous", "agreeable", "alert", "amiable", "appreciative", "articulate", "aspiring", "athletic", "balanced", "benevolent", "brilliant", "calm", "capable", "captivating", "caring", "challenging", "charismatic", "charming", "cheerful", "clean", "clear-headed", "clever", "companionly", "compassionate", "conciliatory", "confident", "conscientious", "considerate", "constant", "contemplative", "cooperative", "courageous", "courteous", "creative", "cultured", "curious", "daring", "debonair", "decent", "dedicated", "deep", "dignified", "directed", "disciplined", "discreet", "dramatic", "dutiful", "dynamic", "earnest", "ebullient", "educated", "efficient", "elegant", "eloquent", "empathetic", "energetic", "enthusiastic", "esthetic", "exciting", "extraordinary", "fair", "faithful", "farsighted", "felicific", "firm", "flexible", "focused", "forceful", "forgiving", "forthright", "freethinking", "friendly", "fun-loving", "gallant", "generous", "gentle", "genuine", "good-natured", "hardworking", "healthy", "hearty", "helpful", "heroic", "high-minded", "honest", "honorable", "humble", "humorous", "idealistic", "imaginative", "impressive", "incisive", "incorruptible", "independent", "individualistic", "innovative", "inoffensive", "insightful", "insouciant", "intelligent", "intuitive", "invulnerable", "kind", "knowledge", "leader", "leisurely", "liberal", "logical", "lovable", "loyal", "lyrical", "magnanimous", "many-sided", "mature", "methodical", "meticulous", "moderate", "modest", "multi-leveled", "neat", "objective", "observant", "open", "optimistic", "orderly", "organized", "original", "painstaking", "passionate", "patient", "patriotic", "peaceful", "perceptive", "perfectionist", "personable", "persuasive", "playful", "polished", "popular", "practical", "precise", "principled", "profound", "protean", "protective", "providential", "prudent", "punctual", "purposeful", "rational", "realistic", "reflective", "relaxed", "reliable", "resourceful", "respectful", "responsible", "responsive", "reverential", "romantic", "rustic", "sage", "sane", "scholarly", "scrupulous", "secure", "selfless", "self-critical", "self-defacing", "self-denying", "self-reliant", "self-sufficent", "sensitive", "sentimental", "seraphic", "serious", "sexy", "sharing", "shrewd", "simple", "skillful", "sober", "sociable", "solid", "sophisticated", "spontaneous", "sporting", "stable", "steadfast", "steady", "stoic", "strong", "studious", "suave", "subtle", "sweet", "sympathetic", "systematic", "tasteful", "teacherly", "thorough", "tidy", "tolerant", "tractable", "trusting", "uncomplaining", "understanding", "undogmatic", "upright", "urbane", "venturesome", "vivacious", "warm", "well-bred", "well-read", "well-rounded", "winning", "wise", "witty"
       ]
-dism_term_attr2 = [
+dis_term_m_attr2 = [
       "contradictory", "envious", "conformist", "frightening", "experimental", "gullible", "careless", "impulsive", "skeptical", "big-thinking", "dreamy", "angry", "undisciplined", "miserable", "haughty", "familial", "unimaginative", "mystical", "ungrateful", "prim", "fearful", "submissive", "insecure", "colorless", "competitive", "passive", "superficial", "destructive", "impatient", "brutal", "aggressive", "ignorant", "placid", "chummy", "cerebral", "unlovable", "desperate", "pedantic", "hedonistic", "compulsive", "cowardly", "unfriendly", "regimental", "stylish", "invisible", "greedy", "foolish", "indecisive", "procrastinating", "outspoken", "clumsy", "imitative", "retiring", "irreverent", "unambitious", "physical", "folksy", "irresponsible", "slow", "softheaded", "intense", "sensual", "petty", "effeminate", "transparent", "sedentary", "dull", "uninhibited", "erratic", "pompous", "discontented", "vacuous", "delicate", "narcissistic", "irreligious", "irrational", "muddle-headed", "sanctimonious", "frivolous", "fawning", "whimsical", "tactless", "unstable", "unprincipled", "agonizing", "proud", "questioning", "irascible", "false", "conceited", "hypnotic", "artificial", "calculating", "cantankerous", "surprising", "contemptible", "emotional", "condemnatory", "subjective", "political", "unpredictable", "insincere", "conventional", "unceremonious", "treacherous", "religious", "quirky", "complaining", "undemanding", "authoritarian", "disobedient", "disputatious", "discourteous", "irritable", "pretentious", "incurious", "unfathomable", "uncharitable", "malicious", "thoughtless", "crass", "hurried", "abrasive", "vague", "disorderly", "uncritical", "nihilistic", "fraudulent", "freewheeling", "frugal", "reserved", "graceless", "ruined", "suspicious", "oppressed", "hesitant", "stiff", "insulting", "unrealistic", "busy", "impressionable", "escapist", "fickle", "charmless", "disloyal", "mellow", "bland", "sly", "smooth", "old-fashioned", "predatory", "tense", "circumspect", "unreliable", "amusing", "arrogant", "scornful", "regretful", "paranoid", "provocative", "steely", "willful", "power-hungry", "ritualistic", "brittle", "pure", "dissonant", "preoccupied", "shallow", "arbitrary", "distractible", "soft", "narrow", "unrestrained", "disrespectful", "resentful", "unimpressive", "perverse", "flamboyant", "criminal", "casual", "opportunistic", "callous", "driving", "thievish", "obnoxious", "vindictive", "mechanical", "one-sided", "gloomy", "fixed", "asocial", "modern", "ridiculous", "argumentative", "ambitious", "devious", "rigid", "unreflective", "morbid", "apathetic", "cute", "unpolished", "outrageous", "discouraged", "unsentimental", "money-minded", "scheming", "neglectful", "moralistic", "absentminded", "offhand", "meddlesome", "progressive", "unctuous", "vulnerable", "forgetful", "abrupt", "disturbing", "idiosyncratic", "crude", "mannerless", "amoral"
     ]
 
@@ -510,12 +510,12 @@ occ_term_attr2 = [
       "tailor"
     ]
 
-# IBD_name_word
-ibd_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
+# I1_name_word
+i1_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
                   "Stephen"]
-ibd_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
+i1_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
                   "Yolanda","Yvette"]
-ibd_name_attr1 = [
+i1_name_attr1 = [
       "all-american",
       "arrogant",
       "attractive",
@@ -530,7 +530,7 @@ ibd_name_attr1 = [
       "sucessful",
       "tall"
     ]
-ibd_name_attr2 = [
+i1_name_attr2 = [
       "aggressive",
       "athletic",
       "bigbutt",
@@ -546,8 +546,8 @@ ibd_name_attr2 = [
       "unrefined"
     ]
 
-# IBD_term_word
-ibd_term_targ1 = [
+# I1_term_word
+i1_term_targ1 = [
       "European American male",
       "British American male",
       "German American male",
@@ -594,7 +594,7 @@ ibd_term_targ1 = [
       "Bosnian American boy",
       "Albanian American boy"
     ]
-ibd_term_targ2 = [
+i1_term_targ2 = [
       "African American female",
       "Nigerian American female",
       "Ethiopian American female",
@@ -641,7 +641,7 @@ ibd_term_targ2 = [
       "Sudanese American girl",
       "Sierra Leonean American girl"
     ]
-ibd_term_attr1 = [
+i1_term_attr1 = [
       "all-american",
       "arrogant",
       "attractive",
@@ -656,7 +656,7 @@ ibd_term_attr1 = [
       "sucessful",
       "tall"
     ]
-ibd_term_attr2 = [
+i1_term_attr2 = [
       "aggressive",
       "athletic",
       "bigbutt",
@@ -672,17 +672,17 @@ ibd_term_attr2 = [
       "unrefined"
     ]
 
-# EIBD_name_word
-eibd_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
+# I2_name_word
+i2_name_targ1 = ["Andrew","Brad","Frank","Geoffrey","Jack","Jonathan","Josh","Matthew","Neil","Peter","Roger",
                   "Stephen"]
-eibd_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
+i2_name_targ2 = ["Aisha","Keisha","Lakisha","Latisha","Latoya","Malika","Nichelle","Shereen","Tamika","Tanisha",
                   "Yolanda","Yvette"]
-eibd_name_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
-eibd_name_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
+i2_name_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
+i2_name_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
                    "unfeminine"]
 
-# EIBD_term_word
-eibd_term_targ1 = [
+# I2_term_word
+i2_term_targ1 = [
       "European American male",
       "British American male",
       "German American male",
@@ -729,7 +729,7 @@ eibd_term_targ1 = [
       "Bosnian American boy",
       "Albanian American boy"
     ]
-eibd_term_targ2 = [
+i2_term_targ2 = [
       "African American female",
       "Nigerian American female",
       "Ethiopian American female",
@@ -776,8 +776,8 @@ eibd_term_targ2 = [
       "Sudanese American girl",
       "Sierra Leonean American girl"
     ]
-eibd_term_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
-eibd_term_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
+i2_term_attr1 = ["arrogant","blond","high-status","intelligent","racist","rich","sucessful","tall"]
+i2_term_attr2 = ["aggressive","bigbutt","confident","darkskinned","fried-chicken","overweight","promiscuous",
                    "unfeminine"]
 
 def shorten_sent(sent, wd):
@@ -794,6 +794,7 @@ def shorten_sent(sent, wd):
 
     wds = sent.split()
     if len(wds) >= window_size:
+
         if multiple_words:
             # determine idx of stimuli in input sentence
             idx_start = wds.index(wd.split()[0])
@@ -815,8 +816,10 @@ def shorten_sent(sent, wd):
             else:
                 wds_used = wds[int((idx_start-((window_size-1)/2))):int((idx_end+((window_size-1)/2))+1)]
         new_sent = ' '.join(wds_used)
+
     else:
         new_sent = sent
+
     return new_sent
 
 def get_stimuli(test_name):
@@ -833,26 +836,26 @@ def get_stimuli(test_name):
         targ1, targ2, attr1, attr2 = c6_term_targ1, c6_term_targ2, c6_term_attr1, c6_term_attr2
     elif test_name == 'c9_name':
         targ1, targ2, attr1, attr2 = c9_name_targ1, c9_name_targ2, c9_name_attr1, c9_name_attr2
-    elif test_name == 'c9m_name':
-        targ1, targ2, attr1, attr2 = c9m_name_targ1, c9m_name_targ2, c9m_name_attr1, c9m_name_attr2
+    elif test_name == 'c9_name_m':
+        targ1, targ2, attr1, attr2 = c9_name_m_targ1, c9_name_m_targ2, c9_name_m_attr1, c9_name_m_attr2
     elif test_name == 'c9_term':
         targ1, targ2, attr1, attr2 = c9_term_targ1, c9_term_targ2, c9_term_attr1, c9_term_attr2
     elif test_name == 'dis_term':
         targ1, targ2, attr1, attr2 = dis_term_targ1, dis_term_targ2, dis_term_attr1, dis_term_attr2
-    elif test_name == 'dism_term':
-        targ1, targ2, attr1, attr2 = dism_term_targ1, dism_term_targ2, dism_term_attr1, dism_term_attr2
+    elif test_name == 'dis_term_m':
+        targ1, targ2, attr1, attr2 = dis_term_m_targ1, dis_term_m_targ2, dis_term_m_attr1, dis_term_m_attr2
     elif test_name == 'occ_name':
         targ1, targ2, attr1, attr2 = occ_name_targ1, occ_name_targ2, occ_name_attr1, occ_name_attr2
     elif test_name == 'occ_term':
         targ1, targ2, attr1, attr2 = occ_term_targ1, occ_term_targ2, occ_term_attr1, occ_term_attr2
-    elif test_name == 'ibd_name':
-        targ1, targ2, attr1, attr2 = ibd_name_targ1, ibd_name_targ2, ibd_name_attr1, ibd_name_attr2
-    elif test_name == 'ibd_term':
-        targ1, targ2, attr1, attr2 = ibd_term_targ1, ibd_term_targ2, ibd_term_attr1, ibd_term_attr2
-    elif test_name == 'eibd_name':
-        targ1, targ2, attr1, attr2 = eibd_name_targ1, eibd_name_targ2, eibd_name_attr1, eibd_name_attr2
-    elif test_name == 'eibd_term':
-        targ1, targ2, attr1, attr2 = eibd_term_targ1, eibd_term_targ2, eibd_term_attr1, eibd_term_attr2
+    elif test_name == 'i1_name':
+        targ1, targ2, attr1, attr2 = i1_name_targ1, i1_name_targ2, i1_name_attr1, i1_name_attr2
+    elif test_name == 'i1_term':
+        targ1, targ2, attr1, attr2 = i1_term_targ1, i1_term_targ2, i1_term_attr1, i1_term_attr2
+    elif test_name == 'i2_name':
+        targ1, targ2, attr1, attr2 = i2_name_targ1, i2_name_targ2, i2_name_attr1, i2_name_attr2
+    elif test_name == 'i2_term':
+        targ1, targ2, attr1, attr2 = i2_term_targ1, i2_term_targ2, i2_term_attr1, i2_term_attr2
     else:
         raise ValueError("Stimuli for bias test %s not found!" % test_name)
     return targ1, targ2, attr1, attr2
@@ -895,10 +898,7 @@ def bert(sent_dict, test_name):
 
     targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name)
     wd_list = targ1_lst + targ2_lst + attr1_lst + attr2_lst
-    out_dict = {wd:{'sent': [],
-                    'word-average': [],
-                    'word-start': [],
-                    'word-end': []} for wd in wd_list}
+    out_dict = {wd:{'sent': [], 'word-average': [], 'word-start': [], 'word-end': []} for wd in wd_list}
 
     bert_model, bert_tok, bert_sub_tok = load_model('bert')
 
@@ -907,11 +907,19 @@ def bert(sent_dict, test_name):
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
 
     for wd in wd_list:
-          batches = create_batches(sent_dict[wd])
+
+          # downsample sents for each wd to 100 if applicable
+          if len(sent_dict[wd]) > 100:
+                sents = random.sample(sent_dict[wd], 100)
+          else:
+                sents = sent_dict[wd]
+
+          batches = create_batches(sents)
           for batch in batches:
                 batch = [shorten_sent(sent, wd) for sent in batch]
+
                 # [CLS] and [SEP] tokens are added automatically
-                encodings = bert_tok(batch, return_tensors='pt', padding=True)
+                encodings = bert_tok(batch, return_tensors='pt', padding=True, truncation=True)
                 token_ids = torch.tensor(encodings['input_ids'], device=device)
                 # map tokens to input words
                 subword_ids = [bert_sub_tok(sent, add_special_tokens=False).word_ids() for sent in batch]
@@ -920,80 +928,81 @@ def bert(sent_dict, test_name):
                 for idx_sent, sent in enumerate(batch):
                       for encoding, value in out_dict[wd].items():
                             if encoding[:4] == 'word':  # here: subword tokenization
+
                                   if len(wd.split()) > 1:
                                         # determine idx of stimuli in input sentence; account for [CLS] token
                                         idx_start = sent.split().index(wd.split()[0]) + 1
                                         # account for [CLS] token; range function excludes end idx
                                         idx_end = idx_start + len(wd.split())
-                                        # obtain vecs of all relevant tokens
-                                        token_vecs = []
-                                        for idxs in range(idx_start, idx_end):
-                                              token_vecs.append(
-                                                    vecs['last_hidden_state'][idx_sent][idxs].cpu().detach().numpy())
-                                        # extract rep of token of interest as average over all tokens
-                                        out_dict[wd][encoding].append(np.mean(np.asarray(token_vecs), axis=0))
+                                        # extract rep of token of interest as average over all relevant tokens
+                                        vecs_token = []
+                                        for idx_token in range(idx_start, idx_end):
+                                              vecs_token.append(
+                                                    vecs['last_hidden_state'][idx_sent][idx_token].cpu().detach().numpy())
+                                        out_dict[wd][encoding].append(np.mean(np.asarray(vecs_token), axis=0))
+
                                   else:
                                         # determine idx of stimulus in input sentence
                                         idx = sent.split().index(wd)
+
                                         if '-' in sent.split()[idx]:  # here: special case of subword tokenization
                                               idx_stimuli = [i for i, element in enumerate(subword_ids[idx_sent]) if
                                                              element == idx]
-                                              # account for [CLS] token
-                                              idx_start = idx_stimuli[0] + 1
-                                              idxs_first_part = len(idx_stimuli)
-                                              idxs_second_part = len(
+                                              idx_start = idx_stimuli[0] + 1 # account for [CLS] token
+                                              len_first_part = len(idx_stimuli)
+                                              len_second_part = len(
                                                     [i for i, element in enumerate(subword_ids[idx_sent]) if
-                                                     element == (idx_start + 1)])
+                                                     element == (idx + 2)])
                                               # account for [CLS] token; range function excludes end idx
-                                              idx_end = idx_start + idxs_first_part + idxs_second_part + 1
+                                              idx_end = idx_start + len_first_part + len_second_part + 1
+
                                               if encoding == 'word-average':
-                                                    # obtain vecs of all relevant tokens
-                                                    token_vecs = []
-                                                    for idxs in range(idx_start, idx_end):
-                                                          token_vecs.append(vecs['last_hidden_state'][idx_sent][
-                                                                                  idxs].cpu().detach().numpy())
-                                                    # extract rep of token of interest as average over all tokens
-                                                    out_dict[wd][encoding].append(np.mean(np.asarray(token_vecs), axis=0))
+                                                    # extract rep of token of interest as average over all relevant tokens
+                                                    vecs_token = []
+                                                    for idx_token in range(idx_start, idx_end):
+                                                          vecs_token.append(
+                                                                vecs['last_hidden_state'][idx_sent][idx_token].cpu().detach().numpy())
+                                                    out_dict[wd][encoding].append(np.mean(np.asarray(vecs_token), axis=0))
                                               elif encoding == 'word-start':
-                                                    out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
-                                                                                   idx_start].cpu().detach().numpy())
-                                              elif encoding == 'word-end':
-                                                    idx_new = idx_start + idxs_first_part + idxs_second_part
                                                     out_dict[wd][encoding].append(
-                                                          vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
+                                                          vecs['last_hidden_state'][idx_sent][idx_start].cpu().detach().numpy())
+                                              elif encoding == 'word-end':
+                                                    idx_end = idx_end - 1
+                                                    out_dict[wd][encoding].append(
+                                                          vecs['last_hidden_state'][idx_sent][idx_end].cpu().detach().numpy())
+
                                         else:
+
                                               if subword_ids[idx_sent].count(idx) == 1:  # case: no subword tokenization
-                                                    # account for [CLS] token
-                                                    idx_new = idx + 1
+                                                    idx_new = idx + 1 # account for [CLS] token
                                                     # extract rep of token of interest
                                                     out_dict[wd][encoding].append(
                                                           vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
+
                                               elif subword_ids[idx_sent].count(idx) > 1:  # case: subword tokenization
                                                     if encoding == 'word-average':
                                                           # obtain vecs of all relevant subwords
-                                                          subword_vecs = []
-                                                          idx_list = [i for i in range(len(subword_ids[idx_sent])) if
+                                                          vecs_subword = []
+                                                          idx_subwords = [i for i in range(len(subword_ids[idx_sent])) if
                                                                       subword_ids[idx_sent][i] == idx]
-                                                          for idxs in idx_list:
-                                                                # account for [CLS] token
-                                                                idx_new = idxs + 1
-                                                                subword_vecs.append(vecs['last_hidden_state'][idx_sent][
+                                                          for idx in idx_subwords:
+                                                                idx_new = idx + 1 # account for [CLS] token
+                                                                vecs_subword.append(vecs['last_hidden_state'][idx_sent][
                                                                                           idx_new].cpu().detach().numpy())
                                                           # extract rep of token of interest as average over all subwords
                                                           out_dict[wd][encoding].append(
-                                                                np.mean(np.asarray(subword_vecs), axis=0))
+                                                                np.mean(np.asarray(vecs_subword), axis=0))
                                                     elif encoding == 'word-start':
-                                                          # account for CLS token
-                                                          idx_new = subword_ids[idx_sent].index(idx) + 1
+                                                          idx_new = subword_ids[idx_sent].index(idx) + 1 # account for CLS token
                                                           # extract rep of token of interest as first subword
-                                                          out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
-                                                                                         idx_new].cpu().detach().numpy())
+                                                          out_dict[wd][encoding].append(
+                                                                vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
                                                     elif encoding == 'word-end':
                                                           # account for [CLS] token
                                                           idx_new = len(subword_ids[idx_sent]) - subword_ids[idx_sent][::-1].index(idx)
                                                           # extract rep of token of interest as last subword
-                                                          out_dict[wd][encoding].append(vecs['last_hidden_state'][idx_sent][
-                                                                                         idx_new].cpu().detach().numpy())
+                                                          out_dict[wd][encoding].append(
+                                                                vecs['last_hidden_state'][idx_sent][idx_new].cpu().detach().numpy())
 
                             elif encoding == 'sent':
                                   # extract rep of sent as [CLS] token
@@ -1006,102 +1015,59 @@ def bert(sent_dict, test_name):
 
 def cossim(x, y):
     return np.dot(x, y) / math.sqrt(np.dot(x, x) * np.dot(y, y))
-#def construct_cossim_lookup(XY, AB):
-#    """ Function to compute cosine similarities"""
-#    cossims = np.zeros((len(XY), len(AB)))
-#    for xy in XY:
-#        for ab in AB:
-#            cossims[xy, ab] = cossim(XY[xy], AB[ab])
-#    return cossims
-#def s_wAB(A, B, cossims):
-#    """ Function for
-#    s(w, A, B) = mean_{a in A} cos(w, a) - mean_{b in B} cos(w, b)
-#    """
-#    return cossims[:, A].mean(axis=1) - cossims[:, B].mean(axis=1)
-#def s_XAB(X, s_wAB_memo):
-#    """ Function for single term of test statistic
-#    sum_{x in X} s(x, A, B)
-#    """
-#    return s_wAB_memo[X].sum()
-#def s_XYAB(X, Y, s_wAB_memo):
-#    """ Function for test statistic
-#    s(X, Y, A, B) = sum_{x in X} s(x, A, B) - sum_{y in Y} s(y, A, B)
-#    """
-#    return s_XAB(X, s_wAB_memo) - s_XAB(Y, s_wAB_memo)
-#def mean_s_wAB(X, A, B, cossims):
-#    return np.mean(s_wAB(A, B, cossims[X]))
-#def stdev_s_wAB(X, A, B, cossims):
-#    return np.std(s_wAB(A, B, cossims[X]), ddof=1)
+def construct_cossim_lookup(XY, AB):
+    """ Function to compute cosine similarities"""
+    cossims = np.zeros((len(XY), len(AB)))
+    for xy in XY:
+        for ab in AB:
+            cossims[xy, ab] = cossim(XY[xy], AB[ab])
+    return cossims
+def s_wAB(A, B, cossims):
+    """ Function for
+    s(w, A, B) = mean_{a in A} cos(w, a) - mean_{b in B} cos(w, b)
+    """
+    return cossims[:, A].mean(axis=1) - cossims[:, B].mean(axis=1)
+def s_XAB(X, s_wAB_memo):
+    """ Function for single term of test statistic
+    sum_{x in X} s(x, A, B)
+    """
+    return s_wAB_memo[X].sum()
+def s_XYAB(X, Y, s_wAB_memo):
+    """ Function for test statistic
+    s(X, Y, A, B) = sum_{x in X} s(x, A, B) - sum_{y in Y} s(y, A, B)
+    """
+    return s_XAB(X, s_wAB_memo) - s_XAB(Y, s_wAB_memo)
+def mean_s_wAB(X, A, B, cossims):
+    return np.mean(s_wAB(A, B, cossims[X]))
+def stdev_s_wAB(X, A, B, cossims):
+    return np.std(s_wAB(A, B, cossims[X]), ddof=1)
 
 def convert_keys_to_ints(X, Y):
     return (dict((i, v) for (i, (k, v)) in enumerate(X.items())),
             dict((i + len(X), v) for (i, (k, v)) in enumerate(Y.items())),)
 
-def p_val_permutation_test(X, Y, A, B, n_samples, parametric):
+def p_val_permutation_test(X, Y, A, B, n_samples, cossims, parametric):
     """ Function to compute the p-value for the permutation test
     Pr[ s(Xi, Yi, A, B) ≥ s(X, Y, A, B) ]
     for Xi, Yi : partition of X union Y
     """
-    XY = X.copy()
-    XY.update(Y)
-    AB = A.copy()
-    AB.update(B)
-
     X = np.array(list(X), dtype=np.int)
     Y = np.array(list(Y), dtype=np.int)
     A = np.array(list(A), dtype=np.int)
     B = np.array(list(B), dtype=np.int)
 
     size = len(X)
-    #s_wAB_memo = s_wAB(A, B, cossims=cossims) = cossims[:, A].mean(axis=1) - cossims[:, B].mean(axis=1)
-    XY_lst = np.concatenate((X, Y))
+    s_wAB_memo = s_wAB(A, B, cossims=cossims)
+    XY = np.concatenate((X, Y))
 
     if parametric: # case: assume normal distribution
-
-        s1 = 0 # s_wAB_memo[X].sum()
-        for x in X:
-              cossims = np.zeros((1, len(AB)))
-              for ab in AB:
-                    cossims[:, ab] = cossim(XY[x], AB[ab])
-              s_wA = cossims[:, A].mean(axis=1)
-              s_wB = cossims[:, B].mean(axis=1)
-              s1 = s1 + (s_wA - s_wB)
-        s2 = 0 # s_wAB_memo[Y].sum()
-        for y in Y:
-              cossims = np.zeros((1, len(AB)))
-              for ab in AB:
-                    cossims[:, ab] = cossim(XY[y], AB[ab])
-              s_wA = cossims[:, A].mean(axis=1)
-              s_wB = cossims[:, B].mean(axis=1)
-              s2 = s2 + (s_wA - s_wB)
-        # s = s_XYAB(X, Y, s_wAB_memo) = s_wAB_memo[X].sum() - s_wAB_memo[Y].sum()
-        s = s1 - s2
-
+        s = s_XYAB(X, Y, s_wAB_memo)
         samples = []
         for _ in range(n_samples): # permutation test
-            np.random.shuffle(XY_lst)
-            Xi = XY_lst[:size]
-            Yi = XY_lst[size:]
-
-            si1 = 0  # s_wAB_memo[Xi].sum()
-            for x in Xi:
-                  cossims = np.zeros((1, len(AB)))
-                  for ab in AB:
-                        cossims[:, ab] = cossim(XY[x], AB[ab])
-                  s_wA = cossims[:, A].mean(axis=1)
-                  s_wB = cossims[:, B].mean(axis=1)
-                  si1 = si1 + (s_wA - s_wB)
-            si2 = 0  # s_wAB_memo[Yi].sum()
-            for y in Yi:
-                  cossims = np.zeros((1, len(AB)))
-                  for ab in AB:
-                        cossims[:, ab] = cossim(XY[y], AB[ab])
-                  s_wA = cossims[:, A].mean(axis=1)
-                  s_wB = cossims[:, B].mean(axis=1)
-                  si2 = si2 + (s_wA - s_wB)
-            # si = s_XYAB(Xi, Yi, s_wAB_memo) = s_wAB_memo[Xi].sum() - s_wAB_memo[Yi].sum()
-            si = si1 - si2
-
+            np.random.shuffle(XY)
+            Xi = XY[:size]
+            Yi = XY[size:]
+            si = s_XYAB(Xi, Yi, s_wAB_memo)
             samples.append(si)
         # unbiased mean and standard deviation
         sample_mean = np.mean(samples)
@@ -1110,37 +1076,17 @@ def p_val_permutation_test(X, Y, A, B, n_samples, parametric):
         return p_val
 
     else: # case: non-parametric implementation
-
-        #s = s_XAB(X, s_wAB_memo) = s_wAB_memo[X].sum()
-        s = 0
-        for x in X:
-              cossims = np.zeros((1, len(AB)))
-              for ab in AB:
-                    cossims[:, ab] = cossim(XY[x], AB[ab])
-              s_wA = cossims[:, A].mean(axis=1)
-              s_wB = cossims[:, B].mean(axis=1)
-              s = s + (s_wA - s_wB)
-
+        s = s_XAB(X, s_wAB_memo)
         total_true, total_equal, total = 0, 0, 0
-        num_partitions = int(scipy.special.binom(2 * len(X), len(X)))
+        num_partitions = 1000000 #int(scipy.special.binom(2 * len(X), len(X)))
         if num_partitions > n_samples:
             # draw 99,999 samples and bias by 1 positive observation
             total_true += 1
             total += 1
             for _ in range(n_samples - 1):
-                np.random.shuffle(XY_lst)
-                Xi = XY_lst[:size]
-
-                #si = s_XAB(Xi, s_wAB_memo) = s_wAB_memo[Xi].sum()
-                si = 0
-                for x in Xi:
-                      cossims = np.zeros((1, len(AB)))
-                      for ab in AB:
-                            cossims[:, ab] = cossim(XY[x], AB[ab])
-                      s_wA = cossims[:, A].mean(axis=1)
-                      s_wB = cossims[:, B].mean(axis=1)
-                      si = si + (s_wA - s_wB)
-
+                np.random.shuffle(XY)
+                Xi = XY[:size]
+                si = s_XAB(Xi, s_wAB_memo)
                 if si > s: # case: strict inequality
                     total_true += 1
                 elif si == s:  # case: conservative non-strict inequality
@@ -1148,19 +1094,9 @@ def p_val_permutation_test(X, Y, A, B, n_samples, parametric):
                     total_equal += 1
                 total += 1
         else:  # case: use exact permutation test (number of partitions)
-            for Xi in it.combinations(XY_lst, len(X)):
+            for Xi in it.combinations(XY, len(X)):
                 Xi = np.array(Xi, dtype=np.int)
-
-                # si = s_XAB(Xi, s_wAB_memo) = s_wAB_memo[Xi].sum()
-                si = 0
-                for x in Xi:
-                      cossims = np.zeros((1, len(AB)))
-                      for ab in AB:
-                            cossims[:, ab] = cossim(XY[x], AB[ab])
-                      s_wA = cossims[:, A].mean(axis=1)
-                      s_wB = cossims[:, B].mean(axis=1)
-                      si = si + (s_wA - s_wB)
-
+                si = s_XAB(Xi, s_wAB_memo)
                 if si > s: # case: strict inequality
                     total_true += 1
                 elif si == s:  # case: conservative non-strict inequality
@@ -1170,53 +1106,18 @@ def p_val_permutation_test(X, Y, A, B, n_samples, parametric):
         #print('Equalities contributed {}/{} to p-value'.format(total_equal, total))
         return total_true / total
 
-def effect_size(X, Y, A, B):
+def effect_size(X, Y, A, B, cossims):
     """ Function to compute the effect size
     [ mean_{x in X} s(x, A, B) - mean_{y in Y} s(y, A, B) ] /
         [ stddev_{w in X union Y} s(w, A, B) ]
     """
-    XY = X.copy()
-    XY.update(Y)
-    AB = A.copy()
-    AB.update(B)
-
     X = list(X)
     Y = list(Y)
     A = list(A)
     B = list(B)
 
-    # numerator1 = np.mean(s_wAB(A, B, cossims[X]))
-    numerator1 = []
-    for x in X:
-          cossims = np.zeros((1, len(AB)))
-          for ab in AB:
-                cossims[:, ab] = cossim(XY[x], AB[ab])
-          s_wA = cossims[:, A].mean(axis=1)
-          s_wB = cossims[:, B].mean(axis=1)
-          numerator1.append((s_wA - s_wB))
-    # numerator2 = np.mean(s_wAB(A, B, cossims[Y]))
-    numerator2 = []
-    for y in Y:
-          cossims = np.zeros((1, len(AB)))
-          for ab in AB:
-                cossims[:, ab] = cossim(XY[y], AB[ab])
-          s_wA = cossims[:, A].mean(axis=1)
-          s_wB = cossims[:, B].mean(axis=1)
-          numerator2.append((s_wA - s_wB))
-    #numerator = mean_s_wAB(X, A, B, cossims=cossims) - mean_s_wAB(Y, A, B, cossims=cossims)
-    numerator = np.mean(numerator1) - np.mean(numerator2)
-
-    denominator = []
-    for xy in XY:
-          cossims = np.zeros((1, len(AB)))
-          for ab in AB:
-                cossims[:, ab] = cossim(XY[xy], AB[ab])
-          s_wA = cossims[:, A].mean(axis=1)
-          s_wB = cossims[:, B].mean(axis=1)
-          denominator.append((s_wA - s_wB))
-    # denominator = stdev_s_wAB(X + Y, A, B, cossims=cossims) = np.std(s_wAB(A, B, cossims[XY]), ddof=1)
-    denominator = np.std(denominator, ddof=1)
-
+    numerator = mean_s_wAB(X, A, B, cossims=cossims) - mean_s_wAB(Y, A, B, cossims=cossims)
+    denominator = stdev_s_wAB(X + Y, A, B, cossims=cossims)
     return numerator / denominator
 
 def run_test(encs, encoding, parametric=False, n_samples=100000):
@@ -1248,27 +1149,25 @@ def run_test(encs, encoding, parametric=False, n_samples=100000):
           else:
                 encs_flat[1] = random.sample(encs_flat[1], min_n)
 
-    X, Y = {i: encs_flat[0][i] for i in range(len(encs_flat[0]))}, {i: encs_flat[1][i] for i in
-                                                                    range(len(encs_flat[1]))}
-    A, B = {i: encs_flat[2][i] for i in range(len(encs_flat[2]))}, {i: encs_flat[3][i] for i in
-                                                                    range(len(encs_flat[3]))}
+    X, Y = {i: encs_flat[0][i] for i in range(len(encs_flat[0]))}, {i: encs_flat[1][i] for i in range(len(encs_flat[1]))}
+    A, B = {i: encs_flat[2][i] for i in range(len(encs_flat[2]))}, {i: encs_flat[3][i] for i in range(len(encs_flat[3]))}
     # convert keys to ints for easier array lookups
     (X, Y) = convert_keys_to_ints(X, Y)
     (A, B) = convert_keys_to_ints(A, B)
-    #XY = X.copy()
-    #XY.update(Y)
-    #AB = A.copy()
-    #AB.update(B)
+    XY = X.copy()
+    XY.update(Y)
+    AB = A.copy()
+    AB.update(B)
 
-    #cossims = construct_cossim_lookup(XY, AB)
-    p_val = p_val_permutation_test(X, Y, A, B, n_samples=n_samples, parametric=parametric)
-    esize = effect_size(X, Y, A, B)
+    cossims = construct_cossim_lookup(XY, AB)
+    p_val = p_val_permutation_test(X, Y, A, B, n_samples=n_samples, cossims=cossims, parametric=parametric)
+    esize = effect_size(X, Y, A, B, cossims=cossims)
     return esize, p_val
 
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
-all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9m_name', 'c9_term',
-             'occ_name', 'occ_term', 'dis_term', 'dism_term', 'ibd_name', 'ibd_term', 'eibd_name', 'eibd_term']
+all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9_name_m', 'c9_term',
+             'occ_name', 'occ_term', 'dis_term', 'dis_term_m', 'i1_name', 'i1_term', 'i2_name', 'i2_term']
 results = []
 
 for test in all_tests:

@@ -1,34 +1,35 @@
 {
     "targ1": {
-        "examples_singular": [
-            "frank",
-            "colleen",
-            "heather",
-            "matthew",
-            "katie",
-            "lauren",
-            "roger",
-            "paul",
-            "alan",
-            "melanie"
+        "singular": [
+            "Stephen",
+            "Melanie",
+            "Katie",
+            "Colleen",
+            "Jack",
+            "Alan",
+            "Jonathan",
+            "Paul",
+            "Nancy",
+            "Greg"
         ]
     },
     "targ2": {
-        "examples_singular": [
-            "theo",
-            "jerome",
-            "leroy",
-            "lamar",
-            "lionel",
-            "malik",
-            "tyrone",
-            "ebony",
-            "jasmine",
-            "tia"
+        "singular": [
+            "Theo",
+            "Jerome",
+            "Leroy",
+            "Lamar",
+            "Lionel",
+            "Malik",
+            "Tyrone",
+            "Ebony",
+            "Jasmine",
+            "Tia"
         ]
     },
     "attr1": {
-        "examples_singular": [
+        "concept": "Pleasant",
+        "singular": [
             "caress",
             "freedom",
             "health",
@@ -55,7 +56,7 @@
             "paradise",
             "vacation"
         ],
-        "examples_plural": [
+        "plural": [
             "caresses",
             "friends",
             "diamonds",
@@ -69,7 +70,7 @@
             "paradises",
             "vacations"
         ],
-        "examples_adjective": [
+        "adjective": [
             "free",
             "healthy",
             "lovable",
@@ -89,7 +90,8 @@
         ]
     },
     "attr2": {
-        "examples_singular": [
+        "concept": "Unpleasant",
+        "singular": [
             "abuse",
             "crash",
             "filth",
@@ -116,7 +118,7 @@
             "rotten",
             "vomit"
         ],
-        "examples_plural": [
+        "plural": [
             "abuses",
             "crashes",
             "murders",
@@ -132,7 +134,7 @@
             "jails",
             "cancers"
         ],
-        "examples_adjective": [
+        "adjective": [
             "abusive",
             "filthy",
             "murderous",

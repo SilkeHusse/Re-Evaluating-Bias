@@ -1,6 +1,6 @@
 {
     "targ1": {
-        "examples_singular": [
+        "singular": [
             "clover",
             "poppy",
             "iris",
@@ -10,23 +10,46 @@
             "lily",
             "violet",
             "magnolia"
+        ],
+        "plural": [
+            "clovers",
+            "poppies",
+            "irises",
+            "orchids",
+            "roses",
+            "daisies",
+            "lilies",
+            "violets",
+            "magnolias"
         ]
     },
     "targ2": {
-        "examples_singular": [
-            "fly",
-            "roach",
-            "mosquito",
+        "singular": [
             "spider",
             "moth",
-            "wasp",
-            "ant",
+            "fly",
+            "beetle",
+            "mosquito",
+            "flea",
+            "roach",
             "bee",
-            "flea"
+            "hornet"
+        ],
+        "plural": [
+            "spiders",
+            "moths",
+            "flies",
+            "beetles",
+            "mosquitos",
+            "fleas",
+            "roaches",
+            "bees",
+            "hornets"
         ]
     },
     "attr1": {
-        "examples_singular": [
+        "concept": "Pleasant",
+        "singular": [
             "caress",
             "freedom",
             "health",
@@ -53,7 +76,7 @@
             "paradise",
             "vacation"
         ],
-        "examples_plural": [
+        "plural": [
             "caresses",
             "friends",
             "diamonds",
@@ -67,7 +90,7 @@
             "paradises",
             "vacations"
         ],
-        "examples_adjective": [
+        "adjective": [
             "free",
             "healthy",
             "lovable",
@@ -87,7 +110,8 @@
         ]
     },
     "attr2": {
-        "examples_singular": [
+        "concept": "Unpleasant",
+        "singular": [
             "abuse",
             "crash",
             "filth",
@@ -114,7 +138,7 @@
             "agony",
             "prison"
         ],
-        "examples_plural": [
+        "plural": [
             "abuses",
             "crashes",
             "murders",
@@ -130,7 +154,7 @@
             "cancers",
             "prisons"
         ],
-        "examples_adjective": [
+        "adjective": [
             "abusive",
             "filthy",
             "murderous",

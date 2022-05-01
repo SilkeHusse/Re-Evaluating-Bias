@@ -1,22 +1,27 @@
 {
     "targ1": {
-        "examples_singular": [
-            "sad",
-            "hopeless",
-            "miserable",
-            "depressed"
+        "singular": [
+            "mania",
+            "panic",
+            "stress",
+            "paranoia",
+            "dementia",
+            "schizophrenia"
         ]
     },
     "targ2": {
-        "examples_singular": [
-            "influenza",
+        "singular": [
             "cancer",
-            "illness",
-            "sick"
+            "virus",
+            "diabetes",
+            "arthritis",
+            "infection",
+            "asthma"
         ]
     },
     "attr1": {
-        "examples_singular": [
+        "concept": "Temporary",
+        "singular": [
             "impermanent",
             "unstable",
             "variable",
@@ -27,7 +32,8 @@
         ]
     },
     "attr2": {
-        "examples_singular": [
+        "concept": "Permanent",
+        "singular": [
             "stable",
             "always",
             "constant",

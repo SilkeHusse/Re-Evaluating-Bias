@@ -1,44 +1,45 @@
 {
     "targ1": {
-        "examples_singular": [
-            "steve",
-            "john",
-            "leroy",
-            "tyrone",
-            "kevin",
-            "neil",
-            "mike",
-            "brad",
-            "jamal",
-            "brendan",
-            "malik",
-            "greg",
-            "brett",
-            "paul",
-            "marquis"
+        "singular": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son"
+        ],
+        "plural": [
+            "males",
+            "men",
+            "boys",
+            "brothers",
+            "sons"
         ]
     },
     "targ2": {
-        "examples_singular": [
-            "allison",
-            "anne",
-            "carrie",
-            "emily",
-            "jill",
-            "laurie",
-            "kristen",
-            "meredith",
-            "molly",
-            "amy",
-            "claire",
-            "katie",
-            "madeline",
-            "ebony",
-            "precious"
+        "singular": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter"
+        ],
+        "plural": [
+            "females",
+            "women",
+            "girls",
+            "sisters",
+            "daughters"
         ]
     },
     "attr1": {
-        "examples_singular": [
+        "concept": "M_occupation",
+        "singular": [
             "driver",
             "supervisor",
             "janitor",
@@ -62,7 +63,8 @@
         ]
     },
     "attr2": {
-        "examples_singular": [
+        "concept": "F_occupation",
+        "singular": [
             "attendant",
             "cashier",
             "teacher",
