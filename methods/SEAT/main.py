@@ -47,15 +47,18 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
             if reduced_wd_sets:
                 try:
                     dataset = json.load(open(os.path.join(data_dir, 'LPBS/reduced/%s%s' % (test, TEST_EXT)), 'r'))
+                    dataset_form = 'reduced'
                 except:
                     continue
             elif simpl_wd_sets:
                 try:
                     dataset = json.load(open(os.path.join(data_dir, 'LPBS/simplified/%s%s' % (test, TEST_EXT)), 'r'))
+                    dataset_form = 'simplified'
                 except:
                     continue
             else:
                 dataset = json.load(open(os.path.join(data_dir, '%s%s' % (test, TEST_EXT)), 'r'))
+                dataset_form = 'full'
 
             for measure in evaluations:
 
@@ -71,13 +74,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                             # for each bias test
                             # - extract stimuli from file
                             # - create sents by replacing target and attribute words in template sentences
-
-                            if reduced_wd_sets:
-                                stimuli, sents, multiple_targ, multiple_attr = generate_sent.replace(test, dataset, template_sents, 'reduced')
-                            elif simpl_wd_sets:
-                                stimuli, sents, multiple_targ, multiple_attr = generate_sent.replace(test, dataset, template_sents, 'simplified')
-                            else:
-                                stimuli, sents, multiple_targ, multiple_attr = generate_sent.replace(test, dataset, template_sents)
+                            stimuli, sents, multiple_targ, multiple_attr = generate_sent.replace(test, dataset, template_sents, dataset_form)
 
                             # target sets have to be of equal size
                             if not len(sents['targ1']) == len(sents['targ2']):
@@ -91,7 +88,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                         elif context == 'reddit':
                             print(f'For context {context} no results can be generated at runtime and thus is skipped.')
                             print(f'Please see the results folder directly or execute a respective generate_ebd_* file.')
-                            break
+                            continue
 
                         else:
                             raise ValueError("Context %s not found!" % context)
@@ -136,6 +133,7 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 method='SEAT',
                                 test=test,
                                 model=model,
+                                dataset=dataset_form,
                                 evaluation_metric=measure,
                                 context=context,
                                 encoding_level=encoding,
@@ -144,6 +142,6 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
 
                 elif measure == 'prob':
                     print(f'Evaluation metric {measure} for method SEAT is equivalent to method LPBS and thus skipped.')
-                    break
+                    continue
 
     return results

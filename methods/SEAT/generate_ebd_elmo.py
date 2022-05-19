@@ -1030,8 +1030,8 @@ def elmo(sent_dict, test_name):
     for wd in wd_list:
 
         # downsample sents for each wd to 100 if applicable
-        if len(sent_dict[wd]) > 100:
-            sents = random.sample(sent_dict[wd], 100)
+        if len(sent_dict[wd]) > 1000:
+            sents = random.sample(sent_dict[wd], 1000)
         else:
             sents = sent_dict[wd]
 
@@ -1226,7 +1226,6 @@ def run_test(encs, encoding, parametric=False, n_samples=100000):
 
 
 sent_dict = pickle.load(open('sent_dict_single.pickle', 'rb'))
-# sent_dict = pickle.load(open('/Users/silkehusse/Documents/Universität Konstanz/MSc SEDS/Thesis/Re-Evaluating-Bias/data/reddit/sent_dict_single.pickle','rb'))
 
 all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9_name_m', 'c9_term',
              'occ_name', 'occ_term', 'dis_term', 'dis_term_m', 'i1_name', 'i1_term', 'i2_name', 'i2_term']

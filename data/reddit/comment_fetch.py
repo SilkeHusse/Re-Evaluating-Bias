@@ -23,7 +23,7 @@ for test in all_tests:
     # for each stimuli
     for concept in ['targ1', 'targ2', 'attr1', 'attr2']:
         var_name = test[:-4] + concept
-        setattr(thismodule, var_name.lower(), file_data[concept]['examples_singular'])
+        setattr(thismodule, var_name.lower(), file_data[concept]['singular'])
         # this yields variables like eg c1_name_targ1, ..
 
 # word list containing set of all stimuli

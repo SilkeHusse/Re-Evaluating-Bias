@@ -909,8 +909,8 @@ def bert(sent_dict, test_name):
     for wd in wd_list:
 
           # downsample sents for each wd to 100 if applicable
-          if len(sent_dict[wd]) > 100:
-                sents = random.sample(sent_dict[wd], 100)
+          if len(sent_dict[wd]) > 1000:
+                sents = random.sample(sent_dict[wd], 1000)
           else:
                 sents = sent_dict[wd]
 

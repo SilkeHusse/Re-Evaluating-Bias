@@ -33,22 +33,25 @@ def main(models, tests, encodings, contexts, evaluations):
 
             # TODO: indicate if reduced word sets should be used
             reduced_wd_sets = False
-            # TODO: indicate if minimal word sets should be used
+            # TODO: indicate if simplified word sets should be used
             simpl_wd_sets = False
 
             # load stimuli dataset
             if reduced_wd_sets:
                 try:
                     dataset = json.load(open(os.path.join(data_dir, 'LPBS/reduced/%s%s' % (test, TEST_EXT)), 'r'))
+                    dataset_form = 'reduced'
                 except:
                     continue
             elif simpl_wd_sets:
                 try:
                     dataset = json.load(open(os.path.join(data_dir, 'LPBS/simplified/%s%s' % (test, TEST_EXT)), 'r'))
+                    dataset_form = 'simplified'
                 except:
                     continue
             else:
                 dataset = json.load(open(os.path.join(data_dir, '%s%s' % (test, TEST_EXT)), 'r'))
+                dataset_form = 'full'
 
             for measure in evaluations:
 
@@ -61,12 +64,7 @@ def main(models, tests, encodings, contexts, evaluations):
                             template_sents = json.load(open(
                                 os.path.join(data_dir, '%s%s' % ('template_single', TEST_EXT)), 'r'))
 
-                            if reduced_wd_sets:
-                                stimuli, sents = generate_sent.replace(test, dataset, template_sents, 'reduced')
-                            elif simpl_wd_sets:
-                                stimuli, sents = generate_sent.replace(test, dataset, template_sents, 'simplified')
-                            else:
-                                stimuli, sents = generate_sent.replace(test, dataset, template_sents)
+                            stimuli, sents = generate_sent.replace(test, dataset, template_sents, dataset_form)
 
                             encs = {'targ1': None, 'targ2': None, 'attr1': None, 'attr2': None}
 
@@ -97,7 +95,7 @@ def main(models, tests, encodings, contexts, evaluations):
                         elif context == 'reddit':
                             print(f'For context {context} no results can be generated at runtime and thus is skipped.')
                             print(f'Please see the results folder directly or execute a respective generate_ebd_* file.')
-                            break
+                            continue
 
                         else:
                             raise ValueError("Context %s not found!" % context)
@@ -109,6 +107,7 @@ def main(models, tests, encodings, contexts, evaluations):
                                 method='CEAT',
                                 test=test,
                                 model=model,
+                                dataset=dataset_form,
                                 evaluation_metric=measure,
                                 context=context,
                                 encoding_level=encoding,
@@ -116,6 +115,16 @@ def main(models, tests, encodings, contexts, evaluations):
                                 effect_size=esize))
 
                 elif measure == 'prob':
-                    pass # TODO
+                    for context in contexts:
+                        if context == 'template':
+                            print(f'For context {context} and evaluation measure {measure} implementation is currently ongoing and meanwhile skipped.')
+                            continue
+                        elif context == 'reddit':
+                            print(f'For context {context} no results can be generated at runtime and thus is skipped.')
+                            print(
+                                f'Please see the results folder directly or execute a respective generate_ebd_* file.')
+                            continue
+                        else:
+                            raise ValueError("Context %s not found!" % context)
 
     return results

@@ -999,7 +999,7 @@ def gpt2(sent_dict, test_name, reduced_wd_sets):
                                               elif encoding == 'word-end':
                                                     idx_end = idx_end - 1
                                                     out_dict[wd][encoding].append(
-                                                          vecs['last_hidden_state'][idx_sent][idx_new]
+                                                          vecs['last_hidden_state'][idx_sent][idx_end]
                                                                 .cpu().detach().numpy())
                                         else:
                                               if subword_ids[idx_sent].count(idx) == 1:  # case: no subword tokenization

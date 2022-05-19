@@ -8,7 +8,7 @@ def replace(test, dataset, template_sents, form='normal'):
     
     if form == 'reduced':
         # define lists of bias tests sharing same specifications
-        specs_sp = ['c1_name', 'c3_name', 'c6_name', 'cc6_term']
+        specs_sp = ['c1_name', 'c3_name', 'c6_name', 'c6_term']
         specs_s = ['occ_name', 'occ_term', 'c9_term', 'c9_name', 'c9_name_m']
 
         if test in specs_sp:

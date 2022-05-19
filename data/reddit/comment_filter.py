@@ -28,14 +28,14 @@ for test in all_tests:
     # for single word data sets
     for concept in ['targ1', 'targ2', 'attr1', 'attr2']:
         var_name = test[:-4] + concept
-        setattr(thismodule, var_name.lower(), file_data[concept]['examples_singular'])
+        setattr(thismodule, var_name.lower(), file_data[concept]['singular'])
         # this yields variables like eg c1_name_targ1, ..
 
     # for double word data sets
-    targ1 = file_data['targ1']['examples_singular']
-    targ2 = file_data['targ2']['examples_singular']
-    attr1 = file_data['attr1']['examples_singular']
-    attr2 = file_data['attr2']['examples_singular']
+    targ1 = file_data['targ1']['singular']
+    targ2 = file_data['targ2']['singular']
+    attr1 = file_data['attr1']['singular']
+    attr2 = file_data['attr2']['singular']
     targ1attr1 = set(list(itertools.product(targ1, attr1)))
     targ1attr2 = set(list(itertools.product(targ1, attr2)))
     targ2attr1 = set(list(itertools.product(targ2, attr1)))
