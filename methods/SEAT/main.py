@@ -138,10 +138,12 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 context=context,
                                 encoding_level=encoding,
                                 p_value=pval,
-                                effect_size=esize))
+                                effect_size=esize,
+                                SE='',
+                                SD='',
+                                SD_weighted=''))
 
                 elif measure == 'prob':
-                    print(f'Evaluation metric {measure} for method SEAT is equivalent to method LPBS and thus skipped.')
-                    continue
+                    pass
 
     return results
