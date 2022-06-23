@@ -980,7 +980,7 @@ def shorten_sent(sent, targ_wd, attr_wd):
     """ Function to shorten the raw comment
     if applicable take window of size 20 (average sentence length)
     """
-    window_size = 50
+    window_size = 20
     wds = sent.split()
 
     if len(wds) > window_size:  # case: comment longer than 20 words
@@ -1093,7 +1093,7 @@ def bert_logits(sent_tuple, sent, attr_wd, targ1_wd, targ2_wd, model, tok, subwo
     else:
         idx_mask = sent.split().index('[MASK]')
 
-    # unknown bug - try to catch and thus omit sent
+    # unknown bug (try to catch and thus omit sent)
     try:
         # case: subword tokenization before or after [MASK] token
         if len(sent.split()) != len(subword_ids):
@@ -1185,6 +1185,7 @@ def logprob_cal(model, tokenizer, subword_tokenizer, sents_attr1, sents_attr2, t
             - model, tokenizer, subword_tokenizer: specified LM including tokenizers
             - sents_attr1 (Dict[str: Dict]): dictionary mapping sentences containing specific target stimuli to attribute words from A
             - sents_attr2 (Dict[str: Dict]): dictionary mapping sentences containing specific target stimuli to attribute words from B
+            - targ1, targ2 (list): list containing respective target words
     """
     df_attr1_lst, df_attr2_lst = [], []
     for attr_wd in sents_attr1.keys():
@@ -1218,11 +1219,9 @@ sent_dict = pickle.load(open('sent_dict_double.pickle','rb'))
 
 all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9_name_m', 'c9_term',
              'occ_name', 'occ_term', 'dis_term', 'dis_term_m', 'i1_name', 'i1_term', 'i2_name', 'i2_term']
-
 reduced_tests = ['c1_name', 'c3_name', 'c9_name', 'c9_name_m', 'c9_term', 'occ_name']
 # for c6_name, c6_term, occ_term the reduced word sets did not change compared to the original word sets
 # for c3_term, dis_term, dis_term_m, i1_name, i1_term , i2_name, i2_term the word sets reduced to 0 stimuli
-
 relevant_tests = ['c1_name', 'c3_name', 'c6_name', 'c9_term', 'dis_term', 'occ_name', 'i1_name', 'i2_name']
 # for conference paper only specific tests are needed
 

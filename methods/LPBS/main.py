@@ -45,8 +45,7 @@ def main(models, tests, contexts, evaluations):
             for measure in evaluations:
 
                 if measure == 'cos':
-                    # TODO: is this statement correct?
-                    print(f'LPBS with evaluation metric cosine similarity is equivalent to method w-SEAT and thus skipped.')
+                    pass
                     #for context in contexts:
                     #    if context == 'template':
                     #    elif context == 'reddit':
@@ -79,7 +78,10 @@ def main(models, tests, contexts, evaluations):
                                     context=context,
                                     encoding_level='',
                                     p_value=pval,
-                                    effect_size=esize))
+                                    effect_size=esize,
+                                    SE='',
+                                    SD='',
+                                    SD_weighted=''))
 
                             if test in tests_simpl: # case: simplified dataset
 
@@ -97,7 +99,10 @@ def main(models, tests, contexts, evaluations):
                                     context=context,
                                     encoding_level='',
                                     p_value=pval,
-                                    effect_size=esize))
+                                    effect_size=esize,
+                                    SE='',
+                                    SD='',
+                                    SD_weighted=''))
 
                             # case: full dataset
                             dataset = json.load(open(os.path.join(data_dir, '%s%s' % (test, TEST_EXT)), 'r'))
@@ -113,7 +118,10 @@ def main(models, tests, contexts, evaluations):
                                 context=context,
                                 encoding_level='',
                                 p_value=pval,
-                                effect_size=esize))
+                                effect_size=esize,
+                                SE='',
+                                SD='',
+                                SD_weighted=''))
 
                         elif context == 'reddit':
                             print(f'For context {context} no results can be generated at runtime and thus is skipped.')
