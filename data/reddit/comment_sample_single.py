@@ -107,3 +107,32 @@ if simplified:
     pickle.dump(sent_dict_single, open('sent_dict_single_simplified.pickle', 'wb'))
 else:
     pickle.dump(sent_dict_single, open('sent_dict_single.pickle', 'wb'))
+
+def merge_dict(dict_1, dict_2):
+   dict_3 = {**dict_1, **dict_2}
+   for key, value in dict_3.items():
+       if key in dict_1 and key in dict_2:
+           dict_3_value = [value , dict_1[key]]
+           dict_3[key] = [item for sublist in dict_3_value for item in sublist]
+   return dict_3
+
+
+
+### code snippet with non-proportionate sampling ###
+
+# merge sent_dict_single files; starting point is dataset for month 1
+#dataset = pickle.load(open('processed_data/sent_dict_single_1.pickle','rb'))
+#for i in range(2,13):
+#    dataset_to_merge_name = 'processed_data/sent_dict_single_' + str(i) + '.pickle'
+#    dataset_to_merge = pickle.load(open(dataset_to_merge_name,'rb'))
+#    dataset = merge_dict(dataset, dataset_to_merge)
+#    print(f'sent_dict_single: Merged month {i}')
+#    now = datetime.datetime.now()
+#    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+#
+## if applicable, sample N = 10,000 comments
+#for key, value in dataset.items():
+#    if len(dataset[key]) > N:
+#        dataset[key] = random.sample(dataset[key], N)
+#
+#pickle.dump(dataset, open('sent_dict_single.pickle', 'wb'))
