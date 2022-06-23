@@ -27,7 +27,7 @@ for test in all_tests:
         # this yields variables like eg c1_name_targ1, ..
 
 # word list containing set of all stimuli
-wd_lst = list(set(
+wd_lst_part1 = list(set(
     c1_name_targ1+c1_name_targ2+c1_name_attr1+c1_name_attr2+\
     c3_name_targ1+c3_name_targ2+c3_name_attr1+c3_name_attr2+\
     c3_term_targ1+c3_term_targ2+c3_term_attr1+c3_term_attr2+\
@@ -40,10 +40,13 @@ wd_lst = list(set(
     dism_term_targ1+dism_term_targ2+dism_term_attr1+dism_term_attr2+\
     occ_name_targ1+occ_name_targ2+occ_name_attr1+occ_name_attr2+\
     occ_term_targ1+occ_term_targ2+occ_term_attr1+occ_term_attr2+\
-    ibd_name_targ1+ibd_name_targ2+ibd_name_attr1+ibd_name_attr2+\
-    ibd_term_targ1+ibd_term_targ2+ibd_term_attr1+ibd_term_attr2+\
-    eibd_name_targ1+eibd_name_targ2+eibd_name_attr1+eibd_name_attr2+\
-    eibd_term_targ1+eibd_term_targ2+eibd_term_attr1+eibd_term_attr2))
+    i1_name_targ1+i1_name_targ2+i1_name_attr1+i1_name_attr2+\
+    i1_term_targ1+i1_term_targ2+i1_term_attr1+i1_term_attr2+\
+    i2_name_targ1+i2_name_targ2+i2_name_attr1+i2_name_attr2+\
+    i2_term_targ1+i2_term_targ2+i2_term_attr1+i2_term_attr2))
+# wd_list for simplified datasets
+wd_lst_part2 = ['flower', 'flowers', 'insect', 'insects', 'white', 'black', 'he', 'men', 'boys', 'she', 'women', 'girls', 'mental', 'physical']
+wd_lst = wd_lst_part1 + wd_lst_part2
 
 now = datetime.datetime.now()
 print(now.strftime("%Y-%m-%d %H:%M:%S"))

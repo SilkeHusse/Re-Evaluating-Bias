@@ -13,10 +13,20 @@ def merge_dict(dict_1, dict_2):
            dict_3[key] = [item for sublist in dict_3_value for item in sublist]
    return dict_3
 
+# TODO set parameter, default = False
+simplified = False
+
 # merge sent_dict_double files; starting point is dataset for month 1
-dataset = pickle.load(open('sent_dict_double_1.pickle','rb'))
+if simplified:
+    dataset = pickle.load(open('processed_data/sent_dict_double_simplified_1.pickle', 'rb'))
+else:
+    dataset = pickle.load(open('processed_data/sent_dict_double_1.pickle','rb'))
+
 for i in range(2,13):
-    dataset_to_merge_name = 'sent_dict_double_' + str(i) + '.pickle'
+    if simplified:
+        dataset_to_merge_name = 'processed_data/sent_dict_double_simplified_' + str(i) + '.pickle'
+    else:
+        dataset_to_merge_name = 'processed_data/sent_dict_double_' + str(i) + '.pickle'
     dataset_to_merge = pickle.load(open(dataset_to_merge_name,'rb'))
     for key, value in dataset.items():
         dataset[key] = merge_dict(dataset[key], dataset_to_merge[key])
@@ -28,4 +38,7 @@ for key, value in dataset.items():
         if len(dataset[key][key_tuple]) > N:
             dataset[key][key_tuple] = random.sample(dataset[key][key_tuple], N)
 
-pickle.dump(dataset, open('sent_dict_double.pickle', 'wb'))
+if simplified:
+    pickle.dump(dataset, open('sent_dict_double_simplified.pickle', 'wb'))
+else:
+    pickle.dump(dataset, open('sent_dict_double.pickle', 'wb'))

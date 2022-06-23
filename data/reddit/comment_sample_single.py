@@ -38,26 +38,40 @@ wd_lst_single = list(set(
     c6_term_targ1+c6_term_targ2+c6_term_attr1+c6_term_attr2+\
     c9_name_targ1+c9_name_targ2+c9_name_attr1+c9_name_attr2+\
     c9_term_targ1+c9_term_targ2+c9_term_attr1+c9_term_attr2+\
-    c9m_name_targ1+c9m_name_targ2+c9m_name_attr1+c9m_name_attr2+\
+    c9_name_m_targ1+c9_name_m_targ2+c9_name_m_attr1+c9_name_m_attr2+\
     dis_term_targ1+dis_term_targ2+dis_term_attr1+dis_term_attr2+\
-    dism_term_targ1+dism_term_targ2+dism_term_attr1+dism_term_attr2+\
+    dis_term_m_targ1+dis_term_m_targ2+dis_term_m_attr1+dis_term_m_attr2+\
     occ_name_targ1+occ_name_targ2+occ_name_attr1+occ_name_attr2+\
     occ_term_targ1+occ_term_targ2+occ_term_attr1+occ_term_attr2+\
-    ibd_name_targ1+ibd_name_targ2+ibd_name_attr1+ibd_name_attr2+\
-    ibd_term_targ1+ibd_term_targ2+ibd_term_attr1+ibd_term_attr2+\
-    eibd_name_targ1+eibd_name_targ2+eibd_name_attr1+eibd_name_attr2+\
-    eibd_term_targ1+eibd_term_targ2+eibd_term_attr1+eibd_term_attr2))
+    i1_name_targ1+i1_name_targ2+i1_name_attr1+i1_name_attr2+\
+    i1_term_targ1+i1_term_targ2+i1_term_attr1+i1_term_attr2+\
+    i2_name_targ1+i2_name_targ2+i2_name_attr1+i2_name_attr2+\
+    i2_term_targ1+i2_term_targ2+i2_term_attr1+i2_term_attr2))
+wd_lst_single_simplified = ['flower', 'flowers', 'insect', 'insects', 'white', 'black', 'he', 'men', 'boys', 'she', 'women', 'girls', 'mental', 'physical']
 
-sent_dict_prop = {i: [] for i in wd_lst_single}
-sent_dict_total = {i: [] for i in wd_lst_single}
-sent_dict_single = {i: [] for i in wd_lst_single}
+# TODO set parameter, default = False
+simplified = False
+
+if simplified:
+    data = wd_lst_single_simplified
+else:
+    data = wd_lst_single
+
+sent_dict_prop = {i: [] for i in data}
+sent_dict_total = {i: [] for i in data}
+sent_dict_single = {i: [] for i in data}
 
 # get proportion of comments per month and stimuli
 for i in range(1,13):
-    dataset_name = 'sent_dict_single_' + str(i) + '.pickle'
+    if simplified:
+        dataset_name = 'processed_data/sent_dict_single_simplified_' + str(i) + '.pickle'
+    else:
+        dataset_name = 'processed_data/sent_dict_single_' + str(i) + '.pickle'
+
     dataset = pickle.load(open(dataset_name, 'rb'))
     for key, value in sent_dict_prop.items():
         sent_dict_prop[key].append((i,len(dataset[key])))
+
 # get total number of comments per stimuli
 for key, value in sent_dict_prop.items():
     n = 0
@@ -72,7 +86,11 @@ print('Start sampling process...')
 
 # fill and save final dict containing at most 10,000 comments per stimuli
 for i in range(1,13):
-    dataset_name = 'sent_dict_single_' + str(i) + '.pickle'
+    if simplified:
+        dataset_name = 'processed_data/sent_dict_single_simplified_' + str(i) + '.pickle'
+    else:
+        dataset_name = 'processed_data/sent_dict_single_' + str(i) + '.pickle'
+
     dataset = pickle.load(open(dataset_name, 'rb'))
     for key, value in sent_dict_single.items():
         if sent_dict_total[key] > N:
@@ -85,4 +103,7 @@ for i in range(1,13):
                 sent_dict_single[key].append(sent)
     print(f'sent_dict_single: Sampled for month {i}')
 
-pickle.dump(sent_dict_single, open('sent_dict_single.pickle', 'wb'))
+if simplified:
+    pickle.dump(sent_dict_single, open('sent_dict_single_simplified.pickle', 'wb'))
+else:
+    pickle.dump(sent_dict_single, open('sent_dict_single.pickle', 'wb'))
