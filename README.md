@@ -9,7 +9,6 @@ This repository contains the code and data for [Mind the Bias: A Critical Review
   - [Reduced and Simplified Word Sets](#mod)
 - [User Manual](#manual)
   - [Generate Embeddings](#embeds)
-- [Author Information](#author) 
 
 <a name="setup"></a>
 ## Set-up
@@ -59,6 +58,3 @@ To execute experiments, run `re_evaluating_bias.py` with specified parameters. Y
 <a name="embeds"></a>
 ### Generate Embeddings
 It is not feasible to generate embeddings in the context of reddit comments at runtime. Thus, for each method `generate_ebd_*.py` files exist which output the respective results in a csv file directly. For this, specific pickle files are required. They can be downloaded [here](<link>) and should be saved in the `data/reddit` folder. If you decide to fetch the reddit data yourself, please follow the instructions under **Set-up/Reddit Comments**. 
-
-<a name="author"></a>
-## Author information
