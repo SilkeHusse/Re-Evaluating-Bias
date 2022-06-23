@@ -1129,14 +1129,21 @@ def ceat_meta(encs, encoding, N=10000):
     w_star_array = 1/v_star_array
 
     # combined effect size (weighted mean)
-    ces = np.sum(w_star_array*e_array)/np.sum(w_star_array)
-    v = 1/np.sum(w_star_array)
-    z = ces/np.sqrt(v)
+    ces = np.sum(w_star_array * e_array) / np.sum(w_star_array)
+    v = 1 / np.sum(w_star_array)
+    s_error = np.sqrt(v)  # describes var across multiple samples of population
+    z = ces / s_error
     # 2-tailed p-value, standard normal cdf (by CLS)
-    #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    # p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
     p_value = 2 * scipy.stats.norm.sf(abs(z), loc=0, scale=1)
 
-    return ces, p_value
+    # compute standard deviation (describes var within single sample)
+    dev_squared = (e_array - ces) ** 2
+    n_array = len(e_array)
+    s_dev = np.sqrt(np.sum(dev_squared) / (n_array - 1))
+    s_dev_weighted = (np.sum(w_star_array * dev_squared) / np.sum(w_star_array)) * (n_array / (n_array - 1))
+
+    return ces, p_value, s_error, s_dev, s_dev_weighted
 
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
@@ -1188,7 +1195,7 @@ for test in all_tests:
 
       for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
             # default parameter: N = 10,000
-            esize, pval = ceat_meta(encs, encoding)
+            esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
             results.append(dict(
                   method='CEAT',
                   test=test,
@@ -1198,7 +1205,10 @@ for test in all_tests:
                   context='reddit',
                   encoding_level=encoding,
                   p_value=pval,
-                  effect_size=esize))
+                  effect_size=esize,
+                  SE=s_error,
+                  SD=s_dev,
+                  SD_weighted=s_dev_weighted))
 
 for test in reduced_tests:
       reduced_wd_sets = True
@@ -1240,7 +1250,7 @@ for test in reduced_tests:
 
       for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
             # default parameter: N = 10,000
-            esize, pval = ceat_meta(encs, encoding)
+            esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
             results.append(dict(
                   method='CEAT',
                   test=test,
@@ -1250,7 +1260,10 @@ for test in reduced_tests:
                   context='reddit',
                   encoding_level=encoding,
                   p_value=pval,
-                  effect_size=esize))
+                  effect_size=esize,
+                  SE=s_error,
+                  SD=s_dev,
+                  SD_weighted=s_dev_weighted))
 
 # save results and specs of code run (time, date)
 results_path = time.strftime("%Y%m%d-%H%M%S") + '_CEAT_gpt2_reddit.csv'

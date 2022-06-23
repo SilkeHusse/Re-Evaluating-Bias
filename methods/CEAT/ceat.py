@@ -71,6 +71,7 @@ def ceat_meta(encs, encoding, N=10000):
         e,v = effect_size(X,Y,A,B)
         e_lst.append(e)
         v_lst.append(v)
+    export_data = zip(e_lst, v_lst)
 
     # random-effects model from meta-analysis literature
     e_array = np.array(e_lst)
@@ -97,11 +98,18 @@ def ceat_meta(encs, encoding, N=10000):
     w_star_array = 1/v_star_array
 
     # combined effect size (weighted mean)
-    ces = np.sum(w_star_array*e_array)/np.sum(w_star_array)
-    v = 1/np.sum(w_star_array)
-    z = ces/np.sqrt(v)
+    ces = np.sum(w_star_array * e_array) / np.sum(w_star_array)
+    v = 1 / np.sum(w_star_array)
+    s_error = np.sqrt(v)  # describes var across multiple samples of population
+    z = ces / s_error
     # 2-tailed p-value, standard normal cdf (by CLS)
-    #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
-    p_value = 2 * scipy.stats.norm.sf(abs(z), loc = 0, scale = 1)
+    # p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    p_value = 2 * scipy.stats.norm.sf(abs(z), loc=0, scale=1)
 
-    return ces, p_value
+    # compute standard deviation (describes var within single sample)
+    dev_squared = (e_array - ces) ** 2
+    n_array = len(e_array)
+    s_dev = np.sqrt(np.sum(dev_squared) / (n_array - 1))
+    s_dev_weighted = (np.sum(w_star_array * dev_squared) / np.sum(w_star_array)) * (n_array / (n_array - 1))
+
+    return ces, p_value, s_error, s_dev, s_dev_weighted, export_data

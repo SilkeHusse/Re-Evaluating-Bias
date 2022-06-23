@@ -4,6 +4,7 @@ import datetime
 import time
 import math
 import torch
+import csv
 import scipy.stats
 import numpy as np
 import random
@@ -27,10 +28,12 @@ c1_name_targ1 = ["aster","clover","hyacinth","marigold","poppy","azalea","crocus
                  "daffodil","lilac","pansy","tulip","buttercup","daisy","lily","peony","violet","carnation","gladiola",
                  "magnolia","petunia","zinnia"]
 c1_name_targ1_reduced = ["clover","poppy","iris","orchid","rose","daisy","lily","violet","magnolia"]
+c1_name_targ1_simplified = ['flower', 'flowers']
 c1_name_targ2 = ["ant","caterpillar","flea","locust","spider","bedbug","centipede","fly","maggot","tarantula","bee",
                  "cockroach","gnat","mosquito","termite","beetle","cricket","hornet","moth","wasp","blackfly",
                  "dragonfly","horsefly","roach","weevil"]
 c1_name_targ2_reduced = ["spider","moth","fly","beetle","mosquito","flea","roach","bee","hornet"]
+c1_name_targ2_simplified = ['insect', 'insects']
 c1_name_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -134,6 +137,7 @@ c3_term_targ1 = [
       "Bosnian American",
       "Albanian American"
     ]
+c3_term_targ1_simplified = ['white']
 c3_term_targ2 = [
       "African American",
       "Nigerian American",
@@ -151,6 +155,7 @@ c3_term_targ2 = [
       "Sudanese American",
       "Sierra Leonean American"
     ]
+c3_term_targ2_simplified = ['black']
 c3_term_attr1 = ["caress","freedom","health","love","peace","cheer","friend","heaven","loyal","pleasure","diamond",
                  "gentle","honest","lucky","rainbow","diploma","gift","honor","miracle","sunrise","family","happy",
                  "laughter","paradise","vacation"]
@@ -166,7 +171,9 @@ c6_name_attr2 = ["home","parent","child","family","cousin","marriage","wedding",
 
 # C6_term_word
 c6_term_targ1 = ["male","man","boy","brother","he","him","his","son"]
+c6_term_targ1_simplified = ['he', 'men', 'boys']
 c6_term_targ2 = ["female","woman","girl","sister","she","her","hers","daughter"]
+c6_term_targ2_simplified = ['she', 'women', 'girls']
 c6_term_attr1 = ["executive","management","professional","corporation","salary","office","business","career"]
 c6_term_attr2 = ["home","parent","child","family","cousin","marriage","wedding","relative"]
 
@@ -188,6 +195,7 @@ c9_name_targ1 = [
       "dementia"
     ]
 c9_name_targ1_reduced = ["mania","panic","stress","paranoia","dementia","schizophrenia"]
+c9_name_targ1_simplified = ['mental']
 c9_name_targ2 = [
       "fibrosis",
       "epilepsy",
@@ -205,6 +213,7 @@ c9_name_targ2 = [
       "bronchitis"
     ]
 c9_name_targ2_reduced = ["cancer","virus","diabetes","arthritis","infection","asthma"]
+c9_name_targ2_simplified =['physical']
 c9_name_attr1 = ["impermanent","unstable","variable","fleeting","short-term","brief","occasional"]
 c9_name_attr2 = ["stable","always","constant","persistent","chronic","prolonged","forever"]
 
@@ -478,7 +487,9 @@ occ_name_attr2 = [
 
 # Occ_term_word
 occ_term_targ1 = ["male","man","boy","brother","he","him","his","son"]
+occ_term_targ1_simplified = ['he', 'men', 'boys']
 occ_term_targ2 = ["female","woman","girl","sister","she","her","hers","daughter"]
+occ_term_targ2_simplified = ['she', 'women', 'girls']
 occ_term_attr1 = [
       "driver",
       "supervisor",
@@ -835,7 +846,7 @@ def shorten_sent(sent, wd):
 
     return new_sent
 
-def get_stimuli(test_name, reduced_wd_sets):
+def get_stimuli(test_name, reduced_wd_sets, simplified_wd_sets):
     """ Function to get stimuli for specified bias test """
     if reduced_wd_sets:
           if test_name == 'c1_name':
@@ -852,6 +863,19 @@ def get_stimuli(test_name, reduced_wd_sets):
                 targ1, targ2, attr1, attr2 = occ_name_targ1_reduced, occ_name_targ2_reduced, occ_name_attr1, occ_name_attr2
           else:
                 raise ValueError("Reduced dataset for bias test %s not found!" % test_name)
+    elif simplified_wd_sets:
+          if test_name == 'c1_name':
+                targ1, targ2, attr1, attr2 = c1_name_targ1_simplified, c1_name_targ2_simplified, c1_name_attr1, c1_name_attr2
+          elif test_name == 'c3_term':
+                targ1, targ2, attr1, attr2 = c3_term_targ1_simplified, c3_term_targ2_simplified, c3_term_attr1, c3_term_attr2
+          elif test_name == 'c6_term':
+                targ1, targ2, attr1, attr2 = c6_term_targ1_simplified, c6_term_targ2_simplified, c6_term_attr1, c6_term_attr2
+          elif test_name == 'c9_name':
+                targ1, targ2, attr1, attr2 = c9_name_targ1_simplified, c9_name_targ2_simplified, c9_name_attr1, c9_name_attr2
+          elif test_name == 'occ_term':
+                targ1, targ2, attr1, attr2 = occ_term_targ1_simplified, occ_term_targ2_simplified, occ_term_attr1, occ_term_attr2
+          else:
+                raise ValueError("Simplified dataset for bias test %s not found!" % test_name)
     else:
           if test_name == 'c1_name':
                 targ1, targ2, attr1, attr2 = c1_name_targ1, c1_name_targ2, c1_name_attr1, c1_name_attr2
@@ -924,10 +948,10 @@ def load_model(model_name):
 
     return model.to(device), tokenizer, subword_tokenizer
 
-def bert(sent_dict, test_name, reduced_wd_sets):
+def bert(sent_dict, test_name, reduced_wd_sets, simplified_wd_sets):
     """ Function to encode sentences with BERT """
 
-    targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name, reduced_wd_sets)
+    targ1_lst, targ2_lst, attr1_lst, attr2_lst = get_stimuli(test_name, reduced_wd_sets, simplified_wd_sets)
     wd_list = targ1_lst + targ2_lst + attr1_lst + attr2_lst
     out_dict = {wd:{'sent': [], 'word-average': [], 'word-start': [], 'word-end': []} for wd in wd_list}
 
@@ -942,6 +966,7 @@ def bert(sent_dict, test_name, reduced_wd_sets):
 
           for batch in batches:
                 batch = [shorten_sent(sent, wd) for sent in batch]
+                print(batch[0])
                 # [CLS] and [SEP] tokens are added automatically
                 encodings = bert_tok(batch, return_tensors='pt', padding=True, truncation=True)
                 token_ids = torch.tensor(encodings['input_ids'], device=device)
@@ -1101,6 +1126,7 @@ def ceat_meta(encs, encoding, N=10000):
         e,v = effect_size(X,Y,A,B)
         e_lst.append(e)
         v_lst.append(v)
+    export_data = zip(e_lst, v_lst)
 
     # random-effects model from meta-analysis literature
     e_array = np.array(e_lst)
@@ -1127,30 +1153,40 @@ def ceat_meta(encs, encoding, N=10000):
     w_star_array = 1/v_star_array
 
     # combined effect size (weighted mean)
-    ces = np.sum(w_star_array*e_array)/np.sum(w_star_array)
-    v = 1/np.sum(w_star_array)
-    z = ces/np.sqrt(v)
+    ces = np.sum(w_star_array * e_array) / np.sum(w_star_array)
+    v = 1 / np.sum(w_star_array)
+    s_error = np.sqrt(v)  # describes var across multiple samples of population
+    z = ces / s_error
     # 2-tailed p-value, standard normal cdf (by CLS)
-    #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
+    # p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
     p_value = 2 * scipy.stats.norm.sf(abs(z), loc=0, scale=1)
 
-    return ces, p_value
+    # compute standard deviation (describes var within single sample)
+    dev_squared = (e_array - ces) ** 2
+    n_array = len(e_array)
+    s_dev = np.sqrt(np.sum(dev_squared) / (n_array - 1))
+    s_dev_weighted = (np.sum(w_star_array * dev_squared) / np.sum(w_star_array)) * (n_array / (n_array - 1))
+
+    return ces, p_value, s_error, s_dev, s_dev_weighted, export_data
 
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
+sent_dict_simplified = pickle.load(open('sent_dict_single_simplified.pickle','rb'))
 
 all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9_name_m', 'c9_term',
              'occ_name', 'occ_term', 'dis_term', 'dis_term_m', 'i1_name', 'i1_term', 'i2_name', 'i2_term']
 reduced_tests = ['c1_name', 'c3_name', 'c9_name', 'c9_name_m', 'c9_term', 'occ_name']
 # for c6_name, c6_term, occ_term the reduced word sets did not change compared to the original word sets
 # for c3_term, dis_term, dis_term_m, i1_name, i1_term , i2_name, i2_term the word sets reduced to 0 stimuli
+simplified_tests = ['c1_name', 'c3_term', 'c6_term', 'c9_name', 'occ_term']
 
 results = []
 
 for test in all_tests:
       reduced_wd_sets = False
-      embeds = bert(sent_dict, test, reduced_wd_sets)
+      simplified_wd_sets = False
+      embeds = bert(sent_dict, test, reduced_wd_sets, simplified_wd_sets)
 
-      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets)
+      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
       encs = {}
       i = 0
       # map embeddings to respective word set
@@ -1186,7 +1222,7 @@ for test in all_tests:
 
       for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
             # default parameter: N = 10,000
-            esize, pval = ceat_meta(encs, encoding)
+            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
             results.append(dict(
                   method='CEAT',
                   test=test,
@@ -1196,13 +1232,25 @@ for test in all_tests:
                   context='reddit',
                   encoding_level=encoding,
                   p_value=pval,
-                  effect_size=esize))
+                  effect_size=esize,
+                  SE=s_error,
+                  SD=s_dev,
+                  SD_weighted=s_dev_weighted))
+
+            # code snippet to save each effect size and visualize distribution
+            #name_csv = 'dists/CEAT_bert_reddit_full_' + str(test) + '_' + str(encoding) + '.csv'
+            #with open(name_csv, 'w', newline='') as csv_file:
+            #      wr = csv.writer(csv_file)
+            #      wr.writerow(("effect_size", "var"))
+            #      wr.writerows(export_data)
+            #csv_file.close()
 
 for test in reduced_tests:
       reduced_wd_sets = True
-      embeds = bert(sent_dict, test, reduced_wd_sets)
+      simplified_wd_sets = False
+      embeds = bert(sent_dict, test, reduced_wd_sets, simplified_wd_sets)
 
-      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets)
+      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
       encs = {}
       i = 0
       # map embeddings to respective word set
@@ -1238,7 +1286,7 @@ for test in reduced_tests:
 
       for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
             # default parameter: N = 10,000
-            esize, pval = ceat_meta(encs, encoding)
+            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
             results.append(dict(
                   method='CEAT',
                   test=test,
@@ -1248,7 +1296,84 @@ for test in reduced_tests:
                   context='reddit',
                   encoding_level=encoding,
                   p_value=pval,
-                  effect_size=esize))
+                  effect_size=esize,
+                  SE=s_error,
+                  SD=s_dev,
+                  SD_weighted=s_dev_weighted))
+
+            # code snippet to save each effect size and visualize distribution
+            #name_csv = 'dist/CEAT_bert_reddit_reduced_' + str(test) + '_' + str(encoding) + '.csv'
+            #with open(name_csv, 'w', newline='') as csv_file:
+            #      wr = csv.writer(csv_file)
+            #      wr.writerow(("effect_size", "var"))
+            #      wr.writerows(export_data)
+            #csv_file.close()
+
+for test in ['c3_term']:
+      reduced_wd_sets = False
+      simplified_wd_sets = True
+
+      sent_dict_new = {**sent_dict, **sent_dict_simplified} # merge dicts
+      embeds = bert(sent_dict_new, test, reduced_wd_sets, simplified_wd_sets)
+
+      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
+      encs = {}
+      i = 0
+      # map embeddings to respective word set
+      for concept in [targ1, targ2, attr1, attr2]:
+            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
+            encs[i] = encs_concept
+            i += 1
+
+      # check if there exist reps for all word sets; delete all stimuli with no reps
+      # take 'sent' encoding level as representative
+      omit_test = False
+      for i in range(4):
+            # if all stimuli for a word set are missing then omit test in next step (bool)
+            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+                  omit_test = True
+            # if some stimuli in word set are missing then delete missing stimuli
+            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
+
+      if not omit_test:
+            # if applicable downsample to smallest target word set
+            if len(encs[0].keys()) != len(encs[1].keys()):
+                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
+                  # randomly sample min number of stimuli for both word sets
+                  if not len(encs[0].keys()) == min_n:
+                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
+                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
+                  else:
+                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
+                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
+      else:
+            break
+
+      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
+            # default parameter: N = 10,000
+            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
+            results.append(dict(
+                  method='CEAT',
+                  test=test,
+                  model='bert',
+                  dataset='simplified',
+                  evaluation_measure='cosine',
+                  context='reddit',
+                  encoding_level=encoding,
+                  p_value=pval,
+                  effect_size=esize,
+                  SE=s_error,
+                  SD=s_dev,
+                  SD_weighted=s_dev_weighted))
+
+            # code snippet to save each effect size and visualize distribution
+            #name_csv = 'dist/CEAT_bert_reddit_simplified_' + str(test) + '_' + str(encoding) + '.csv'
+            #with open(name_csv, 'w', newline='') as csv_file:
+            #      wr = csv.writer(csv_file)
+            #      wr.writerow(("effect_size", "var"))
+            #      wr.writerows(export_data)
+            #csv_file.close()
 
 # save results and specs of code run (time, date)
 results_path = time.strftime("%Y%m%d-%H%M%S") + '_CEAT_bert_reddit.csv'

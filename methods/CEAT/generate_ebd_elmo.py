@@ -1027,18 +1027,24 @@ def ceat_meta(encs, encoding, N=10000):
     # combined effect size (weighted mean)
     ces = np.sum(w_star_array*e_array)/np.sum(w_star_array)
     v = 1/np.sum(w_star_array)
-    z = ces/np.sqrt(v)
+    s_error = np.sqrt(v) # describes var across multiple samples of population
+    z = ces/s_error
     # 2-tailed p-value, standard normal cdf (by CLS)
     #p_value = scipy.stats.norm.sf(z, loc = 0, scale = 1)
     p_value = 2 * scipy.stats.norm.sf(abs(z), loc=0, scale=1)
 
-    return ces, p_value
+    # compute standard deviation (describes var within single sample)
+    dev_squared = (e_array-ces)**2
+    n_array = len(e_array)
+    s_dev = np.sqrt( np.sum(dev_squared) / (n_array - 1) )
+    s_dev_weighted = ( np.sum(w_star_array*dev_squared) / np.sum(w_star_array) ) * ( n_array/(n_array - 1))
+
+    return ces, p_value, s_error, s_dev, s_dev_weighted
 
 sent_dict = pickle.load(open('sent_dict_single.pickle','rb'))
 
 all_tests = ['c1_name', 'c3_name', 'c3_term', 'c6_name', 'c6_term', 'c9_name', 'c9_name_m', 'c9_term',
              'occ_name', 'occ_term', 'dis_term', 'dis_term_m', 'i1_name', 'i1_term', 'i2_name', 'i2_term']
-
 results = []
 
 for test in all_tests:
@@ -1080,7 +1086,7 @@ for test in all_tests:
 
       for encoding in ['sent', 'word-average']:
             # default parameter: N = 10,000
-            esize, pval = ceat_meta(encs, encoding)
+            esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
             results.append(dict(
                   method='CEAT',
                   test=test,
@@ -1089,7 +1095,10 @@ for test in all_tests:
                   context='reddit',
                   encoding_level=encoding,
                   p_value=pval,
-                  effect_size=esize))
+                  effect_size=esize,
+                  SE=s_error,
+                  SD=s_dev,
+                  SD_weighted=s_dev_weighted))
 
 # save results and specs of code run (time, date)
 results_path = time.strftime("%Y%m%d-%H%M%S") + '_CEAT_elmo_reddit.csv'

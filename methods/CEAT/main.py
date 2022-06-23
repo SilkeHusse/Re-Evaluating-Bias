@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import csv
 
 from methods.CEAT import ceat, generate_sent
 from methods.CEAT.encoders import elmo, bert, gpt2
@@ -8,6 +9,7 @@ from methods.CEAT.encoders import elmo, bert, gpt2
 TEST_EXT = '.jsonl'
 dirname = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(dirname)), 'data')
+result_dir = os.path.join(os.path.dirname(os.path.dirname(dirname)), 'results')
 
 def main(models, tests, encodings, contexts, evaluations):
     """ Main function of CEAT method """
@@ -102,7 +104,7 @@ def main(models, tests, encodings, contexts, evaluations):
 
                         for encoding in encodings:
                             # default parameter: N = 10,000
-                            esize, pval = ceat.ceat_meta(encs, encoding)
+                            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat.ceat_meta(encs, encoding)
                             results.append(dict(
                                 method='CEAT',
                                 test=test,
@@ -112,7 +114,18 @@ def main(models, tests, encodings, contexts, evaluations):
                                 context=context,
                                 encoding_level=encoding,
                                 p_value=pval,
-                                effect_size=esize))
+                                effect_size=esize,
+                                SE=s_error,
+                                SD=s_dev,
+                                SD_weighted=s_dev_weighted))
+
+                            # code snippet to save each effect size and visualize distribution
+                            #name_csv = result_dir + '/dists/CEAT_'+str(model)+'_'+str(test)+'_'+str(encoding)+'.csv'
+                            #with open(name_csv, 'w', newline='') as csv_file:
+                            #    wr = csv.writer(csv_file)
+                            #    wr.writerow(("effect_size", "var"))
+                            #    wr.writerows(export_data)
+                            #csv_file.close()
 
                 elif measure == 'prob':
                     for context in contexts:
