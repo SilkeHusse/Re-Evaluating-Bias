@@ -1,0 +1,16 @@
+method	test	wd_set	model	evaluation_measure	context	p_value	effect_size
+logprob	C1_name_word	shrunken	bert	prob	template	0.81312	0.08555815362979313
+logprob	C1_name_word	minimal	bert	prob	template	0.09163	0.4095117156283646
+logprob	C3_name_word	shrunken	bert	prob	template	0.38361	0.3133877832513238
+logprob	C3_term_word	minimal	bert	prob	template	0.00011	0.9061068697543677
+logprob	C6_name_word	shrunken	bert	prob	template	0.00288	0.995264100476634
+logprob	C6_term_word	shrunken	bert	prob	template	0.00203	1.0056748348626454
+logprob	C6_term_word	minimal	bert	prob	template	0.02876	0.5443548913542772
+logprob	C9_name_word	shrunken	bert	prob	template	0.13821	0.812836200019553
+logprob	C9_name_word	minimal	bert	prob	template	0.65122	-0.256622891703075
+logprob	C9_term_word	shrunken	bert	prob	template	0.81921	0.15465966982583082
+logprob	C9m_name_word	shrunken	bert	prob	template	0.09823	0.8283352823036527
+logprob	C9m_name_word	minimal	bert	prob	template	0.51125	-0.3404233976632948
+logprob	Occ_name_word	shrunken	bert	prob	template	0.00043	0.9470965851384651
+logprob	Occ_term_word	shrunken	bert	prob	template	0.00236	0.8998027492710924
+logprob	Occ_term_word	minimal	bert	prob	template	0.0	0.9874578126842583

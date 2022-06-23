@@ -1,0 +1,17 @@
+method	test	model	evaluation_measure	context	p_value	effect_size
+m-logprob	C1_name_word	bert	prob	template	0.7027	0.09404404224132944
+m-logprob	C3_name_word	bert	prob	template	0.21782	0.4347787826550035
+m-logprob	C3_term_word	bert	prob	template	0.1482	0.35306568608837785
+m-logprob	C6_name_word	bert	prob	template	0.00314	0.995264100476634
+m-logprob	C6_term_word	bert	prob	template	0.12458	0.3839315102786312
+m-logprob	C9_name_word	bert	prob	template	0.13615	0.8202459427442519
+m-logprob	C9_term_word	bert	prob	template	0.70655	0.259637692618655
+m-logprob	C9m_name_word	bert	prob	template	0.09169	0.8469626921550062
+m-logprob	Dis_term_word	bert	prob	template	0.0	0.49147909534249806
+m-logprob	Dism_term_word	bert	prob	template	1e-05	0.4796199270966105
+m-logprob	EIBD_name_word	bert	prob	template	0.26083	0.5734205650542766
+m-logprob	EIBD_term_word	bert	prob	template	0.25958	-0.5783132720040054
+m-logprob	IBD_name_word	bert	prob	template	0.36412	0.3597426669844425
+m-logprob	IBD_term_word	bert	prob	template	0.04936	-0.75922973996011
+m-logprob	Occ_name_word	bert	prob	template	0.00045	0.9493242735470354
+m-logprob	Occ_term_word	bert	prob	template	5e-05	0.872793519118587

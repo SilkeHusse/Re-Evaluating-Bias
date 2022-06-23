@@ -1,0 +1,13 @@
+method	test	model	evaluation_measure	context	encoding_level	p_value	effect_size
+CEAT	c1_name	elmo	cosine	reddit	sent	0.0	0.6137682131970477
+CEAT	c1_name	elmo	cosine	reddit	word-average	0.0	1.2509436502119111
+CEAT	c3_name	elmo	cosine	reddit	sent	5.258833848708718e-80	0.08335255492546265
+CEAT	c3_name	elmo	cosine	reddit	word-average	0.0	0.17384790527366892
+CEAT	c9_name	elmo	cosine	reddit	sent	0.0	0.23558721208017824
+CEAT	c9_name	elmo	cosine	reddit	word-average	2.3939666653144518e-259	0.16969191667812036
+CEAT	c9m_name	elmo	cosine	reddit	sent	0.0	0.22734824412245697
+CEAT	c9m_name	elmo	cosine	reddit	word-average	5.814619036005092e-140	0.1264797112380506
+CEAT	c9_term	elmo	cosine	reddit	sent	7.007442134682619e-255	0.26377995075809635
+CEAT	c9_term	elmo	cosine	reddit	word-average	0.0	0.88163804302997
+CEAT	occ_name	elmo	cosine	reddit	sent	0.0	0.526850002441774
+CEAT	occ_name	elmo	cosine	reddit	word-average	0.0	1.3909932544731778

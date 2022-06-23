@@ -1,0 +1,9 @@
+method	test	model	dataset	evaluation_measure	context	encoding_level	p_value	effect_size	num_df1	num_df2
+LPBS	c1_name	bert	full	probability	reddit		0.0	0.17900321616598494	65043	40997
+LPBS	c3_name	bert	full	probability	reddit		0.0	nan	0	0
+LPBS	c6_name	bert	full	probability	reddit		0.0	nan	0	0
+LPBS	c9_term	bert	full	probability	reddit		0.0	0.2231911554591398	6383	64114
+LPBS	dis_term	bert	full	probability	reddit		0.49773	0.011843906810333283	8163	5396
+LPBS	occ_name	bert	full	probability	reddit		0.0	nan	0	0
+LPBS	i1_name	bert	full	probability	reddit		0.0	nan	0	0
+LPBS	i2_name	bert	full	probability	reddit		0.0	nan	0	0

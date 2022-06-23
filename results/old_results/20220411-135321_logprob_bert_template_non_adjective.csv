@@ -1,0 +1,5 @@
+method	test	wd_set	model	evaluation_measure	context	p_value	effect_size
+logprob	C1_name_word	shrunken	bert	prob	template	0.02851	0.6167014252517864
+logprob	C1_name_word	minimal	bert	prob	template	0.00151	0.6286664277596264
+logprob	C3_name_word	shrunken	bert	prob	template	0.39182	0.24335006546052187
+logprob	C3_term_word	minimal	bert	prob	template	0.0	0.9279298295891787

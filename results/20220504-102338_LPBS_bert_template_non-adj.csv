@@ -1,0 +1,8 @@
+method	test	model	dataset	evaluation_metric	context	encoding_level	p_value	effect_size
+LPBS	C1_name_word	bert	reduced	prob	template		0.04746	0.5590660786249566
+LPBS	C1_name_word	bert	simplified	prob	template		0.00151	0.6286663693354515
+LPBS	C1_name_word	bert	full	prob	template		0.06681	0.36677901103267446
+LPBS	C3_name_word	bert	reduced	prob	template		0.2645	0.33172527003400387
+LPBS	C3_name_word	bert	full	prob	template		0.03126	0.5840259410250108
+LPBS	C3_term_word	bert	simplified	prob	template		0.0	0.9279298862693274
+LPBS	C3_term_word	bert	full	prob	template		0.02511	0.4445379711762203

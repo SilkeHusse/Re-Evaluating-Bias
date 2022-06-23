@@ -1,0 +1,2 @@
+method	test	model	dataset	evaluation_metric	context	encoding_level	p_value	effect_size	SE	SD	SD_weighted
+CEAT	C1_name_word	bert	full	cos	template	word-average	0.0	0.9719190653046161	0.0016336708915485245	0.17408724611519613	0.03028866982946654
