@@ -62,7 +62,3 @@ It is not feasible to generate embeddings in the context of reddit comments at r
 
 <a name="author"></a>
 ## Author information
-Silke Husse
-silke.husse@uni-konstanz.de <br />
-Andreas Spitz
-andreas.spitz@uni-konstanz.de
