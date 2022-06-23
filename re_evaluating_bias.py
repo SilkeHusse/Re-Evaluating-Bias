@@ -1,11 +1,11 @@
 """ Main script
 args:
-    - method (str): s-SEAT, w-SEAT, CEAT, logprob, m-logprob
+    - method (str): s-SEAT, w-SEAT, CEAT, LPBS
     - tests (str): file names of stimuli datasets in data folder
     - models (str): elmo, bert (bbc or bbu), gpt2 (small)
     - encoding level (str): word (in case of subword tokenization: -average, -start, -end), sent
     - context (str): template, reddit
-    - evaluation measure (str): cosine, prob
+    - evaluation measure (str): cos, prob
 """
 
 import os
@@ -20,7 +20,7 @@ from enum import Enum
 
 import methods.SEAT.main as SEAT
 import methods.CEAT.main as CEAT
-import methods.logprob.main as logprob
+import methods.LPBS.main as LPBS
 
 dirname = os.path.dirname(os.path.realpath(__file__))
 
@@ -28,8 +28,7 @@ class MethodName(Enum):
     SENTSEAT = 's-SEAT'
     WORDSEAT = 'w-SEAT'
     CEAT = 'CEAT'
-    LOGPROB = 'logprob'
-    LOGPROB_M = 'm-logprob'
+    LOGPROB = 'LPBS'
 class ModelName(Enum):
     ELMO = 'elmo'
     BERT = 'bert'
@@ -43,7 +42,7 @@ class ContextName(Enum):
     TEMPLATE = 'template'
     REDDIT = 'reddit'
 class EvaluationName(Enum):
-    COS = 'cosine'
+    COS = 'cos'
     PROB = 'prob'
 
 TEST_EXT = '.jsonl'
@@ -57,7 +56,7 @@ def handle_arguments(arguments):
     """ Helper function for handling argument parsing"""
 
     parser = argparse.ArgumentParser(
-        description='Run particular bias tests on specified models for different bias detection methods.',
+        description='Run particular bias tests on specified language models for different bias detection methods.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--method', '-m', type=str,
                         help='Bias detection methods to execute (comma-separated list; options: {}). '
@@ -65,8 +64,8 @@ def handle_arguments(arguments):
     parser.add_argument('--test', '-t', type=str,
                         help='Bias tests to run (comma-separated list; test files should be in `data` and '
                              'have corresponding names, with extension {}). Default: all tests.'.format(TEST_EXT))
-    parser.add_argument('--lm', '-l', type=str,
-                        help='Models to evaluate (comma-separated list; options: {}). '
+    parser.add_argument('--model', '-l', type=str,
+                        help='Language models to evaluate (comma-separated list; options: {}). '
                              'Default: all models.'.format(','.join(MODEL_NAMES)))
     parser.add_argument('--encoding', '-e', type=str,
                         help='Encoding levels to execute (comma-separated list; options: {}). '
@@ -74,14 +73,13 @@ def handle_arguments(arguments):
     parser.add_argument('--context', '-c', type=str,
                         help='Contexts to evaluate (comma-separated list; options: {}). '
                              'Default: template.'.format(','.join(CONTEXT_NAMES)))
-    parser.add_argument('--bias_evaluation', '-b', type=str,
-                        help='Evaluation measures to run (comma-separated list; options: {}). '
-                             'Default: cosine.'.format(','.join(EVALUATION_NAMES)))
+    parser.add_argument('--evaluation', '-b', type=str,
+                        help='Evaluation metrics to run (comma-separated list; options: {}). '
+                             'Default: cos.'.format(','.join(EVALUATION_NAMES)))
     parser.add_argument('--log_file', '-f', type=str,
                         help='File to log to')
     parser.add_argument('--parametric', action='store_true',
-                        help='Use parametric test (normal assumption) to compute p-values. '
-                            'Default: False.')
+                        help='Use parametric test (normal assumption). Default: False.')
     parser.add_argument('--use_cpu', action='store_true',
                         help='Use CPU to encode sentences. Default: False.')
     return parser.parse_args(arguments)
@@ -116,7 +114,7 @@ def main(arguments):
     for method in methods:
         log.info('\t{}'.format(method))
 
-    models = check_allowance(args.lm, MODEL_NAMES, 'model') if args.lm is not None else MODEL_NAMES
+    models = check_allowance(args.model, MODEL_NAMES, 'model') if args.model is not None else MODEL_NAMES
     log.info('Models selected:')
     for model in models:
         log.info('\t{}'.format(model))
@@ -130,7 +128,7 @@ def main(arguments):
         log.info('\t{}'.format(test))
 
     encodings = check_allowance(args.encoding, ENCODING_NAMES, 'encoding') if args.encoding is not None else ['word-average']
-    log.info('Encodings selected:')
+    log.info('Encoding levels selected:')
     for encoding in encodings:
         log.info('\t{}'.format(encoding))
 
@@ -139,32 +137,31 @@ def main(arguments):
     for context in contexts:
         log.info('\t{}'.format(context))
 
-    evaluations = check_allowance(args.bias_evaluation, EVALUATION_NAMES, 'evaluation') if args.bias_evaluation is not None else ['cosine']
-    log.info('Evaluations selected:')
+    evaluations = check_allowance(args.evaluation, EVALUATION_NAMES, 'evaluation') if args.evaluation is not None else ['cosine']
+    log.info('Evaluation metrics selected:')
     for evaluation in evaluations:
         log.info('\t{}'.format(evaluation))
 
     results = []
     results_method = []
     for method_name in methods:
-        
+
         if method_name == MethodName.SENTSEAT.value:
             if any('word' in encoding_level for encoding_level in encodings):
                 log.info('Note: word encoding level for method s-SEAT is equivalent to method w-SEAT.')
+                log.info('Note: probability as evaluation metric for method s-SEAT is not applicable and thus skipped.')
             results_method = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
         elif method_name == MethodName.WORDSEAT.value:
             if any('sent' in encoding_level for encoding_level in encodings):
                 log.info('Note: sentence encoding level for method w-SEAT is equivalent to method s-SEAT.')
+                log.info('Note: probability as evaluation metric for method w-SEAT is not applicable and thus skipped.')
             results_method = SEAT.main(models, tests, encodings, contexts, evaluations, args.parametric)
         elif method_name == MethodName.CEAT.value:
             results_method = CEAT.main(models, tests, encodings, contexts, evaluations)
         elif method_name == MethodName.LOGPROB.value:
-            log.info('Note: encoding level for method logprob is not applicable and thus skipped.')
-            log.info('Note: experiments are conducted with shrunken and minimal word sets.')
-            results_method = logprob.main(models, tests, contexts, evaluations, original=True)
-        elif method_name == MethodName.LOGPROB_M.value:
-            log.info('Note: encoding level for method m-logprob is not applicable and thus skipped.')
-            results_method = logprob.main(models, tests, contexts, evaluations, original=False)
+            log.info('Note: encoding level for method LPBS is not applicable and thus skipped.')
+            log.info('Note: cosine similarity as evaluation metric for method LPBS is not applicable and thus skipped.')
+            results_method = LPBS.main(models, tests, contexts, evaluations)
         results = results + results_method
 
     # save results and specs of code run (time, date)
@@ -177,12 +174,13 @@ def main(arguments):
             writer.writerow(r)
 
 # uncomment for console usage
+#import sys
 #if __name__ == '__main__':
 #    main(sys.argv[1:])
 
-main(['-mm-logprob',
-      #'-tDis_term_word',#,C3_name_word,C3_term_word',#C9_name_word,C9m_name_word,C9_term_word,Occ_name_word',
-      '-lgpt2',#bert,gpt2',
-      #'-esent,word-average,word-start,word-end',
+main(['-mCEAT',
+      '-tC1_name_word',
+      '-lbert',
+      '-eword-average',
       '-ctemplate',
-      '-bprob'])
+      '-bcos'])
