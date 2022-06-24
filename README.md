@@ -1,4 +1,4 @@
-# Mind the Bias
+# Mind Your Bias
 This repository contains the code and data for [Mind the Bias: A Critical Review of Bias Detection Methods for Contextual Language Models](<link>). Corresponding supplementary is appended to the paper.
 
 - [Set-up](#setup)
