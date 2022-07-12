@@ -15,7 +15,7 @@ This repository contains the code and data for [Mind Your Bias: A Critical Revie
 
 <a name="reqs"></a>
 ### Requirements
-The whole code is executable with basic environments including common packages, e.g., `torch` or `transformers`, and does not require special attention. Solely, code snippets concerning working with ELMo demand a special environment which can be set up using [environment.yml](https://github.com/W4ngatang/sent-bias/blob/master/environment.yml). Please note that this file creates an environment only compatible for linux based systems. For macOS, use [environment_macOS.yml](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.yml) and manually install all packages listed [here](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.txt).
+The whole code is executable with basic environments including common packages, e.g., `torch` or `transformers`, and does not require special attention. Solely, code snippets concerning working with ELMo demand a special environment which can be set up using [environment.yml](https://github.com/W4ngatang/sent-bias/blob/master/environment.yml). Please note that this file creates an environment only compatible for linux based systems. For macOS, use [environment_macOS.yml](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.yml) and manually install all packages listed [here](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.txt). Further, the environment required for ELMo is not suited for computations with OPT (respective code lines have to be (un)commented).
 
 <a name="models"></a>
 ### Language Models
