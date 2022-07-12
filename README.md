@@ -15,11 +15,11 @@ This repository contains the code and data for [Mind Your Bias: A Critical Revie
 
 <a name="reqs"></a>
 ### Requirements
-The whole code is executable with basic environments including common packages, e.g., `torch`, and does not require special attention. Solely, code snippets concerning working with ELMo demand a special environment which can be set up using [environment.yml](https://github.com/W4ngatang/sent-bias/blob/master/environment.yml). Please note that this file creates an environment only compatible for linux based systems. For macOS, use [environment_macOS.yml](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.yml) and manually install all packages listed [here](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.txt).
+The whole code is executable with basic environments including common packages, e.g., `torch` or `transformers`, and does not require special attention. Solely, code snippets concerning working with ELMo demand a special environment which can be set up using [environment.yml](https://github.com/W4ngatang/sent-bias/blob/master/environment.yml). Please note that this file creates an environment only compatible for linux based systems. For macOS, use [environment_macOS.yml](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.yml) and manually install all packages listed [here](https://github.com/SilkeHusse/Re-Evaluating-Bias/blob/main/methods/SEAT/environment_sentbiasMacOS.txt).
 
 <a name="models"></a>
 ### Language Models
-In the folder `models` create separate folders for each LM, named `elmo`, `bert`, and `gpt2`, respectively. Additionally, create a single folders in the `bert` folder named `base-cased` and 'base-uncased`. This structure accounts for possible future enhancements to other LMs and specifically BERT versions. Save the required files for loading a LM from your local machine in the respective folder. 
+In the folder `models` create separate folders for each LM, named `elmo`, `bert`, `gpt2`, and `opt`, respectively. Additionally, create a single folders in the `bert` folder named `base-cased` and 'base-uncased`. This structure accounts for possible future enhancements to other LMs and specifically BERT versions. Save the required files for loading a LM from your local machine in the respective folder. 
 
 <a name="data"></a>
 ## Data
