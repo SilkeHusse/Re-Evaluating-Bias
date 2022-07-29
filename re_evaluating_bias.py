@@ -2,7 +2,7 @@
 args:
     - method (str): s-SEAT, w-SEAT, CEAT, LPBS
     - tests (str): file names of stimuli datasets in data folder
-    - models (str): elmo, bert (bbc or bbu), gpt2 (small)
+    - models (str): elmo, bert (bbc or bbu), gpt2 (small), opt (small)
     - encoding level (str): word (in case of subword tokenization: -average, -start, -end), sent
     - context (str): template, reddit
     - evaluation measure (str): cos, prob
@@ -33,6 +33,7 @@ class ModelName(Enum):
     ELMO = 'elmo'
     BERT = 'bert'
     GPT2 = 'gpt2'
+    OPT = 'opt'
 class EncodingName(Enum):
     WORDAVG = 'word-average'
     WORDSTART = 'word-start'
@@ -179,8 +180,8 @@ def main(arguments):
 #    main(sys.argv[1:])
 
 main(['-mCEAT',
-      '-tC1_name_word',
-      '-lbert',
+      '-tC1_name_word,C6_name_word',
+      '-lelmo,bert,gpt2',
       '-eword-average',
       '-ctemplate',
       '-bcos'])

@@ -966,7 +966,6 @@ def bert(sent_dict, test_name, reduced_wd_sets, simplified_wd_sets):
 
           for batch in batches:
                 batch = [shorten_sent(sent, wd) for sent in batch]
-                print(batch[0])
                 # [CLS] and [SEP] tokens are added automatically
                 encodings = bert_tok(batch, return_tensors='pt', padding=True, truncation=True)
                 token_ids = torch.tensor(encodings['input_ids'], device=device)
@@ -1182,6 +1181,9 @@ simplified_tests = ['c1_name', 'c3_term', 'c6_term', 'c9_name', 'occ_term']
 results = []
 
 for test in all_tests:
+
+      runtimes = []
+
       reduced_wd_sets = False
       simplified_wd_sets = False
       embeds = bert(sent_dict, test, reduced_wd_sets, simplified_wd_sets)
@@ -1220,22 +1222,42 @@ for test in all_tests:
       else:
             break
 
-      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
-            # default parameter: N = 10,000
-            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
-            results.append(dict(
-                  method='CEAT',
-                  test=test,
-                  model='bert',
-                  dataset='full',
-                  evaluation_measure='cosine',
-                  context='reddit',
-                  encoding_level=encoding,
-                  p_value=pval,
-                  effect_size=esize,
-                  SE=s_error,
-                  SD=s_dev,
-                  SD_weighted=s_dev_weighted))
+      for encoding in ['word-average']:
+
+            #for iteration in range(10):
+
+                  # datetime object for runtime
+                  #start = datetime.datetime.now()
+
+                  # default parameter: N = 10,000
+                  esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
+                  results.append(dict(
+                        method='CEAT',
+                        test=test,
+                        model='bert',
+                        dataset='full',
+                        evaluation_measure='cosine',
+                        context='reddit',
+                        encoding_level=encoding,
+                        p_value=pval,
+                        effect_size=esize,
+                        SE=s_error,
+                        SD=s_dev,
+                        SD_weighted=s_dev_weighted))
+
+                  # datetime object for runtime
+                  #end = datetime.datetime.now()
+                  #delta_time = end - start
+
+                  #runtimes.append([start, end, delta_time])
+
+      # code snippet to save runtimes
+      #specs = 'CEAT' + '_' + str(test) + '_' + 'bert' + '.txt'
+      #with open(specs, 'w') as file:
+      #      for item in runtimes:
+      #            file.write(item[0].strftime("%d-%m-%Y (%H:%M:%S.%f)" + '\n'))
+      #            file.write(item[1].strftime("%d-%m-%Y (%H:%M:%S.%f)" + '\n'))
+      #            file.write(str(item[2]) + '\n')
 
             # code snippet to save each effect size and visualize distribution
             #name_csv = 'dists/CEAT_bert_reddit_full_' + str(test) + '_' + str(encoding) + '.csv'
@@ -1245,127 +1267,127 @@ for test in all_tests:
             #      wr.writerows(export_data)
             #csv_file.close()
 
-for test in reduced_tests:
-      reduced_wd_sets = True
-      simplified_wd_sets = False
-      embeds = bert(sent_dict, test, reduced_wd_sets, simplified_wd_sets)
-
-      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
-      encs = {}
-      i = 0
-      # map embeddings to respective word set
-      for concept in [targ1, targ2, attr1, attr2]:
-            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
-            encs[i] = encs_concept
-            i += 1
-
-      # check if there exist reps for all word sets; delete all stimuli with no reps
-      # take 'sent' encoding level as representative
-      omit_test = False
-      for i in range(4):
-            # if all stimuli for a word set are missing then omit test in next step (bool)
-            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
-                  omit_test = True
-            # if some stimuli in word set are missing then delete missing stimuli
-            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
-                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
-
-      if not omit_test:
-            # if applicable downsample to smallest target word set
-            if len(encs[0].keys()) != len(encs[1].keys()):
-                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
-                  # randomly sample min number of stimuli for both word sets
-                  if not len(encs[0].keys()) == min_n:
-                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
-                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
-                  else:
-                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
-                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
-      else:
-            break
-
-      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
-            # default parameter: N = 10,000
-            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
-            results.append(dict(
-                  method='CEAT',
-                  test=test,
-                  model='bert',
-                  dataset='reduced',
-                  evaluation_measure='cosine',
-                  context='reddit',
-                  encoding_level=encoding,
-                  p_value=pval,
-                  effect_size=esize,
-                  SE=s_error,
-                  SD=s_dev,
-                  SD_weighted=s_dev_weighted))
-
-            # code snippet to save each effect size and visualize distribution
-            #name_csv = 'dist/CEAT_bert_reddit_reduced_' + str(test) + '_' + str(encoding) + '.csv'
-            #with open(name_csv, 'w', newline='') as csv_file:
-            #      wr = csv.writer(csv_file)
-            #      wr.writerow(("effect_size", "var"))
-            #      wr.writerows(export_data)
-            #csv_file.close()
-
-for test in ['c3_term']:
-      reduced_wd_sets = False
-      simplified_wd_sets = True
-
-      sent_dict_new = {**sent_dict, **sent_dict_simplified} # merge dicts
-      embeds = bert(sent_dict_new, test, reduced_wd_sets, simplified_wd_sets)
-
-      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
-      encs = {}
-      i = 0
-      # map embeddings to respective word set
-      for concept in [targ1, targ2, attr1, attr2]:
-            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
-            encs[i] = encs_concept
-            i += 1
-
-      # check if there exist reps for all word sets; delete all stimuli with no reps
-      # take 'sent' encoding level as representative
-      omit_test = False
-      for i in range(4):
-            # if all stimuli for a word set are missing then omit test in next step (bool)
-            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
-                  omit_test = True
-            # if some stimuli in word set are missing then delete missing stimuli
-            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
-                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
-
-      if not omit_test:
-            # if applicable downsample to smallest target word set
-            if len(encs[0].keys()) != len(encs[1].keys()):
-                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
-                  # randomly sample min number of stimuli for both word sets
-                  if not len(encs[0].keys()) == min_n:
-                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
-                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
-                  else:
-                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
-                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
-      else:
-            break
-
-      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
-            # default parameter: N = 10,000
-            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
-            results.append(dict(
-                  method='CEAT',
-                  test=test,
-                  model='bert',
-                  dataset='simplified',
-                  evaluation_measure='cosine',
-                  context='reddit',
-                  encoding_level=encoding,
-                  p_value=pval,
-                  effect_size=esize,
-                  SE=s_error,
-                  SD=s_dev,
-                  SD_weighted=s_dev_weighted))
+#for test in reduced_tests:
+#      reduced_wd_sets = True
+#      simplified_wd_sets = False
+#      embeds = bert(sent_dict, test, reduced_wd_sets, simplified_wd_sets)
+#
+#      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
+#      encs = {}
+#      i = 0
+#      # map embeddings to respective word set
+#      for concept in [targ1, targ2, attr1, attr2]:
+#            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
+#            encs[i] = encs_concept
+#            i += 1
+#
+#      # check if there exist reps for all word sets; delete all stimuli with no reps
+#      # take 'sent' encoding level as representative
+#      omit_test = False
+#      for i in range(4):
+#            # if all stimuli for a word set are missing then omit test in next step (bool)
+#            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+#                  omit_test = True
+#            # if some stimuli in word set are missing then delete missing stimuli
+#            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+#                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
+#
+#      if not omit_test:
+#            # if applicable downsample to smallest target word set
+#            if len(encs[0].keys()) != len(encs[1].keys()):
+#                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
+#                  # randomly sample min number of stimuli for both word sets
+#                  if not len(encs[0].keys()) == min_n:
+#                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
+#                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
+#                  else:
+#                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
+#                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
+#      else:
+#            break
+#
+#      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
+#            # default parameter: N = 10,000
+#            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
+#            results.append(dict(
+#                  method='CEAT',
+#                  test=test,
+#                  model='bert',
+#                  dataset='reduced',
+#                  evaluation_measure='cosine',
+#                  context='reddit',
+#                  encoding_level=encoding,
+#                  p_value=pval,
+#                  effect_size=esize,
+#                  SE=s_error,
+#                  SD=s_dev,
+#                  SD_weighted=s_dev_weighted))
+#
+#            # code snippet to save each effect size and visualize distribution
+#            #name_csv = 'dist/CEAT_bert_reddit_reduced_' + str(test) + '_' + str(encoding) + '.csv'
+#            #with open(name_csv, 'w', newline='') as csv_file:
+#            #      wr = csv.writer(csv_file)
+#            #      wr.writerow(("effect_size", "var"))
+#            #      wr.writerows(export_data)
+#            #csv_file.close()
+#
+#for test in simplified_tests:
+#      reduced_wd_sets = False
+#      simplified_wd_sets = True
+#
+#      sent_dict_new = {**sent_dict, **sent_dict_simplified} # merge dicts
+#      embeds = bert(sent_dict_new, test, reduced_wd_sets, simplified_wd_sets)
+#
+#      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets, simplified_wd_sets)
+#      encs = {}
+#      i = 0
+#      # map embeddings to respective word set
+#      for concept in [targ1, targ2, attr1, attr2]:
+#            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
+#            encs[i] = encs_concept
+#            i += 1
+#
+#      # check if there exist reps for all word sets; delete all stimuli with no reps
+#      # take 'sent' encoding level as representative
+#      omit_test = False
+#      for i in range(4):
+#            # if all stimuli for a word set are missing then omit test in next step (bool)
+#            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+#                  omit_test = True
+#            # if some stimuli in word set are missing then delete missing stimuli
+#            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+#                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
+#
+#      if not omit_test:
+#            # if applicable downsample to smallest target word set
+#            if len(encs[0].keys()) != len(encs[1].keys()):
+#                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
+#                  # randomly sample min number of stimuli for both word sets
+#                  if not len(encs[0].keys()) == min_n:
+#                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
+#                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
+#                  else:
+#                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
+#                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
+#      else:
+#            break
+#
+#      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
+#            # default parameter: N = 10,000
+#            esize, pval, s_error, s_dev, s_dev_weighted, export_data = ceat_meta(encs, encoding)
+#            results.append(dict(
+#                  method='CEAT',
+#                  test=test,
+#                  model='bert',
+#                  dataset='simplified',
+#                  evaluation_measure='cosine',
+#                  context='reddit',
+#                  encoding_level=encoding,
+#                  p_value=pval,
+#                  effect_size=esize,
+#                  SE=s_error,
+#                  SD=s_dev,
+#                  SD_weighted=s_dev_weighted))
 
             # code snippet to save each effect size and visualize distribution
             #name_csv = 'dist/CEAT_bert_reddit_simplified_' + str(test) + '_' + str(encoding) + '.csv'

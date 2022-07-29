@@ -4,7 +4,9 @@ import datetime
 import csv
 
 from methods.CEAT import ceat, generate_sent
+# TODO: set respective LMs
 from methods.CEAT.encoders import elmo, bert, gpt2
+#from methods.CEAT.encoders import opt
 
 TEST_EXT = '.jsonl'
 dirname = os.path.dirname(os.path.realpath(__file__))
@@ -24,6 +26,8 @@ def main(models, tests, encodings, contexts, evaluations):
             model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
         elif model == 'gpt2':
             model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
+        elif model == 'opt':
+            model_loaded, tokenizer_loaded, subword_tokenizer_loaded = opt.load_model()
         else:
             raise ValueError("Model %s not found!" % model)
 
@@ -92,6 +96,15 @@ def main(models, tests, encodings, contexts, evaluations):
                                 encs['attr1'] = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents['attr1'], stimuli['attr1'], encodings)
                                 encs['attr2'] = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents['attr2'], stimuli['attr2'], encodings)
+                            elif model == 'opt':
+                                encs['targ1'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents['targ1'], stimuli['targ1'], encodings)
+                                encs['targ2'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents['targ2'], stimuli['targ2'], encodings)
+                                encs['attr1'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                         sents['attr1'], stimuli['attr1'], encodings)
+                                encs['attr2'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents['attr2'], stimuli['attr2'], encodings)
 
                         elif context == 'reddit':

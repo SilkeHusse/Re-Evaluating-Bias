@@ -1,29 +1,29 @@
-""" Convenience functions for handling GPT2 """
+""" Convenience functions for handling OPT """
 import os
 import numpy as np
 
-from transformers import GPT2Model, GPT2Tokenizer
+from transformers import OPTModel, GPT2Tokenizer
 from transformers import GPT2TokenizerFast
 
 dirname = os.path.dirname(os.path.realpath(__file__))
 models_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(dirname))), 'models')
 
 def load_model():
-    """ Load GPT2 model and corresponding tokenizer from local files """
+    """ Load OPT model and corresponding tokenizer from local files """
 
-    model = GPT2Model.from_pretrained(models_dir + '/gpt2/')
+    model = OPTModel.from_pretrained(models_dir + '/opt/')
     model.eval()
-    tokenizer = GPT2Tokenizer.from_pretrained(models_dir + '/gpt2/')
+    tokenizer = GPT2Tokenizer.from_pretrained(models_dir + '/opt/')
     # additional 'Fast' GPT2 tokenizer for subword tokenization ID mapping
     subword_tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')
     return model, tokenizer, subword_tokenizer
 
 def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multiple_words):
-    """ Function to encode sentences with GPT2 """
+    """ Function to encode sentences with OPT """
 
     encs = {}
     for sent in sents:
-        token_ids = tokenizer(sent[:-1], return_tensors='pt')
+        token_ids = tokenizer(sent[:-1], return_tensors='pt') # [BOS] token is added automatically
         subword_ids = subword_tokenizer(sent[:-1], add_special_tokens=False).word_ids() # map tokens to input words
         vecs = model(**token_ids)
         encoding_level = encoding[:4]
@@ -33,8 +33,8 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
             if multiple_words: # case: multiple words
                 # determine idx of stimuli in input sentence
                 stimulus = [stimulus for stimulus in stimuli if stimulus in sent][0]
-                idx_start = sent[:-1].split().index(stimulus.split()[0])
-                idx_end = idx_start + len(stimulus.split()) # range function excludes end idx
+                idx_start = sent[:-1].split().index(stimulus.split()[0]) + 1 # account for [BOS] token
+                idx_end = idx_start + len(stimulus.split()) # account for [BOS] token; range function excludes end idx
 
                 # extract rep of token of interest as average over all relevant tokens
                 vecs_token = []
@@ -52,10 +52,11 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
 
                 if '-' in tokens[idx]: # case: special example of subword tokenization
                     idx_stimuli = [i for i, element in enumerate(subword_ids) if element == idx]
-                    idx_start = idx_stimuli[0]
+                    idx_start = idx_stimuli[0] + 1 # account for [BOS] token
                     len_first_part = len(idx_stimuli)
                     len_second_part = len([i for i, element in enumerate(subword_ids) if element == (idx + 2)])
-                    idx_end = idx_start + len_first_part + len_second_part + 1 # range function excludes end idx
+                    # account for [BOS] token; range function excludes end idx
+                    idx_end = idx_start + len_first_part + len_second_part + 1
 
                     if encoding == 'word-average':
                         # extract rep of token of interest as average over all relevant tokens
@@ -72,8 +73,9 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
                 else:
 
                     if subword_ids.count(idx) == 1: # case: no subword tokenization
+                        idx_new = idx + 1 # account for [BOS] token
                         # extract rep of token of interest
-                        encs[sent] = vecs['last_hidden_state'][0][idx].detach().numpy()
+                        encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy()
 
                     elif subword_ids.count(idx) > 1: # case: subword tokenization
 
@@ -81,16 +83,17 @@ def encode(model, tokenizer, subword_tokenizer, sents, stimuli, encoding, multip
                             # obtain vecs of all relevant subwords
                             vecs_subword = []
                             idx_subwords = [i for i in range(len(subword_ids)) if subword_ids[i] == idx]
-                            for idx_new in idx_subwords:
+                            for idx in idx_subwords:
+                                idx_new = idx + 1 # account for [BOS] token
                                 vecs_subword.append(vecs['last_hidden_state'][0][idx_new].detach().numpy())
                             # extract rep of token of interest as average over all subwords
                             encs[sent] = np.mean(np.asarray(vecs_subword), axis=0)
                         elif encoding == 'word-start':
-                            idx_new = subword_ids.index(idx)
+                            idx_new = subword_ids.index(idx) + 1 # account for BOS token
                             # extract rep of token of interest as first subword
                             encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy()
                         elif encoding == 'word-end':
-                            idx_new = len(subword_ids) - subword_ids[::-1].index(idx) - 1
+                            idx_new = len(subword_ids) - subword_ids[::-1].index(idx) # account for [BOS] token
                             # extract rep of token of interest as last subword
                             encs[sent] = vecs['last_hidden_state'][0][idx_new].detach().numpy()
 

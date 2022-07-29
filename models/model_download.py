@@ -37,3 +37,12 @@ options_file = 'elmo/options.json'
 weights_file = 'elmo/weights.hdf5'
 request.urlretrieve(options_url, options_file)
 request.urlretrieve(weights_url, weights_file)
+
+# OPT (https://huggingface.co/docs/transformers/model_doc/opt)
+# https://huggingface.co/facebook/opt-125m
+
+from transformers import GPT2Tokenizer, OPTModel
+tokenizer = GPT2Tokenizer.from_pretrained('facebook/opt-125m')
+model = OPTModel.from_pretrained('facebook/opt-125m')
+tokenizer.save_pretrained('opt/')
+model.save_pretrained('opt/')

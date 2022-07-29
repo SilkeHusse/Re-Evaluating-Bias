@@ -4,13 +4,16 @@ import json
 import datetime
 
 from methods.SEAT import weat, generate_sent
+# TODO: set respective LMs
 from methods.SEAT.encoders import bert, elmo, gpt2
+#from methods.SEAT.encoders import opt
 
 random.seed(1111)
 
 TEST_EXT = '.jsonl'
 dirname = os.path.dirname(os.path.realpath(__file__))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(dirname)), 'data')
+result_dir = os.path.join(os.path.dirname(os.path.dirname(dirname)), 'results')
 
 def main(models, tests, encodings, contexts, evaluations, parametric):
     """ Main function of SEAT method """
@@ -27,12 +30,16 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                 model_loaded, tokenizer_loaded, subword_tokenizer_loaded = bert.load_model()
             elif model == 'gpt2':
                 model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
+            elif model == 'opt':
+                model_loaded, tokenizer_loaded, subword_tokenizer_loaded = opt.load_model()
             else:
                 raise ValueError("Model %s not found!" % model)
         else:
             model_loaded, tokenizer_loaded, subword_tokenizer_loaded = None, None, None
 
         for test in tests:
+
+            runtimes = []
 
             print(f'Computing SEAT for bias test {test}')
             now = datetime.datetime.now()
@@ -124,8 +131,22 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                                          sents['attr1'], stimuli['attr1'], encoding, multiple_attr)
                                 encs['attr2'] = gpt2.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                          sents['attr2'], stimuli['attr2'], encoding, multiple_attr)
+                            elif model == 'opt':
+                                encs['targ1'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                            sents['targ1'], stimuli['targ1'], encoding, multiple_targ)
+                                encs['targ2'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                            sents['targ2'], stimuli['targ2'], encoding, multiple_targ)
+                                encs['attr1'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                            sents['attr1'], stimuli['attr1'], encoding, multiple_attr)
+                                encs['attr2'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                            sents['attr2'], stimuli['attr2'], encoding, multiple_attr)
                             else:
                                 raise ValueError("No encodings computed!")
+
+                            #for iteration in range(10):
+
+                                # datetime object for runtime
+                                #start = datetime.datetime.now()
 
                             # default parameter: n_samples = 100,000
                             esize, pval = weat.run_test(encs, parametric)
@@ -143,7 +164,21 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 SD='',
                                 SD_weighted=''))
 
+                                # datetime object for runtime
+                                #end = datetime.datetime.now()
+                                #delta_time = end-start
+
+                                #runtimes.append([start, end, delta_time])
+
                 elif measure == 'prob':
                     pass
+
+            # code snippet to save runtimes
+            #specs = 'SEAT' + '_' + str(test[:-5]) + '_' + str(model) + '.txt'
+            #with open(os.path.join(result_dir, 'runtime/%s' % specs), 'w') as file:
+            #    for item in runtimes:
+            #        file.write(item[0].strftime("%d-%m-%Y (%H:%M:%S.%f)" + '\n'))
+            #        file.write(item[1].strftime("%d-%m-%Y (%H:%M:%S.%f)" + '\n'))
+            #        file.write(str(item[2]) + '\n')
 
     return results

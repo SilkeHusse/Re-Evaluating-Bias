@@ -1156,6 +1156,9 @@ reduced_tests = ['c1_name', 'c3_name', 'c9_name', 'c9_name_m', 'c9_term', 'occ_n
 results = []
 
 for test in all_tests:
+
+      runtimes = []
+
       reduced_wd_sets = False
       embeds = gpt2(sent_dict, test, reduced_wd_sets)
 
@@ -1193,77 +1196,97 @@ for test in all_tests:
       else:
             break
 
-      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
-            # default parameter: N = 10,000
-            esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
-            results.append(dict(
-                  method='CEAT',
-                  test=test,
-                  model='gpt2',
-                  dataset='full',
-                  evaluation_measure='cosine',
-                  context='reddit',
-                  encoding_level=encoding,
-                  p_value=pval,
-                  effect_size=esize,
-                  SE=s_error,
-                  SD=s_dev,
-                  SD_weighted=s_dev_weighted))
+      for encoding in ['word-average']:
 
-for test in reduced_tests:
-      reduced_wd_sets = True
-      embeds = gpt2(sent_dict, test, reduced_wd_sets)
+            #for iteration in range(10):
 
-      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets)
-      encs = {}
-      i = 0
-      # map embeddings to respective word set
-      for concept in [targ1, targ2, attr1, attr2]:
-            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
-            encs[i] = encs_concept
-            i += 1
+                  # datetime object for runtime
+                  #start = datetime.datetime.now()
 
-      # check if there exist reps for all word sets; delete all stimuli with no reps
-      # take 'sent' encoding level as representative
-      omit_test = False
-      for i in range(4):
-            # if all stimuli for a word set are missing then omit test in next step (bool)
-            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
-                  omit_test = True
-            # if some stimuli in word set are missing then delete missing stimuli
-            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
-                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
+                  # default parameter: N = 10,000
+                  esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
+                  results.append(dict(
+                        method='CEAT',
+                        test=test,
+                        model='gpt2',
+                        dataset='full',
+                        evaluation_measure='cosine',
+                        context='reddit',
+                        encoding_level=encoding,
+                        p_value=pval,
+                        effect_size=esize,
+                        SE=s_error,
+                        SD=s_dev,
+                        SD_weighted=s_dev_weighted))
 
-      if not omit_test:
-            # if applicable downsample to smallest target word set
-            if len(encs[0].keys()) != len(encs[1].keys()):
-                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
-                  # randomly sample min number of stimuli for both word sets
-                  if not len(encs[0].keys()) == min_n:
-                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
-                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
-                  else:
-                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
-                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
-      else:
-            break
+                  # datetime object for runtime
+                  #end = datetime.datetime.now()
+                  #delta_time = end - start
 
-      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
-            # default parameter: N = 10,000
-            esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
-            results.append(dict(
-                  method='CEAT',
-                  test=test,
-                  model='gpt2',
-                  dataset='reduced',
-                  evaluation_measure='cosine',
-                  context='reddit',
-                  encoding_level=encoding,
-                  p_value=pval,
-                  effect_size=esize,
-                  SE=s_error,
-                  SD=s_dev,
-                  SD_weighted=s_dev_weighted))
+                  #runtimes.append([start, end, delta_time])
+
+      # code snippet to save runtimes
+      #specs = 'CEAT' + '_' + str(test) + '_' + 'gpt2' + '.txt'
+      #with open(specs, 'w') as file:
+      #      for item in runtimes:
+      #            file.write(item[0].strftime("%d-%m-%Y (%H:%M:%S.%f)" + '\n'))
+      #            file.write(item[1].strftime("%d-%m-%Y (%H:%M:%S.%f)" + '\n'))
+      #            file.write(str(item[2]) + '\n')
+
+#for test in reduced_tests:
+#      reduced_wd_sets = True
+#      embeds = gpt2(sent_dict, test, reduced_wd_sets)
+#
+#      targ1, targ2, attr1, attr2 = get_stimuli(test, reduced_wd_sets)
+#      encs = {}
+#      i = 0
+#      # map embeddings to respective word set
+#      for concept in [targ1, targ2, attr1, attr2]:
+#            encs_concept = {stimulus: embeds[stimulus] for stimulus in concept}
+#            encs[i] = encs_concept
+#            i += 1
+#
+#      # check if there exist reps for all word sets; delete all stimuli with no reps
+#      # take 'sent' encoding level as representative
+#      omit_test = False
+#      for i in range(4):
+#            # if all stimuli for a word set are missing then omit test in next step (bool)
+#            if all(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+#                  omit_test = True
+#            # if some stimuli in word set are missing then delete missing stimuli
+#            elif any(len(encs[i][wd]['sent']) == 0 for wd in list(encs[i].keys())):
+#                  encs[i] = {wd: encs[i][wd] for wd in list(encs[i].keys()) if len(encs[i][wd]['sent']) != 0}
+#
+#      if not omit_test:
+#            # if applicable downsample to smallest target word set
+#            if len(encs[0].keys()) != len(encs[1].keys()):
+#                  min_n = min([len(encs[0].keys()),len(encs[1].keys())])
+#                  # randomly sample min number of stimuli for both word sets
+#                  if not len(encs[0].keys()) == min_n:
+#                        wd_lst_new = random.sample(list(encs[0].keys()), min_n)
+#                        encs[0] = {i: encs[0][i] for i in wd_lst_new}
+#                  else:
+#                        wd_lst_new = random.sample(list(encs[1].keys()), min_n)
+#                        encs[1] = {i: encs[1][i] for i in wd_lst_new}
+#      else:
+#            break
+#
+#      for encoding in ['sent', 'word-average', 'word-start', 'word-end']:
+#            # default parameter: N = 10,000
+#            esize, pval, s_error, s_dev, s_dev_weighted = ceat_meta(encs, encoding)
+#            results.append(dict(
+#                  method='CEAT',
+#                  test=test,
+#                  model='gpt2',
+#                  dataset='reduced',
+#                  evaluation_measure='cosine',
+#                  context='reddit',
+#                  encoding_level=encoding,
+#                  p_value=pval,
+#                  effect_size=esize,
+#                  SE=s_error,
+#                  SD=s_dev,
+#                  SD_weighted=s_dev_weighted))
 
 # save results and specs of code run (time, date)
 results_path = time.strftime("%Y%m%d-%H%M%S") + '_CEAT_gpt2_reddit.csv'

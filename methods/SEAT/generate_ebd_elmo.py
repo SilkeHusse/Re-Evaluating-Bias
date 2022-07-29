@@ -1029,7 +1029,7 @@ def elmo(sent_dict, test_name):
 
     for wd in wd_list:
 
-        # downsample sents for each wd to 100 if applicable
+        # downsample sents for each wd to 1000 if applicable
         if len(sent_dict[wd]) > 1000:
             sents = random.sample(sent_dict[wd], 1000)
         else:
