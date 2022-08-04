@@ -46,7 +46,7 @@ Providing all reddit data is infeasible and we recommend looking at the particul
 > `sent_dict_double.pickle` <br />
 > `sent_dict_double_simplified.pickle` <br />
 
-Alternatively, you can download all `processed_data` files and `sent_dict_*` files [here](<link>).
+Alternatively, you can download the `sent_dict_*` files [here](<link>).
 <a name="mod"></a>
 ### Reduced and Simplified Word Sets
 To reproduce the results for the methods SEAT and CEAT in the case of reduced word sets, you will have to set the variable `reduced_wd_sets` in the respective `main.py` file to `True`. To reproduce the results for the methods SEAT and CEAT in the case of simplified word sets, you will have to set the variable `simpl_wd_sets` in the respective `main.py` file to `True`. Note that simplified word sets are only applicable if the context is `template`.
