@@ -1,0 +1,17 @@
+method	test	model	evaluation_measure	context	encoding_level	p_value	effect_size
+SEAT	c1_name	bloom	cosine	reddit	sent	1e-05	0.19117059073282391
+SEAT	c1_name	bloom	cosine	reddit	word-average	1e-05	0.25046702980545943
+SEAT	c3_name	bloom	cosine	reddit	sent	1.0	-0.08634083727755146
+SEAT	c3_name	bloom	cosine	reddit	word-average	1.0	-0.17687528834166324
+SEAT	c6_name	bloom	cosine	reddit	sent	0.24283	0.011053452982658982
+SEAT	c6_name	bloom	cosine	reddit	word-average	0.11424	0.019068290996277295
+SEAT	c9_term	bloom	cosine	reddit	sent	0.99996	-0.07215730706945776
+SEAT	c9_term	bloom	cosine	reddit	word-average	1e-05	0.09913638628738743
+SEAT	dis_term	bloom	cosine	reddit	sent	1e-05	0.16316444694158241
+SEAT	dis_term	bloom	cosine	reddit	word-average	1e-05	0.2617946554703184
+SEAT	occ_name	bloom	cosine	reddit	sent	1e-05	0.0754903069404056
+SEAT	occ_name	bloom	cosine	reddit	word-average	0.00108	0.02990054616913299
+SEAT	i1_name	bloom	cosine	reddit	sent	1e-05	0.16769653547561605
+SEAT	i1_name	bloom	cosine	reddit	word-average	1e-05	0.4047780349080291
+SEAT	i2_name	bloom	cosine	reddit	sent	0.97951	-0.043251114084430275
+SEAT	i2_name	bloom	cosine	reddit	word-average	1e-05	0.3327081225384877

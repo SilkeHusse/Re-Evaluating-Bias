@@ -5,8 +5,8 @@ import datetime
 
 from methods.SEAT import weat, generate_sent
 # TODO: set respective LMs
-from methods.SEAT.encoders import bert, elmo, gpt2
-#from methods.SEAT.encoders import opt
+#from methods.SEAT.encoders import bert, elmo, gpt2
+from methods.SEAT.encoders import opt, bloom
 
 random.seed(1111)
 
@@ -32,6 +32,8 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                 model_loaded, tokenizer_loaded, subword_tokenizer_loaded = gpt2.load_model()
             elif model == 'opt':
                 model_loaded, tokenizer_loaded, subword_tokenizer_loaded = opt.load_model()
+            elif model == 'bloom':
+                model_loaded, tokenizer_loaded = bloom.load_model()
             else:
                 raise ValueError("Model %s not found!" % model)
         else:
@@ -139,6 +141,15 @@ def main(models, tests, encodings, contexts, evaluations, parametric):
                                 encs['attr1'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
                                                             sents['attr1'], stimuli['attr1'], encoding, multiple_attr)
                                 encs['attr2'] = opt.encode(model_loaded, tokenizer_loaded, subword_tokenizer_loaded,
+                                                            sents['attr2'], stimuli['attr2'], encoding, multiple_attr)
+                            elif model == 'bloom':
+                                encs['targ1'] = bloom.encode(model_loaded, tokenizer_loaded,
+                                                            sents['targ1'], stimuli['targ1'], encoding, multiple_targ)
+                                encs['targ2'] = bloom.encode(model_loaded, tokenizer_loaded,
+                                                            sents['targ2'], stimuli['targ2'], encoding, multiple_targ)
+                                encs['attr1'] = bloom.encode(model_loaded, tokenizer_loaded,
+                                                            sents['attr1'], stimuli['attr1'], encoding, multiple_attr)
+                                encs['attr2'] = bloom.encode(model_loaded, tokenizer_loaded,
                                                             sents['attr2'], stimuli['attr2'], encoding, multiple_attr)
                             else:
                                 raise ValueError("No encodings computed!")

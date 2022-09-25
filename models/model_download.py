@@ -46,3 +46,12 @@ tokenizer = GPT2Tokenizer.from_pretrained('facebook/opt-125m')
 model = OPTModel.from_pretrained('facebook/opt-125m')
 tokenizer.save_pretrained('opt/')
 model.save_pretrained('opt/')
+
+# BLOOM (https://huggingface.co/docs/transformers/model_doc/bloom)
+# https://huggingface.co/bigscience/bloom-560m
+
+from transformers import BloomTokenizerFast, BloomModel
+tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-560m")
+model = BloomModel.from_pretrained("bigscience/bloom-560m")
+tokenizer.save_pretrained('bloom/')
+model.save_pretrained('bloom/')
