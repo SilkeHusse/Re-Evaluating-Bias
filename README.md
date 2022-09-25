@@ -19,7 +19,7 @@ The whole code is executable with basic environments including common packages, 
 
 <a name="models"></a>
 ### Language Models
-In the folder `models` create separate folders for each LM, named `elmo`, `bert`, `gpt2`, and `opt`, respectively. Additionally, create a single folders in the `bert` folder named `base-cased` and 'base-uncased`. This structure accounts for possible future enhancements to other LMs and specifically BERT versions. Save the required files for loading a LM from your local machine in the respective folder. 
+In the folder `models` create separate folders for each LM, named `elmo`, `bert`, `gpt2`, `opt`, and `bloom`, respectively. Additionally, create a single folders in the `bert` folder named `base-cased` and 'base-uncased`. This structure accounts for possible future enhancements to other LMs and specifically BERT versions. Save the required files for loading a LM from your local machine in the respective folder. 
 
 <a name="data"></a>
 ## Data
