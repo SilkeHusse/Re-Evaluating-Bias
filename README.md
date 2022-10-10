@@ -46,7 +46,7 @@ Providing all reddit data is infeasible and we recommend looking at the particul
 > `sent_dict_double.pickle` <br />
 > `sent_dict_double_simplified.pickle` <br />
 
-Alternatively, you can download the `sent_dict_*` files [here](<link>).
+Alternatively, you can download the `sent_dict_*` files [here](<https://www.kaggle.com/datasets/silkehusse/mind-your-bias-dict-files>).
 <a name="mod"></a>
 ### Reduced and Simplified Word Sets
 To reproduce the results for the methods SEAT and CEAT in the case of reduced word sets, you will have to set the variable `reduced_wd_sets` in the respective `main.py` file to `True`. To reproduce the results for the methods SEAT and CEAT in the case of simplified word sets, you will have to set the variable `simpl_wd_sets` in the respective `main.py` file to `True`. Note that simplified word sets are only applicable if the context is `template`.
@@ -57,4 +57,4 @@ To execute experiments, run `re_evaluating_bias.py` with specified parameters. Y
 
 <a name="embeds"></a>
 ### Generate Embeddings
-It is not feasible to generate embeddings in the context of reddit comments at runtime. Thus, for each method `generate_ebd_*.py` files exist which output the respective results in a csv file directly. For this, specific pickle files are required. They can be downloaded [here](<link>) and should be saved in the `data/reddit` folder. If you decide to fetch the reddit data yourself, please follow the instructions under **Set-up/Reddit Comments**. 
+It is not feasible to generate embeddings in the context of reddit comments at runtime. Thus, for each method `generate_ebd_*.py` files exist which output the respective results in a csv file directly. For this, specific pickle files are required. They can be downloaded [here](<https://www.kaggle.com/datasets/silkehusse/mind-your-bias-dict-files>) and should be saved in the `data/reddit` folder. If you decide to fetch the reddit data yourself, please follow the instructions under **Set-up/Reddit Comments**. 
